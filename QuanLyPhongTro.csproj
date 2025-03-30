@@ -15,6 +15,13 @@
 
   <ItemGroup>
     <Folder Include="Model\" />
+    <Folder Include="AppData\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="AppData\icon_login.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

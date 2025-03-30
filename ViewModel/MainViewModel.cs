@@ -17,6 +17,7 @@ namespace QuanLyPhongTro.ViewModel
         public ICommand RoomWindowCommand { get; set; }
         public ICommand TenantWindowCommand { get; set; }
         public ICommand BillCommand { get; set; }
+        public ICommand UserCommand { get; set; }
         #endregion
         public MainViewModel()
         {
@@ -48,6 +49,13 @@ namespace QuanLyPhongTro.ViewModel
                 {
                     BillWindow billWindow = new BillWindow();
                     billWindow.ShowDialog();
+                });
+            UserCommand = new RelayCommand<UserControl>(
+                (p) => { return true; },
+                (p) =>
+                {
+                    UserWindow userWindow = new UserWindow();
+                    userWindow.ShowDialog();
                 });
         }
     }
