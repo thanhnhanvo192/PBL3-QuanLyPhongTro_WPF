@@ -30,7 +30,20 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <Grid>
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#685B57"/>
+            <!-- Màu nền -->
+            <Setter Property="Foreground" Value="White"/>
+            <!-- Màu chữ -->
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="0 0 0 5">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -63,7 +76,7 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     
-                    <Button Grid.Column="0" Command="{Binding RoomWindowCommand}" ToolTip="Quản lí phòng" Background="LightCyan">
+                    <Button Grid.Column="0" Command="{Binding RoomWindowCommand}" ToolTip="Quản lí phòng">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition></RowDefinition>
@@ -73,12 +86,12 @@
                                 <TextBlock>Quản lí phòng</TextBlock>
                             </Grid>
                             <Grid Grid.Row="1">
-                                <materialDesign:PackIcon Kind="ArrowDownBoldCircleOutline" Width="24" Height="24" HorizontalAlignment="Right" Margin="0,0,18,0" VerticalAlignment="Center"></materialDesign:PackIcon>
+                                <materialDesign:PackIcon Kind="HomeGroup" Width="24" Height="24" HorizontalAlignment="Right" Margin="0,0,18,0" VerticalAlignment="Center"></materialDesign:PackIcon>
                             </Grid>
                         </Grid>
                     </Button>
 
-                    <Button Grid.Column="1" Command="{Binding TenantWindowCommand}" ToolTip="Quản lí khách thuê" Background="LightCyan">
+                    <Button Grid.Column="1" Command="{Binding TenantWindowCommand}" ToolTip="Quản lí khách thuê">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition></RowDefinition>
@@ -88,12 +101,12 @@
                                 <TextBlock>Quản lí khách thuê</TextBlock>
                             </Grid>
                             <Grid Grid.Row="1">
-                                <materialDesign:PackIcon Kind="ArrowUpBoldCircleOutline" Width="24" Height="24" HorizontalAlignment="Center"></materialDesign:PackIcon>
+                                <materialDesign:PackIcon Kind="NaturePeople" Width="24" Height="24" HorizontalAlignment="Center"></materialDesign:PackIcon>
                             </Grid>
                         </Grid>
                     </Button>
 
-                    <Button Grid.Column="2" Command="{Binding BillCommand}" ToolTip="Hoá đơn và thanh toán" Background="LightCyan">
+                    <Button Grid.Column="2" Command="{Binding BillCommand}" ToolTip="Hoá đơn và thanh toán">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition></RowDefinition>
@@ -103,12 +116,12 @@
                                 <TextBlock>Hoá đơn và thanh toán</TextBlock>
                             </Grid>
                             <Grid Grid.Row="1">
-                                <materialDesign:PackIcon Kind="Dns" Width="24" Height="24" HorizontalAlignment="Center"></materialDesign:PackIcon>
+                                <materialDesign:PackIcon Kind="CashSync" Width="24" Height="24" HorizontalAlignment="Center"></materialDesign:PackIcon>
                             </Grid>
                         </Grid>
                     </Button>
 
-                    <Button Grid.Column="6" Command="{Binding UserCommand}" ToolTip="Người dùng" Background="LightCyan">
+                    <Button Grid.Column="6" Command="{Binding UserCommand}" ToolTip="Người dùng">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition></RowDefinition>
@@ -118,7 +131,7 @@
                                 <TextBlock>Người dùng</TextBlock>
                             </Grid>
                             <Grid Grid.Row="1">
-                                <materialDesign:PackIcon Kind="Account" Width="24" Height="24" HorizontalAlignment="Center"></materialDesign:PackIcon>
+                                <materialDesign:PackIcon Kind="AccountDetails" Width="24" Height="24" HorizontalAlignment="Center"></materialDesign:PackIcon>
                             </Grid>
                         </Grid>
                     </Button>
@@ -161,7 +174,7 @@
                                     </ComboBox>
                                 </Grid>
                                 <Grid Grid.Column="1">
-                                    <Button Margin="5" Width="100" Content="Lọc" IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Style="{StaticResource MaterialDesignRaisedButton}" ToolTip="Resource name: MaterialDesignRaisedButton" />
+                                    <Button Background="#685B57" Margin="5" Width="100" Content="Lọc" IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Style="{StaticResource MaterialDesignRaisedButton}" ToolTip="Resource name: MaterialDesignRaisedButton" />
                                 </Grid>
 
                             </Grid>
@@ -176,7 +189,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Grid Grid.Column="0">
-                                    <materialDesign:Card Margin="5" Width="280" Padding="0" Background="#03a9f4" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
+                                    <materialDesign:Card Margin="5" Width="280" Padding="0" Background="#5c6c74" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
@@ -196,7 +209,7 @@
                                 </Grid>
                                 
                                 <Grid Grid.Column="1">
-                                    <materialDesign:Card Margin="5" Width="280" Padding="0" Background="#03a9f4" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
+                                    <materialDesign:Card Margin="5" Width="280" Padding="0" Background="#5c6c74" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
@@ -216,7 +229,7 @@
                                 </Grid>
                                 
                                 <Grid Grid.Column="2">
-                                    <materialDesign:Card Margin="5" Width="280" Padding="0" Background="#03a9f4" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
+                                    <materialDesign:Card Margin="5" Width="280" Padding="0" Background="#5c6c74" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />

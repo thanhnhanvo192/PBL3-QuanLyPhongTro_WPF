@@ -17,7 +17,7 @@
     </i:Interaction.Triggers>
 
     <Grid>
-        <materialDesign:ColorZone Mode="PrimaryLight">
+        <materialDesign:ColorZone Mode="PrimaryLight" Background="Gray">
             <DockPanel>
                 <StackPanel DockPanel.Dock="Right" Background="Transparent" Orientation="Horizontal">
 
@@ -33,7 +33,7 @@
             CommandParameter="{Binding ElementName=ucControlBar}"
             Content="{materialDesign:PackIcon Kind=WindowMinimize}"
             ToolBar.OverflowMode="AsNeeded"
-            Background="ForestGreen"
+            Background="Transparent"
             ToolTip="Đóng" />
 
                     <Button
@@ -41,7 +41,7 @@
             CommandParameter="{Binding ElementName=ucControlBar}"
             Content="{materialDesign:PackIcon Kind=WindowMaximize}"
             ToolBar.OverflowMode="AsNeeded"
-            Background="ForestGreen"
+            Background="Transparent"
             ToolTip="Đóng" />
 
                     <Button
@@ -49,7 +49,7 @@
             CommandParameter="{Binding ElementName=ucControlBar}"
             Content="{materialDesign:PackIcon Kind=WindowClose}"
             ToolBar.OverflowMode="AsNeeded"
-            Background="Red"
+            Background="Transparent"
             ToolTip="Đóng" />
 
                 </StackPanel>
