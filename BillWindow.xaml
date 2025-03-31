@@ -20,7 +20,7 @@
         WindowStartupLocation="CenterScreen"
         
         Name="billWindow"
-        Title="Hoá đơn và thanh toán" Height="450" Width="800">
+        Title="Hoá đơn và thanh toán" Height="700" Width="1200">
         <Window.Resources>
             <Style TargetType="GroupBox">
                 <Setter Property="Background" Value="LightGray"/>
@@ -69,9 +69,10 @@
                     <RadioButton Margin="20 5 15 5" Content="Đã thanh toán"></RadioButton>
                     <RadioButton Margin="50 5 15 5" Content="Chưa thanh toán"></RadioButton>
                     <ComboBox Margin="50 5 15 5" materialDesign:HintAssist.Hint="Kỳ thanh toán">
-                        <ComboBoxItem Content="Phòng trống" />
-                        <ComboBoxItem Content="Phòng đã thuê" />
-                        <ComboBoxItem Content="Tất cả phòng" />
+                        <ComboBoxItem Content="01/2025" />
+                        <ComboBoxItem Content="02/2025" />
+                        <ComboBoxItem Content="03/2025" />
+                        <ComboBoxItem Content="04/2025" />
                     </ComboBox>
                 </WrapPanel>
             </materialDesign:Card>
@@ -144,7 +145,7 @@
                                     <ColumnDefinition></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
-                                    <Label FontSize="20" Content="Tổng tiền:" VerticalAlignment="Center"></Label>
+                                    <Button Command="{Binding UpdateCommand}" Content="Lưu" Margin="5" Width="120" Background="#685B57"></Button>
                                 </Grid>
                                 <Grid Grid.Column="1">
                                     <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>

@@ -22,26 +22,13 @@
         WindowStartupLocation="CenterScreen"
         
         Name="mainWindow"
-        Title="Phần mềm quản lý phòng trọ" Height="500" Width="900">
+        Title="Phần mềm quản lý phòng trọ" Height="700" Width="1200">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-
-    <Window.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Background" Value="#685B57"/>
-            <!-- Màu nền -->
-            <Setter Property="Foreground" Value="White"/>
-            <!-- Màu chữ -->
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Padding" Value="8"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="BorderBrush" Value="Black"/>
-        </Style>
-    </Window.Resources>
 
     <Grid Margin="0 0 0 5">
         <Grid.RowDefinitions>
@@ -69,82 +56,74 @@
                         </Style>
                     </Grid.Resources>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    
-                    <Button Grid.Column="0" Command="{Binding RoomWindowCommand}" ToolTip="Quản lí phòng">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <TextBlock>Quản lí phòng</TextBlock>
+                    <WrapPanel>
+                        <Button Grid.Column="0" Command="{Binding RoomWindowCommand}" ToolTip="Quản lí phòng" Width="140">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <TextBlock>Quản lí phòng</TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <materialDesign:PackIcon Kind="HomeGroup" Width="24" Height="24" HorizontalAlignment="Center" Margin="0,0,18,0" VerticalAlignment="Center"></materialDesign:PackIcon>
+                                </Grid>
                             </Grid>
-                            <Grid Grid.Row="1">
-                                <materialDesign:PackIcon Kind="HomeGroup" Width="24" Height="24" HorizontalAlignment="Right" Margin="0,0,18,0" VerticalAlignment="Center"></materialDesign:PackIcon>
-                            </Grid>
-                        </Grid>
-                    </Button>
+                        </Button>
 
-                    <Button Grid.Column="1" Command="{Binding TenantWindowCommand}" ToolTip="Quản lí khách thuê">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <TextBlock>Quản lí khách thuê</TextBlock>
+                        <Button Grid.Column="1" Command="{Binding TenantWindowCommand}" ToolTip="Quản lí khách thuê" Width="140">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <TextBlock>Quản lí khách thuê</TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <materialDesign:PackIcon Kind="NaturePeople" Width="24" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center"></materialDesign:PackIcon>
+                                </Grid>
                             </Grid>
-                            <Grid Grid.Row="1">
-                                <materialDesign:PackIcon Kind="NaturePeople" Width="24" Height="24" HorizontalAlignment="Center"></materialDesign:PackIcon>
-                            </Grid>
-                        </Grid>
-                    </Button>
+                        </Button>
 
-                    <Button Grid.Column="2" Command="{Binding BillCommand}" ToolTip="Hoá đơn và thanh toán">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <TextBlock>Hoá đơn và thanh toán</TextBlock>
+                        <Button Grid.Column="2" Command="{Binding BillCommand}" ToolTip="Hoá đơn và thanh toán" Width="140">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <TextBlock>Hoá đơn và thanh toán</TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <materialDesign:PackIcon Kind="CashSync" Width="24" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center"></materialDesign:PackIcon>
+                                </Grid>
                             </Grid>
-                            <Grid Grid.Row="1">
-                                <materialDesign:PackIcon Kind="CashSync" Width="24" Height="24" HorizontalAlignment="Center"></materialDesign:PackIcon>
-                            </Grid>
-                        </Grid>
-                    </Button>
+                        </Button>
 
-                    <Button Grid.Column="6" Command="{Binding UserCommand}" ToolTip="Người dùng">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <TextBlock>Người dùng</TextBlock>
+                        <Button Grid.Column="3" Command="{Binding UserCommand}" ToolTip="Người dùng" Width="140">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <TextBlock>Người dùng</TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <materialDesign:PackIcon Kind="AccountDetails" Width="24" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center"></materialDesign:PackIcon>
+                                </Grid>
                             </Grid>
-                            <Grid Grid.Row="1">
-                                <materialDesign:PackIcon Kind="AccountDetails" Width="24" Height="24" HorizontalAlignment="Center"></materialDesign:PackIcon>
-                            </Grid>
-                        </Grid>
-                    </Button>
+                        </Button>
+
+                    </WrapPanel>
 
                 </Grid>
             </Grid>
 
             <!--Main-->
             <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="38*"/>
-                    <ColumnDefinition Width="287*"/>
-                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition></RowDefinition>
@@ -167,10 +146,14 @@
 
                                 <Grid Grid.Column="0">
                                     <ComboBox materialDesign:HintAssist.Hint=" Chọn khu vực">
-                                        <ComboBoxItem Content="Android" />
-                                        <ComboBoxItem Content="iOS" />
-                                        <ComboBoxItem Content="Linux" />
-                                        <ComboBoxItem Content="Windows" />
+                                        <ComboBoxItem Content="Q.Hải Châu" />
+                                        <ComboBoxItem Content="Q.Liên Chiểu" />
+                                        <ComboBoxItem Content="Q.Thanh Khê" />
+                                        <ComboBoxItem Content="Q.Cẩm Lệ" />
+                                        <ComboBoxItem Content="Q.Sơn Trà" />
+                                        <ComboBoxItem Content="H.Hoà Vang" />
+                                        <ComboBoxItem Content="Q.Ngũ Hành Sơn" />
+                                        <ComboBoxItem Content="H.Hoàng Sa" />
                                     </ComboBox>
                                 </Grid>
                                 <Grid Grid.Column="1">
@@ -253,19 +236,30 @@
                 </Grid>
 
                 <!--List-->
-                <materialDesign:Card Grid.Row="1" Margin="5,5,5,5" Grid.ColumnSpan="2">
+                <materialDesign:Card Grid.Row="1" Margin="5,5,5,5" Background="#685B57">
                     <Grid>
-                        <ListView>
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="STT"></GridViewColumn>
-                                    <GridViewColumn Header="Tên phòng trống"></GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        
+                        <materialDesign:Card Margin="5 5 10 5">
+                            <ListView>
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="STT"></GridViewColumn>
+                                        <GridViewColumn Header="Tên phòng trống"></GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </materialDesign:Card>
+
+                        <materialDesign:Card Grid.Column="1" Background="Transparent">
+                            <Image Source="D:\PBL3\QuanLyPhongTro\AppData\Phongtro.jpg" Margin="5"></Image>
+                        </materialDesign:Card>
+                        
                     </Grid>
                 </materialDesign:Card>
-                
             </Grid>
         </Grid>
     </Grid>
