@@ -87,7 +87,7 @@
                             </Grid>
                         </Button>
 
-                        <Button Grid.Column="2" Command="{Binding BillCommand}" ToolTip="Hoá đơn và thanh toán" Width="140">
+                        <Button Grid.Column="2" Command="{Binding InvoiceCommand}" ToolTip="Hoá đơn và thanh toán" Width="140">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition></RowDefinition>
@@ -102,14 +102,74 @@
                             </Grid>
                         </Button>
 
-                        <Button Grid.Column="3" Command="{Binding UserCommand}" ToolTip="Người dùng" Width="140">
+                        <Button Grid.Column="2" Command="{Binding ContractWindowCommand}" ToolTip="Hợp đồng" Width="140">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition></RowDefinition>
                                     <RowDefinition></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <Grid Grid.Row="0">
-                                    <TextBlock>Người dùng</TextBlock>
+                                    <TextBlock>Hợp đồng</TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <materialDesign:PackIcon Kind="FileSign" Width="24" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center"></materialDesign:PackIcon>
+                                </Grid>
+                            </Grid>
+                        </Button>
+
+                        <Button Grid.Column="2" Command="{Binding ServiceWindowCommand}" ToolTip="Dịch vụ" Width="140">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <TextBlock>Dịch vụ</TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <materialDesign:PackIcon Kind="DogService" Width="24" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center"></materialDesign:PackIcon>
+                                </Grid>
+                            </Grid>
+                        </Button>
+
+                        <Button Grid.Column="2" Command="{Binding UnitWindowCommand}" ToolTip="Đơn vị đo" Width="140">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <TextBlock>Đơn vị đo</TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <materialDesign:PackIcon Kind="MagazinePistol" Width="24" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center"></materialDesign:PackIcon>
+                                </Grid>
+                            </Grid>
+                        </Button>
+
+                        <Button Grid.Column="2" Command="{Binding }" ToolTip="Quản lí người dùng" Width="140">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <TextBlock>Quản lí người dùng</TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <materialDesign:PackIcon Kind="FaceAgent" Width="24" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center"></materialDesign:PackIcon>
+                                </Grid>
+                            </Grid>
+                        </Button>
+
+                        <Button Grid.Column="3" Command="{Binding UserCommand}" ToolTip="Tài khoản" Width="140">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <TextBlock>Tài khoản</TextBlock>
                                 </Grid>
                                 <Grid Grid.Row="1">
                                     <materialDesign:PackIcon Kind="AccountDetails" Width="24" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center"></materialDesign:PackIcon>

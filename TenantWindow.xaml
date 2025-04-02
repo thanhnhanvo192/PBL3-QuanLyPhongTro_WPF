@@ -110,7 +110,7 @@
                         </ScrollViewer>
                     </GroupBox>
 
-                    <GroupBox Grid.Column="1" Margin="16" Header="Chi tiết khách thuê">
+                    <GroupBox Grid.Column="1" Margin="16" Header="Thông tin chi tiết">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition></RowDefinition>

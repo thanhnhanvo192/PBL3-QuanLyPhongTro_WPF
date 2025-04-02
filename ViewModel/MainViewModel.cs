@@ -16,8 +16,11 @@ namespace QuanLyPhongTro.ViewModel
         public ICommand LoadedWindowCommand { get; set; }
         public ICommand RoomWindowCommand { get; set; }
         public ICommand TenantWindowCommand { get; set; }
-        public ICommand BillCommand { get; set; }
+        public ICommand InvoiceCommand { get; set; }
         public ICommand UserCommand { get; set; }
+        public ICommand ContractWindowCommand { get; set; }
+        public ICommand ServiceWindowCommand { get; set; }
+        public ICommand UnitWindowCommand { get; set; }
         #endregion
         public MainViewModel()
         {
@@ -43,12 +46,12 @@ namespace QuanLyPhongTro.ViewModel
                     TenantWindow tenantWindow = new TenantWindow();
                     tenantWindow.ShowDialog();
                 });
-            BillCommand = new RelayCommand<UserControl>(
+            InvoiceCommand = new RelayCommand<UserControl>(
                 (p) => { return true; },
                 (p) =>
                 {
-                    BillWindow billWindow = new BillWindow();
-                    billWindow.ShowDialog();
+                    InvoiceWindow invoiceWindow = new InvoiceWindow();
+                    invoiceWindow.ShowDialog();
                 });
             UserCommand = new RelayCommand<UserControl>(
                 (p) => { return true; },
@@ -56,6 +59,27 @@ namespace QuanLyPhongTro.ViewModel
                 {
                     UserWindow userWindow = new UserWindow();
                     userWindow.ShowDialog();
+                });
+            ContractWindowCommand = new RelayCommand<UserControl>(
+                (p) => { return true; },
+                (p) =>
+                {
+                    ContractWindow contractWindow = new ContractWindow();
+                    contractWindow.ShowDialog();
+                });
+            ServiceWindowCommand = new RelayCommand<UserControl>(
+                (p) => { return true; },
+                (p) =>
+                {
+                    ServiceWindow serviceWindow = new ServiceWindow();
+                    serviceWindow.ShowDialog();
+                });
+            UnitWindowCommand = new RelayCommand<UserControl>(
+                (p) => { return true; },
+                (p) =>
+                {
+                    UnitWindow unitWindow = new UnitWindow();
+                    unitWindow.ShowDialog();
                 });
         }
     }
