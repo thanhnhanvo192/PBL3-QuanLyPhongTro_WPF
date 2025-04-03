@@ -21,6 +21,7 @@ namespace QuanLyPhongTro.ViewModel
         public ICommand ContractWindowCommand { get; set; }
         public ICommand ServiceWindowCommand { get; set; }
         public ICommand UnitWindowCommand { get; set; }
+        public ICommand ManageUserWindowCommand { get; set; }
         #endregion
         public MainViewModel()
         {
@@ -80,6 +81,13 @@ namespace QuanLyPhongTro.ViewModel
                 {
                     UnitWindow unitWindow = new UnitWindow();
                     unitWindow.ShowDialog();
+                });
+            ManageUserWindowCommand = new RelayCommand<UserControl>(
+                (p) => { return true; },
+                (p) =>
+                {
+                    ManageUserWindow manageUserWindow = new ManageUserWindow();
+                    manageUserWindow.ShowDialog();
                 });
         }
     }

@@ -11,6 +11,9 @@
     <Compile Update="LoginWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="ManageUserWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="RoomWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

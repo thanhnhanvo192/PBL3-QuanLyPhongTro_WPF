@@ -152,7 +152,7 @@
                                     <Button Command="{Binding UpdateCommand}" Content="Lưu" Margin="5" Width="120" Background="#685B57"></Button>
                                 </Grid>
                                 <Grid Grid.Column="1">
-                                    <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                    <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Tổng tiền" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                                 </Grid>
                             </Grid>
                         </Grid>
