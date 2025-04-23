@@ -129,11 +129,19 @@
                             <Grid Grid.Row="0" Grid.Column="1">
                                 <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="CCCD/CMND" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                             </Grid>
-                            <Grid Grid.Row="1" Grid.Column="0">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Ngày sinh" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                            <Grid Grid.Row="1" Grid.Column="0" Margin="0 40 0 44">
+                                <DatePicker
+                              Width="100"
+                              materialDesign:HintAssist.Hint="Ngày sinh"
+                              materialDesign:TextFieldAssist.HasClearButton="True"
+                              Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                              />
                             </Grid>
                             <Grid Grid.Row="1" Grid.Column="1">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Giới tính" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                <ComboBox Margin="5 5 15 -3" materialDesign:HintAssist.Hint="Giới tính">
+                                    <ComboBoxItem Content="Nam" />
+                                    <ComboBoxItem Content="Nữ" />
+                                </ComboBox>
                             </Grid>
                             <Grid Grid.Row="2" Grid.Column="0">
                                 <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Phone" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>

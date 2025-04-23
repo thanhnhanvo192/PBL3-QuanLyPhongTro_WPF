@@ -5,6 +5,9 @@
     <Compile Update="ContractWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="FixWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="InvoiceWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -14,10 +17,19 @@
     <Compile Update="ManageUserWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="MeterReadingWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="PunishWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="RoomWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="ServiceWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="StatisticWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="TenantWindow.xaml.cs">

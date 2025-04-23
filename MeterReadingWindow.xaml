@@ -1,4 +1,4 @@
-﻿<Window x:Class="QuanLyPhongTro.InvoiceWindow"
+﻿<Window x:Class="QuanLyPhongTro.MeterReadingWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -19,8 +19,8 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         
-        Name="invoiceWindow"
-        Title="Hoá đơn và thanh toán" Height="700" Width="1200">
+        Name="meterReadingWindow"
+        Title="Chỉ số điện nước" Height="700" Width="1200">
     <Window.Resources>
         <Style TargetType="GroupBox">
             <Setter Property="Background" Value="LightGray"/>
@@ -48,7 +48,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Grid.ColumnSpan="2">
-            <uc:ControlBarUC Tag="{Binding Title, ElementName=invoiceWindow}"></uc:ControlBarUC>
+            <uc:ControlBarUC Tag="{Binding Title, ElementName=meterReadingWindow}"></uc:ControlBarUC>
         </Grid>
 
         <Grid Grid.Row="1" Background="LightGray" Grid.ColumnSpan="2">
@@ -60,23 +60,22 @@
 
             <materialDesign:Card Grid.Row="0" Margin="5 5 5 0">
                 <WrapPanel Margin="5" Background="#bcaaa4">
-                    <Button Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="120" Background="#685B57"></Button>
-                    <Button Command="{Binding UpdateCommand}" Content="Sửa" Margin="5" Width="120" Background="#685B57"></Button>
-                    <Button Command="{Binding DeleteCommand}" Content="Xoá" Margin="5" Width="120" Background="#685B57"></Button>
-                    <Button Command="{Binding AddCommand}" Content="Xuất hoá đơn" Margin="5" Width="120" Background="#685B57"></Button>
-                    <Button Command="{Binding UpdateCommand}" Content="Lập hoá đơn" Margin="5" Width="120" Background="#685B57"></Button>
+                    <Button Command="{Binding AddCommand}" Content="Ghi chỉ số" Margin="5" Width="120" Background="#685B57"></Button>
                 </WrapPanel>
             </materialDesign:Card>
 
             <materialDesign:Card Grid.Row="1" Margin="5 5 5 0">
                 <WrapPanel Margin="5">
-                    <RadioButton Margin="20 5 15 5" Content="Đã thanh toán"></RadioButton>
-                    <RadioButton Margin="50 5 15 5" Content="Chưa thanh toán"></RadioButton>
-                    <ComboBox Margin="50 5 15 5" materialDesign:HintAssist.Hint="Kỳ thanh toán">
-                        <ComboBoxItem Content="01/2025" />
-                        <ComboBoxItem Content="02/2025" />
-                        <ComboBoxItem Content="03/2025" />
-                        <ComboBoxItem Content="04/2025" />
+                    <DatePicker Margin="0 0 20 0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày ghi" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                    <ComboBox Margin="0 0 0 -8" materialDesign:HintAssist.Hint=" Chọn khu vực">
+                        <ComboBoxItem Content="Q.Hải Châu" />
+                        <ComboBoxItem Content="Q.Liên Chiểu" />
+                        <ComboBoxItem Content="Q.Thanh Khê" />
+                        <ComboBoxItem Content="Q.Cẩm Lệ" />
+                        <ComboBoxItem Content="Q.Sơn Trà" />
+                        <ComboBoxItem Content="H.Hoà Vang" />
+                        <ComboBoxItem Content="Q.Ngũ Hành Sơn" />
+                        <ComboBoxItem Content="H.Hoàng Sa" />
                     </ComboBox>
                 </WrapPanel>
             </materialDesign:Card>
@@ -88,14 +87,13 @@
                 </Grid.ColumnDefinitions>
 
                 <materialDesign:Card Grid.Column="0" Margin="0 0 2 0">
-                    <GroupBox Margin="16" Header="Danh sách hoá đơn">
+                    <GroupBox Margin="16" Header="Danh sách phòng">
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                             <ListView ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
                                         <GridViewColumn Header="Phòng" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
-                                        <GridViewColumn Header="Ngày lập" DisplayMemberBinding="{Binding Price}"></GridViewColumn>
                                     </GridView>
                                 </ListView.View>
                             </ListView>
@@ -104,7 +102,7 @@
                 </materialDesign:Card>
 
                 <materialDesign:Card Grid.Column="1" Margin="2 0 0 0">
-                    <GroupBox Margin="16" Header="Chi tiết hoá đơn">
+                    <GroupBox Margin="16" Header="Ghi chỉ số">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition></RowDefinition>
@@ -119,10 +117,10 @@
                                     <ColumnDefinition></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
-                                    <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="ID" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                    <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Phòng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                                 </Grid>
                                 <Grid Grid.Column="1">
-                                    <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Ngày lập" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                    <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Tiền cọc" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                                 </Grid>
                             </Grid>
 
@@ -132,18 +130,24 @@
                                     <ColumnDefinition></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
-                                    <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Phòng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                    <DatePicker Margin="0 0 20 0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày bắt đầu" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                                 </Grid>
                                 <Grid Grid.Column="1">
-                                    <ComboBox Margin="0 5 15 5" materialDesign:HintAssist.Hint="Trạng thái">
-                                        <ComboBoxItem Content="Đã thanh toán" />
-                                        <ComboBoxItem Content="chưa thanh toán" />
-                                    </ComboBox>
+                                    <DatePicker Margin="0 0 20 0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày kết thúc" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                                 </Grid>
                             </Grid>
 
                             <Grid Grid.Row="2">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Khách hàng thanh toán" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Bên thuê" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Bên cho thuê" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                </Grid>
                             </Grid>
 
                             <Grid Grid.Row="3">
@@ -153,9 +157,6 @@
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
                                     <Button Command="{Binding UpdateCommand}" Content="Lưu" Margin="5" Width="120" Background="#685B57"></Button>
-                                </Grid>
-                                <Grid Grid.Column="1">
-                                    <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Tổng tiền" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                                 </Grid>
                             </Grid>
                         </Grid>

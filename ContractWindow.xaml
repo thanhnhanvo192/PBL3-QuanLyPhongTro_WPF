@@ -48,7 +48,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Grid.ColumnSpan="2">
-            <uc:ControlBarUC Tag="{Binding Title, ElementName=billWindow}"></uc:ControlBarUC>
+            <uc:ControlBarUC Tag="{Binding Title, ElementName=contractWindow}"></uc:ControlBarUC>
         </Grid>
 
         <Grid Grid.Row="1" Background="LightGray" Grid.ColumnSpan="2">
@@ -60,10 +60,9 @@
 
             <materialDesign:Card Grid.Row="0" Margin="5 5 5 0">
                 <WrapPanel Margin="5" Background="#bcaaa4">
-                    <Button Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="130" Background="#685B57"></Button>
-                    <Button Command="{Binding UpdateCommand}" Content="Sửa" Margin="5" Width="130" Background="#685B57"></Button>
-                    <Button Command="{Binding DeleteCommand}" Content="Xoá" Margin="5" Width="130" Background="#685B57"></Button>
-                    <Button Command="{Binding AddCommand}" Content="Xuất hợp đồng" Margin="5" Width="130" Background="#685B57"></Button>
+                    <Button Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="120" Background="#685B57"></Button>
+                    <Button Command="{Binding UpdateCommand}" Content="Sửa" Margin="5" Width="120" Background="#685B57"></Button>
+                    <Button Command="{Binding AddCommand}" Content="Chấm dứt HĐ" Margin="5" Width="120" Background="#685B57"></Button>
                 </WrapPanel>
             </materialDesign:Card>
 
@@ -136,10 +135,10 @@
                                     <ColumnDefinition></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
-                                    <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Ngày bắt đầu" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                    <DatePicker Margin="0 0 20 0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày bắt đầu" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                                 </Grid>
                                 <Grid Grid.Column="1">
-                                    <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Ngày kết thúc" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                    <DatePicker Margin="0 0 20 0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày kết thúc" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                                 </Grid>
                             </Grid>
 

@@ -118,7 +118,10 @@
                                     <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Giá" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                                 </Grid>
                                 <Grid Grid.Column="1">
-                                    <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Đơn vị" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                    <ComboBox materialDesign:HintAssist.Hint=" Chọn khu vực">
+                                        <ComboBoxItem Content="kWh" />
+                                        <ComboBoxItem Content="m3" />
+                                    </ComboBox>
                                 </Grid>
                             </Grid>
 

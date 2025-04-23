@@ -22,6 +22,9 @@ namespace QuanLyPhongTro.ViewModel
         public ICommand ServiceWindowCommand { get; set; }
         public ICommand UnitWindowCommand { get; set; }
         public ICommand ManageUserWindowCommand { get; set; }
+        public ICommand StatisticWindowCommand { get; set; }
+        public ICommand FixWindowCommand { get; set; }
+        public ICommand PunishWindowCommand { get; set; }
         #endregion
         public MainViewModel()
         {
@@ -88,6 +91,27 @@ namespace QuanLyPhongTro.ViewModel
                 {
                     ManageUserWindow manageUserWindow = new ManageUserWindow();
                     manageUserWindow.ShowDialog();
+                });
+            StatisticWindowCommand = new RelayCommand<UserControl>(
+                (p) => { return true; },
+                (p) =>
+                {
+                    StatisticWindow statisticWindow = new StatisticWindow();
+                    statisticWindow.ShowDialog();
+                });
+            FixWindowCommand = new RelayCommand<UserControl>(
+                (p) => { return true; },
+                (p) =>
+                {
+                    FixWindow fixWindow = new FixWindow();
+                    fixWindow.ShowDialog();
+                });
+            PunishWindowCommand = new RelayCommand<UserControl>(
+                (p) => { return true; },
+                (p) =>
+                {
+                    PunishWindow punishWindow = new PunishWindow();
+                    punishWindow.ShowDialog();
                 });
         }
     }

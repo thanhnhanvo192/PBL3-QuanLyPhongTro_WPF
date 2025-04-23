@@ -115,7 +115,10 @@
                                     <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                                 </Grid>
                                 <Grid Grid.Row="2" Grid.Column="0">
-                                    <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Vai trò" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                    <ComboBox materialDesign:HintAssist.Hint="Vai trò">
+                                        <ComboBoxItem Content="Quản lí" />
+                                        <ComboBoxItem Content="Nhân viên" />
+                                    </ComboBox>
                                 </Grid>
                                 <Grid Grid.Row="2" Grid.Column="1">
                                     <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Account Id" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
