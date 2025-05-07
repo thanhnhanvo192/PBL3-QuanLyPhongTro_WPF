@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:QuanLyPhongTro"
         mc:Ignorable="d"
         
-           xmlns:uc="clr-namespace:QuanLyPhongTro.UserControlWPF"
-           xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:uc="clr-namespace:QuanLyPhongTro.UserControlWPF"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -19,7 +20,7 @@
         WindowStyle="None"
         Name="loginWindow"
         WindowStartupLocation="CenterScreen"
-        
+        DataContext="{StaticResource LoginVM}"
         Title="Đăng nhập" Height="500" Width="600">
 
     <Grid>
@@ -61,16 +62,23 @@
               VerticalAlignment="Center"
               materialDesign:HintAssist.Hint="Tên đăng nhập"
               Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            Text="{Binding Username}"
               />
                     </Grid>
 
                     <Grid Grid.Row="1">
                         <PasswordBox
-              x:Name="FloatingPasswordBox"
-              materialDesign:HintAssist.Foreground="Green"
-              materialDesign:HintAssist.Hint="Mật khẩu"
-              materialDesign:TextFieldAssist.UnderlineBrush="Green"
-              Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"/>
+                          x:Name="FloatingPasswordBox"
+                          materialDesign:HintAssist.Foreground="Green"
+                          materialDesign:HintAssist.Hint="Mật khẩu"
+                          materialDesign:TextFieldAssist.UnderlineBrush="Green"
+                          Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PasswordChanged">
+                                    <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" CommandParameter="{Binding ElementName=FloatingPasswordBox}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </PasswordBox>
                     </Grid>
 
                     <Grid Grid.Row="2">
@@ -80,18 +88,24 @@
                         </Grid.ColumnDefinitions>
 
                         <Button Grid.Column="0" Background="#685B57"
-              Width="110"
-              Content="Đăng nhập"
-              IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-              Style="{StaticResource MaterialDesignRaisedDarkButton}"
-              ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"/>
+                          IsDefault="True"
+                          Width="110"
+                          Content="Đăng nhập"
+                          IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                          Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                          ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
+                          Command="{Binding LoginCommand}"
+                          CommandParameter="{Binding ElementName=loginWindow}"
+                                />
 
                         <Button Grid.Column="1" Background="#685B57"
-              Width="110"
-              Content="Huỷ"
-              IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-              Style="{StaticResource MaterialDesignRaisedDarkButton}"
-              ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"/>
+                          Width="110"
+                          Content="Huỷ"
+                          IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                          Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                          ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
+                          Command="{Binding CloseCommand}"
+                          CommandParameter="{Binding ElementName=loginWindow}"/>
                     </Grid>
                 </Grid>
             </materialDesign:Card>

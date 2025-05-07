@@ -26,7 +26,7 @@
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}"/>
+            <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}" CommandParameter="{Binding ElementName=mainWindow}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
@@ -239,7 +239,7 @@
                                             </Grid.RowDefinitions>
                                             <TextBlock Grid.Row="0" Margin="16,16,16,4" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Tổng số phòng"/>
                                             <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
-                                            <TextBlock Grid.Row="2" Margin="16,0,16,8" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource MaterialDesignBody1TextBlock}" Text="March 19, 2016" />
+                                            <TextBlock Grid.Row="2" Margin="16,0,16,8" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{Binding TotalRooms}" />
                                             <materialDesign:PopupBox Padding="2,0,2,0" HorizontalAlignment="Right">
                                                 <StackPanel>
                                                     <!--Đưa gì vào thì đưa-->
@@ -302,11 +302,11 @@
                         </Grid.ColumnDefinitions>
                         
                         <materialDesign:Card Margin="5 5 10 5">
-                            <ListView>
+                            <ListView ItemsSource="{Binding ListRoom}">
                                 <ListView.View>
                                     <GridView>
-                                        <GridViewColumn Header="STT"></GridViewColumn>
-                                        <GridViewColumn Header="Tên phòng trống"></GridViewColumn>
+                                        <GridViewColumn Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                                        <GridViewColumn Header="Tên phòng trống" DisplayMemberBinding="{Binding RoomNumber}"></GridViewColumn>
                                     </GridView>
                                 </ListView.View>
                             </ListView>

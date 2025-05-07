@@ -10,6 +10,7 @@ namespace QuanLyPhongTro.Model
 {
     public class AppDbContext : DbContext
     {
+        public DbSet<Account> Accounts { get; set; }
         public DbSet<Unit> Units { get; set; }
         public DbSet<Service> Services { get; set; }
         // DbSet cho Role, Account, User, Location đã được bỏ
@@ -36,6 +37,9 @@ namespace QuanLyPhongTro.Model
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Account>()
+                .HasIndex(a => a.UserName)
+                .IsUnique(); // Đảm bảo UserName là duy nhất
 
             // Cấu hình Fluent API
             // Các cấu hình cho Role, Account, User đã được bỏ
