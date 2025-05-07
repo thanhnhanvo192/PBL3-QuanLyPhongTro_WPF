@@ -52,26 +52,10 @@
         <Grid Grid.Row="1" Background="LightGray">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <materialDesign:Card Grid.Row="0" Margin="5 5 5 0">
-                <WrapPanel Margin="5" Background="#bcaaa4">
-                    <ComboBox Margin="5 5 15 5" materialDesign:HintAssist.Hint="Khu vực">
-                        <ComboBoxItem Content="Q.Hải Châu" />
-                        <ComboBoxItem Content="Q.Liên Chiểu" />
-                        <ComboBoxItem Content="Q.Thanh Khê" />
-                        <ComboBoxItem Content="Q.Cẩm Lệ" />
-                        <ComboBoxItem Content="Q.Sơn Trà" />
-                        <ComboBoxItem Content="H.Hoà Vang" />
-                        <ComboBoxItem Content="Q.Ngũ Hành Sơn" />
-                        <ComboBoxItem Content="H.Hoàng Sa" />
-                    </ComboBox>
-                </WrapPanel>
-            </materialDesign:Card>
-
-            <Grid Grid.Row="1" Margin="5 5 5 0">
+            <Grid Grid.Row="0" Margin="5 5 5 0">
                 <WrapPanel>
                     <materialDesign:Card Grid.Column="0" Margin="0 0 2 0" HorizontalAlignment="Left">
                         <WrapPanel Margin="5">
@@ -95,7 +79,7 @@
                 </WrapPanel>
             </Grid>
 
-            <materialDesign:Card Grid.Row="2" Margin="5">
+            <materialDesign:Card Grid.Row="1" Margin="5">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"></ColumnDefinition>

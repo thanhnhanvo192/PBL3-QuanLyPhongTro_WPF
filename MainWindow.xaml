@@ -161,7 +161,7 @@
                                 </Grid>
                             </Grid>
                         </Button>
-                        
+
                         <Button Grid.Column="2" Command="{Binding PunishWindowCommand}" ToolTip="Xử phạt" Width="100">
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -173,21 +173,6 @@
                                 </Grid>
                                 <Grid Grid.Row="1">
                                     <materialDesign:PackIcon Kind="BlockHelper" Width="24" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center"></materialDesign:PackIcon>
-                                </Grid>
-                            </Grid>
-                        </Button>
-
-                        <Button Grid.Column="2" Command="{Binding ManageUserWindowCommand}" ToolTip="Người dùng" Width="100">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition></RowDefinition>
-                                    <RowDefinition></RowDefinition>
-                                </Grid.RowDefinitions>
-                                <Grid Grid.Row="0">
-                                    <TextBlock>Người dùng</TextBlock>
-                                </Grid>
-                                <Grid Grid.Row="1">
-                                    <materialDesign:PackIcon Kind="FaceAgent" Width="24" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center"></materialDesign:PackIcon>
                                 </Grid>
                             </Grid>
                         </Button>
@@ -237,38 +222,7 @@
                 <Grid Grid.Row="0" Grid.ColumnSpan="2">
                     <materialDesign:Card Margin="5">
                         <Grid Grid.Row="0" Margin="5">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"></RowDefinition>
-                                <RowDefinition Height="auto"></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-
-                                <Grid Grid.Column="0">
-                                    <ComboBox materialDesign:HintAssist.Hint=" Chọn khu vực">
-                                        <ComboBoxItem Content="Q.Hải Châu" />
-                                        <ComboBoxItem Content="Q.Liên Chiểu" />
-                                        <ComboBoxItem Content="Q.Thanh Khê" />
-                                        <ComboBoxItem Content="Q.Cẩm Lệ" />
-                                        <ComboBoxItem Content="Q.Sơn Trà" />
-                                        <ComboBoxItem Content="H.Hoà Vang" />
-                                        <ComboBoxItem Content="Q.Ngũ Hành Sơn" />
-                                        <ComboBoxItem Content="H.Hoàng Sa" />
-                                    </ComboBox>
-                                </Grid>
-                                <Grid Grid.Column="1">
-                                    <Button Background="#685B57" Margin="5" Width="100" Content="Lọc" IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Style="{StaticResource MaterialDesignRaisedButton}" ToolTip="Resource name: MaterialDesignRaisedButton" />
-                                </Grid>
-
-                            </Grid>
-                            <Grid Grid.Row="1">
-                                <Separator Margin="5"></Separator>
-                            </Grid>
-                            <Grid Grid.Row="2">
+                            <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"></ColumnDefinition>
                                     <ColumnDefinition Width="auto"></ColumnDefinition>

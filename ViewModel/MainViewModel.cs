@@ -21,7 +21,6 @@ namespace QuanLyPhongTro.ViewModel
         public ICommand ContractWindowCommand { get; set; }
         public ICommand ServiceWindowCommand { get; set; }
         public ICommand UnitWindowCommand { get; set; }
-        public ICommand ManageUserWindowCommand { get; set; }
         public ICommand StatisticWindowCommand { get; set; }
         public ICommand FixWindowCommand { get; set; }
         public ICommand PunishWindowCommand { get; set; }
@@ -84,13 +83,6 @@ namespace QuanLyPhongTro.ViewModel
                 {
                     UnitWindow unitWindow = new UnitWindow();
                     unitWindow.ShowDialog();
-                });
-            ManageUserWindowCommand = new RelayCommand<UserControl>(
-                (p) => { return true; },
-                (p) =>
-                {
-                    ManageUserWindow manageUserWindow = new ManageUserWindow();
-                    manageUserWindow.ShowDialog();
                 });
             StatisticWindowCommand = new RelayCommand<UserControl>(
                 (p) => { return true; },

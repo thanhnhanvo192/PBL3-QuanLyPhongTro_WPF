@@ -72,16 +72,6 @@
                     <RadioButton Margin="30 5 50 5" Content="Hết hạn"></RadioButton>
                     <DatePicker Margin="0 0 20 0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày bắt đầu" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                     <DatePicker Margin="0 0 20 0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày kết thúc" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                    <ComboBox Margin="0 0 0 -8" materialDesign:HintAssist.Hint=" Chọn khu vực">
-                        <ComboBoxItem Content="Q.Hải Châu" />
-                        <ComboBoxItem Content="Q.Liên Chiểu" />
-                        <ComboBoxItem Content="Q.Thanh Khê" />
-                        <ComboBoxItem Content="Q.Cẩm Lệ" />
-                        <ComboBoxItem Content="Q.Sơn Trà" />
-                        <ComboBoxItem Content="H.Hoà Vang" />
-                        <ComboBoxItem Content="Q.Ngũ Hành Sơn" />
-                        <ComboBoxItem Content="H.Hoàng Sa" />
-                    </ComboBox>
                 </WrapPanel>
             </materialDesign:Card>
 
