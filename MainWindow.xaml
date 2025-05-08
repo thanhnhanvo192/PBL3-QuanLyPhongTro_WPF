@@ -29,6 +29,22 @@
             <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}" CommandParameter="{Binding ElementName=mainWindow}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    <Window.Resources>
+        <Style TargetType="GroupBox">
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="HeaderTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Border Background="#685B57" Padding="5">
+                            <TextBlock Text="{Binding}" Foreground="White" FontWeight="Bold"/>
+                        </Border>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
 
     <Grid Margin="0 0 0 5">
         <Grid.RowDefinitions>
@@ -237,9 +253,9 @@
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="Auto" />
                                             </Grid.RowDefinitions>
-                                            <TextBlock Grid.Row="0" Margin="16,16,16,4" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Tổng số phòng"/>
+                                            <TextBlock Grid.Row="0" Margin="16,16,16,4" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Số phòng trống"/>
                                             <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
-                                            <TextBlock Grid.Row="2" Margin="16,0,16,8" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{Binding TotalRooms}" />
+                                            <TextBlock Grid.Row="2" Margin="16,0,16,8" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{Binding TotalemtpyRoom}" />
                                             <materialDesign:PopupBox Padding="2,0,2,0" HorizontalAlignment="Right">
                                                 <StackPanel>
                                                     <!--Đưa gì vào thì đưa-->
@@ -257,9 +273,9 @@
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="Auto" />
                                             </Grid.RowDefinitions>
-                                            <TextBlock Grid.Row="0" Margin="16,16,16,4" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Doanh thu" />
+                                            <TextBlock Grid.Row="0" Margin="16,16,16,4" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Doanh thu tháng trước" />
                                             <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
-                                            <TextBlock Grid.Row="2" Margin="16,0,16,8" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource MaterialDesignBody1TextBlock}" Text="March 19, 2016" />
+                                            <TextBlock Grid.Row="2" Margin="16,0,16,8" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{Binding LastRevenue}" />
                                             <materialDesign:PopupBox Padding="2,0,2,0" HorizontalAlignment="Right">
                                                 <StackPanel>
                                                     <!--Đưa gì vào thì đưa-->
@@ -279,7 +295,7 @@
                                             </Grid.RowDefinitions>
                                             <TextBlock Grid.Row="0" Margin="16,16,16,4" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Hợp đồng sắp hết hạn" />
                                             <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
-                                            <TextBlock Grid.Row="2" Margin="16,0,16,8" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource MaterialDesignBody1TextBlock}" Text="March 19, 2016" />
+                                            <TextBlock Grid.Row="2" Margin="16,0,16,8" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{Binding TotalOutDateContract}" />
                                             <materialDesign:PopupBox Padding="2,0,2,0" HorizontalAlignment="Right">
                                                 <StackPanel>
                                                     <!--Đưa gì vào thì đưa-->
@@ -301,21 +317,37 @@
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         
-                        <materialDesign:Card Margin="5 5 10 5">
-                            <ListView ItemsSource="{Binding ListRoom}">
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                                        <GridViewColumn Header="Tên phòng trống" DisplayMemberBinding="{Binding RoomNumber}"></GridViewColumn>
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
+                        <materialDesign:Card Grid.Column="0" Margin="0 0 2 0">
+                            <GroupBox Margin="16" Header="Danh sách phòng trống">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                    <ListView ItemsSource="{Binding ListEmptyRoom}">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                                                <GridViewColumn Header="Tên phòng trống" DisplayMemberBinding="{Binding RoomNumber}"></GridViewColumn>
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </ScrollViewer>
+                            </GroupBox>
                         </materialDesign:Card>
 
-                        <materialDesign:Card Grid.Column="1" Background="Transparent">
-                            <Image Source="D:\PBL3\QuanLyPhongTro\AppData\Phongtro.jpg" Margin="5"></Image>
+                        <materialDesign:Card Grid.Column="1" Margin="0 0 2 0">
+                            <GroupBox Margin="16" Header="Danh sách hợp đồng sắp hết hạn">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                    <ListView ItemsSource="{Binding ListContract}">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="Mã hợp đồng" DisplayMemberBinding="{Binding ContractCode}"></GridViewColumn>
+                                                <GridViewColumn Header="Ngày bắt đầu" DisplayMemberBinding="{Binding StartDate}"></GridViewColumn>
+                                                <GridViewColumn Header="Ngày kết thúc" DisplayMemberBinding="{Binding EndDate}"></GridViewColumn>
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </ScrollViewer>
+                            </GroupBox>
                         </materialDesign:Card>
-                        
+
                     </Grid>
                 </materialDesign:Card>
             </Grid>

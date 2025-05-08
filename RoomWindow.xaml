@@ -18,6 +18,7 @@
         ResizeMode="NoResize"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
+        DataContext="{StaticResource RoomVM}"
         
         Name="roomWindow"
         Title="Quản lí phòng" Height="700" Width="1200">
