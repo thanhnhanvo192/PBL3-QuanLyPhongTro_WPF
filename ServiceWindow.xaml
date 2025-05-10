@@ -54,18 +54,23 @@
         <Grid Grid.Row="1" Background="LightGray" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <materialDesign:Card Grid.Row="0" Margin="5 5 5 0">
-                <WrapPanel Margin="5" Background="#bcaaa4">
+            <Grid Grid.Row="0">
+                <uc:MenuBarUC></uc:MenuBarUC>
+            </Grid>
+
+            <materialDesign:Card Grid.Row="1" Margin="5 5 5 0">
+                <WrapPanel Margin="5" Background="Transparent">
                     <Button Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="120" Background="#685B57"></Button>
                     <Button Command="{Binding UpdateCommand}" Content="Sửa" Margin="5" Width="120" Background="#685B57"></Button>
                     <Button Command="{Binding DeleteCommand}" Content="Xoá" Margin="5" Width="120" Background="#685B57"></Button>
                 </WrapPanel>
             </materialDesign:Card>
 
-            <Grid Grid.Row="1" Margin="5">
+            <Grid Grid.Row="2" Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>

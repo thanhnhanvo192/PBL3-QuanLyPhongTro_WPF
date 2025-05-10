@@ -35,37 +35,37 @@ namespace QuanLyPhongTro.ViewModel
             }
         }
         public ICommand SearchCommand { get; set; }
-        public RoomViewModel()
-        {
-            FilterOptions = new List<RoomFilterOptionDisplay>
-            {
-                new RoomFilterOptionDisplay { Value = RoomFilterStatus.Vacant, DisplayName = "Phòng trống" },
-                new RoomFilterOptionDisplay { Value = RoomFilterStatus.Occupied, DisplayName = "Phòng đã thuê" },
-                new RoomFilterOptionDisplay { Value = RoomFilterStatus.All, DisplayName = "Tất cả phòng" }
-            };
-            SelectedFilterStatus = RoomFilterStatus.All;
-            SearchCommand = new RelayCommand<object>((p) => true, (p) => SearchRoom());
-        }
-        private void SearchRoom()
-        {
-            using (var context = new AppDbContext())
-            {
-                var query = context.Rooms.AsQueryable();
-                // Lọc theo trạng thái phòng
-                switch (SelectedFilterStatus)
-                {
-                    case RoomFilterStatus.Vacant:
-                        query = query.Where(r => r.IsVacant == true);
-                        break;
-                    case RoomFilterStatus.Occupied:
-                        query = query.Where(r => r.IsVacant == false);
-                        break;
-                    case RoomFilterStatus.All:
-                        break;
-                }
-                // Cập nhật danh sách phòng
-                RoomList = new ObservableCollection<Room>(query.ToList());
-            }
-        }
+        //public RoomViewModel()
+        //{
+        //    FilterOptions = new List<RoomFilterOptionDisplay>
+        //    {
+        //        new RoomFilterOptionDisplay { Value = RoomFilterStatus.Vacant, DisplayName = "Phòng trống" },
+        //        new RoomFilterOptionDisplay { Value = RoomFilterStatus.Occupied, DisplayName = "Phòng đã thuê" },
+        //        new RoomFilterOptionDisplay { Value = RoomFilterStatus.All, DisplayName = "Tất cả phòng" }
+        //    };
+        //    SelectedFilterStatus = RoomFilterStatus.All;
+        //    SearchCommand = new RelayCommand<object>((p) => true, (p) => SearchRoom());
+        //}
+        //private void SearchRoom()
+        //{
+        //    using (var context = new AppDbContext())
+        //    {
+        //        var query = context.Rooms.AsQueryable();
+        //        // Lọc theo trạng thái phòng
+        //        switch (SelectedFilterStatus)
+        //        {
+        //            case RoomFilterStatus.Vacant:
+        //                query = query.Where(r => r.IsVacant == true);
+        //                break;
+        //            case RoomFilterStatus.Occupied:
+        //                query = query.Where(r => r.IsVacant == false);
+        //                break;
+        //            case RoomFilterStatus.All:
+        //                break;
+        //        }
+        //        // Cập nhật danh sách phòng
+        //        RoomList = new ObservableCollection<Room>(query.ToList());
+        //    }
+        //}
     }
 }

@@ -58,29 +58,40 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <materialDesign:Card Grid.Row="0" Margin="5 5 5 0">
-                <WrapPanel Margin="5" Background="#bcaaa4">
-                    <Button Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="120" Background="#685B57"></Button>
-                    <Button Command="{Binding UpdateCommand}" Content="Sửa" Margin="5" Width="120" Background="#685B57"></Button>
-                    <Button Command="{Binding DeleteCommand}" Content="Xoá" Margin="5" Width="120" Background="#685B57"></Button>
-                    <Button Command="{Binding AddCommand}" Content="Xuất hoá đơn" Margin="5" Width="120" Background="#685B57"></Button>
-                    <Button Command="{Binding UpdateCommand}" Content="Lập hoá đơn" Margin="5" Width="120" Background="#685B57"></Button>
-                </WrapPanel>
-            </materialDesign:Card>
+            <Grid Grid.Row="0">
+                <uc:MenuBarUC></uc:MenuBarUC>
+            </Grid>
 
-            <materialDesign:Card Grid.Row="1" Margin="5 5 5 0">
-                <WrapPanel Margin="5">
-                    <RadioButton Margin="20 5 15 5" Content="Đã thanh toán"></RadioButton>
-                    <RadioButton Margin="50 5 15 5" Content="Chưa thanh toán"></RadioButton>
-                    <ComboBox Margin="50 5 15 5" materialDesign:HintAssist.Hint="Kỳ thanh toán">
-                        <ComboBoxItem Content="01/2025" />
-                        <ComboBoxItem Content="02/2025" />
-                        <ComboBoxItem Content="03/2025" />
-                        <ComboBoxItem Content="04/2025" />
-                    </ComboBox>
-                </WrapPanel>
-            </materialDesign:Card>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition ></ColumnDefinition>
+                    <ColumnDefinition ></ColumnDefinition>
+                </Grid.ColumnDefinitions>
 
+                <materialDesign:Card Grid.Column="0" Margin="5 5 5 0">
+                    <WrapPanel Margin="5" Background="#bcaaa4">
+                        <Button Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="120" Background="#685B57"></Button>
+                        <Button Command="{Binding UpdateCommand}" Content="Sửa" Margin="5" Width="120" Background="#685B57"></Button>
+                        <Button Command="{Binding DeleteCommand}" Content="Xoá" Margin="5" Width="120" Background="#685B57"></Button>
+                        <Button Command="{Binding UpdateCommand}" Content="Lập hoá đơn" Margin="5" Width="120" Background="#685B57"></Button>
+                    </WrapPanel>
+                </materialDesign:Card>
+
+                <materialDesign:Card Grid.Column="1" Margin="5 5 5 0">
+                    <WrapPanel Margin="5">
+                        <RadioButton Margin="20 5 15 5" Content="Đã thanh toán"></RadioButton>
+                        <RadioButton Margin="50 5 15 5" Content="Chưa thanh toán"></RadioButton>
+                        <ComboBox Margin="50 5 15 5" materialDesign:HintAssist.Hint="Kỳ thanh toán">
+                            <ComboBoxItem Content="01/2025" />
+                            <ComboBoxItem Content="02/2025" />
+                            <ComboBoxItem Content="03/2025" />
+                            <ComboBoxItem Content="04/2025" />
+                        </ComboBox>
+                    </WrapPanel>
+                </materialDesign:Card>
+
+            </Grid>
+            
             <Grid Grid.Row="2" Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>

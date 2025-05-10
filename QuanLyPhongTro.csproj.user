@@ -38,6 +38,9 @@
     <Compile Update="UserControlWPF\ControlBarUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControlWPF\MenuBarUC.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
