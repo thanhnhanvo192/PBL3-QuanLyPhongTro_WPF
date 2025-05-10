@@ -11,28 +11,31 @@
     <Compile Update="View\InvoiceView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\LoginWindow.xaml.cs">
+    <Compile Update="LoginWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\MeterReadingWindow.xaml.cs">
+    <Compile Update="View\MainView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\PunishWindow.xaml.cs">
+    <Compile Update="View\MeterReadingView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\RoomWindow.xaml.cs">
+    <Compile Update="View\PunishView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\ServiceWindow.xaml.cs">
+    <Compile Update="View\RoomView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\StatisticWindow.xaml.cs">
+    <Compile Update="View\ServiceView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\TenantWindow.xaml.cs">
+    <Compile Update="View\StatisticView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\UnitWindow.xaml.cs">
+    <Compile Update="View\TenantView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\UnitView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControlWPF\ControlBarUC.xaml.cs">
@@ -41,7 +44,7 @@
     <Compile Update="UserControlWPF\MenuBarUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\UserWindow.xaml.cs">
+    <Compile Update="View\UserView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -10,16 +6,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuanLyPhongTro.View
+namespace QuanLyPhongTro
 {
     /// <summary>
-    /// Interaction logic for MeterReadingWindow.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MeterReadingWindow : Window
+    public partial class DashboardWindow : Window
     {
-        public MeterReadingWindow()
+        public DashboardWindow()
         {
             InitializeComponent();
         }

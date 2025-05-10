@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace QuanLyPhongTro.View
 {
     /// <summary>
-    /// Interaction logic for LoginWindow.xaml
+    /// Interaction logic for MeterReadingWindow.xaml
     /// </summary>
-    public partial class LoginWindow : Window
+    public partial class MeterReadingView : UserControl
     {
-        public LoginWindow()
+        public MeterReadingView()
         {
             InitializeComponent();
         }

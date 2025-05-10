@@ -7,10 +7,9 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              Background="{DynamicResource MaterialDesignPaper}"
-             DataContext="{StaticResource MainVM}"
              FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d">
-    <Grid Grid.Row="0">
+    <Grid>
         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
 
             <Grid.Resources>
@@ -19,8 +18,23 @@
                 </Style>
             </Grid.Resources>
 
-            <WrapPanel>
-                <Button Grid.Column="0" Command="{Binding RoomCommand}" ToolTip="Phòng" Width="100">
+            <WrapPanel HorizontalAlignment="Stretch">
+                <Button Grid.Column="0" Command="{Binding MainViewCommand}" ToolTip="Trang chủ" Width="100">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <TextBlock HorizontalAlignment="Center">Trang chủ</TextBlock>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <materialDesign:PackIcon Kind="MonitorDashboard" Width="24" Height="24" HorizontalAlignment="Center" Margin="0,0,18,0" VerticalAlignment="Center"></materialDesign:PackIcon>
+                        </Grid>
+                    </Grid>
+                </Button>
+                
+                <Button Grid.Column="0" Command="{Binding RoomViewCommand}" ToolTip="Phòng" Width="100">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -35,7 +49,7 @@
                     </Grid>
                 </Button>
 
-                <Button Grid.Column="1" Command="{Binding TenantWindowCommand}" ToolTip="Khách thuê" Width="100">
+                <Button Grid.Column="1" Command="{Binding TenantViewCommand}" ToolTip="Khách thuê" Width="100">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -80,7 +94,7 @@
                     </Grid>
                 </Button>
 
-                <Button Grid.Column="2" Command="{Binding ServiceWindowCommand}" ToolTip="Dịch vụ" Width="100">
+                <Button Grid.Column="2" Command="{Binding ServiceViewCommand}" ToolTip="Dịch vụ" Width="100">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -95,7 +109,7 @@
                     </Grid>
                 </Button>
 
-                <Button Grid.Column="2" Command="{Binding UnitWindowCommand}" ToolTip="Đơn vị đo" Width="100">
+                <Button Grid.Column="2" Command="{Binding UnitViewCommand}" ToolTip="Đơn vị đo" Width="100">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -125,7 +139,7 @@
                     </Grid>
                 </Button>
 
-                <Button Grid.Column="2" Command="{Binding PunishWindowCommand}" ToolTip="Xử phạt" Width="100">
+                <Button Grid.Column="2" Command="{Binding PunishViewCommand}" ToolTip="Xử phạt" Width="100">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -139,7 +153,7 @@
                         </Grid>
                     </Grid>
                 </Button>
-                <Button Grid.Column="2" Command="{Binding StatisticWindowCommand}" ToolTip="Thống kê" Width="100">
+                <Button Grid.Column="2" Command="{Binding StatisticViewCommand}" ToolTip="Thống kê" Width="100">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -154,7 +168,7 @@
                     </Grid>
                 </Button>
 
-                <Button Grid.Column="3" Command="{Binding UserCommand}" ToolTip="Tài khoản" Width="100">
+                <Button Grid.Column="3" Command="{Binding UserViewCommand}" ToolTip="Tài khoản" Width="100">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>

@@ -1,4 +1,4 @@
-﻿<Window x:Class="QuanLyPhongTro.View.TenantWindow"
+﻿<UserControl x:Class="QuanLyPhongTro.View.TenantView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,60 +7,23 @@
         mc:Ignorable="d"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:uc="clr-namespace:QuanLyPhongTro.UserControlWPF"
            TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
-        ResizeMode="NoResize"
-        WindowStyle="None"
-        WindowStartupLocation="CenterScreen"
-        
-        Name="tenantWindow"
-        Title="Quản lí khách thuê" Height="700" Width="1200">
-
-    <Window.Resources>
-        <Style TargetType="GroupBox">
-            <Setter Property="Background" Value="LightGray"/>
-            <Setter Property="BorderBrush" Value="Black"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="HeaderTemplate">
-                <Setter.Value>
-                    <DataTemplate>
-                        <Border Background="#685B57" Padding="5">
-                            <TextBlock Text="{Binding}" Foreground="White" FontWeight="Bold"/>
-                        </Border>
-                    </DataTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
+        FontFamily="{DynamicResource MaterialDesignFont}">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-
-        <Grid Grid.Row="0">
-            <uc:ControlBarUC Tag="{Binding Title, ElementName=tenantWindow}"></uc:ControlBarUC>
-        </Grid>
 
         <Grid Grid.Row="1" Background="LightGray">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
-                <uc:MenuBarUC></uc:MenuBarUC>
-            </Grid>
-
-            <Grid Grid.Row="1" Margin="5 5 5 0">
+            <Grid Grid.Row="0" Margin="5 5 5 0">
                 <materialDesign:Card Margin="0 0 2 0" HorizontalAlignment="Stretch">
                     <WrapPanel Margin="5">
                         <Button Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="100" Background="#685B57"></Button>
@@ -72,7 +35,7 @@
                 </materialDesign:Card>
             </Grid>
 
-            <materialDesign:Card Grid.Row="2" Margin="5">
+            <materialDesign:Card Grid.Row="1" Margin="5">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -152,4 +115,4 @@
         </Grid>
 
     </Grid>
-</Window>
+</UserControl>

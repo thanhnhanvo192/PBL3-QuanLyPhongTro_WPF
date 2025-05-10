@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace QuanLyPhongTro.View
+namespace QuanLyPhongTro
 {
     /// <summary>
-    /// Interaction logic for StatisticWindow.xaml
+    /// Interaction logic for LoginWindow.xaml
     /// </summary>
-    public partial class StatisticWindow : Window
+    public partial class LoginWindow : Window
     {
-        public StatisticWindow()
+        public LoginWindow()
         {
             InitializeComponent();
         }

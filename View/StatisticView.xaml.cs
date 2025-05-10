@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace QuanLyPhongTro.View
 {
     /// <summary>
-    /// Interaction logic for UserWindow.xaml
+    /// Interaction logic for StatisticWindow.xaml
     /// </summary>
-    public partial class UserWindow : Window
+    public partial class StatisticView : UserControl
     {
-        public UserWindow()
+        public StatisticView()
         {
             InitializeComponent();
         }
