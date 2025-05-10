@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace QuanLyPhongTro
+namespace QuanLyPhongTro.View
 {
     /// <summary>
-    /// Interaction logic for ServiceWindow.xaml
+    /// Interaction logic for RoomWindow.xaml
     /// </summary>
-    public partial class ServiceWindow : Window
+    public partial class RoomWindow : Window
     {
-        public ServiceWindow()
+        public RoomWindow()
         {
             InitializeComponent();
         }

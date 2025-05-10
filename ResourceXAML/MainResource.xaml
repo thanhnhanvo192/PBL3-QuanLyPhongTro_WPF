@@ -1,7 +1,25 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:viewmodel="clr-namespace:QuanLyPhongTro.ViewModel"
+                    xmlns:view="clr-namespace:QuanLyPhongTro.View"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <viewmodel:MainViewModel x:Key="MainVM"></viewmodel:MainViewModel>
-    <viewmodel:LoginViewModel x:Key="LoginVM"></viewmodel:LoginViewModel>
-    <viewmodel:RoomViewModel x:Key="RoomVM"></viewmodel:RoomViewModel>
+
+    <!-- Khai báo ViewModel -->
+    <viewmodel:MainViewModel x:Key="MainVM" />
+    <viewmodel:LoginViewModel x:Key="LoginVM" />
+    <viewmodel:RoomViewModel x:Key="RoomVM" />
+
+    <!-- DataTemplate cho LoginViewModel -->
+    <DataTemplate DataType="{x:Type viewmodel:LoginViewModel}">
+        <view:LoginWindow />
+    </DataTemplate>
+
+    <!-- DataTemplate cho MainViewModel -->
+    <DataTemplate DataType="{x:Type viewmodel:MainViewModel}">
+        <view:MainWindow />
+    </DataTemplate>
+
+    <!-- DataTemplate cho RoomViewModel -->
+    <DataTemplate DataType="{x:Type viewmodel:RoomViewModel}">
+        <view:RoomWindow />
+    </DataTemplate>
 </ResourceDictionary>

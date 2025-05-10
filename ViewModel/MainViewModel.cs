@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using QuanLyPhongTro.Model;
+using QuanLyPhongTro.View;
 
 namespace QuanLyPhongTro.ViewModel
 {
@@ -18,6 +19,17 @@ namespace QuanLyPhongTro.ViewModel
         private int _totalOutDateContract;
         private ObservableCollection<EmptyRoomDisplay> _ListEmptyRoom;
         private ObservableCollection<Contract> _ListContract;
+
+        private object _currentView;
+        public object CurrentView
+        {
+            get => _currentView;
+            set
+            {
+                _currentView = value;
+                OnPropertyChanged();
+            }
+        }
 
         public int TotalemtpyRoom
         {
@@ -70,18 +82,19 @@ namespace QuanLyPhongTro.ViewModel
         public ICommand LoadedWindowCommand { get; set; }
         public ICommand RoomWindowCommand { get; set; }
         public ICommand TenantWindowCommand { get; set; }
-        public ICommand InvoiceCommand { get; set; }
+        public ICommand InvoiceViewCommand { get; set; }
         public ICommand UserCommand { get; set; }
-        public ICommand ContractWindowCommand { get; set; }
+        public ICommand ContractViewCommand { get; set; }
         public ICommand ServiceWindowCommand { get; set; }
         public ICommand UnitWindowCommand { get; set; }
         public ICommand StatisticWindowCommand { get; set; }
-        public ICommand FixWindowCommand { get; set; }
+        public ICommand FixViewCommand { get; set; }
         public ICommand PunishWindowCommand { get; set; }
         #endregion
 
         public MainViewModel()
         {
+
             LoadedWindowCommand = new RelayCommand<Window>(
               (p) => { return true; },
               (p) =>
@@ -125,12 +138,11 @@ namespace QuanLyPhongTro.ViewModel
                   tenantWindow.ShowDialog();
               });
 
-            InvoiceCommand = new RelayCommand<UserControl>(
+            InvoiceViewCommand = new RelayCommand<UserControl>(
               (p) => { return true; },
               (p) =>
               {
-                  InvoiceWindow invoiceWindow = new InvoiceWindow();
-                  invoiceWindow.ShowDialog();
+                  CurrentView = new InvoiceView();
               });
 
             UserCommand = new RelayCommand<UserControl>(
@@ -141,12 +153,11 @@ namespace QuanLyPhongTro.ViewModel
                   userWindow.ShowDialog();
               });
 
-            ContractWindowCommand = new RelayCommand<UserControl>(
+            ContractViewCommand = new RelayCommand<UserControl>(
               (p) => { return true; },
               (p) =>
               {
-                  ContractWindow contractWindow = new ContractWindow();
-                  contractWindow.ShowDialog();
+                  CurrentView = new ContractView();
               });
 
             ServiceWindowCommand = new RelayCommand<UserControl>(
@@ -173,12 +184,11 @@ namespace QuanLyPhongTro.ViewModel
                   statisticWindow.ShowDialog();
               });
 
-            FixWindowCommand = new RelayCommand<UserControl>(
+            FixViewCommand = new RelayCommand<UserControl>(
               (p) => { return true; },
               (p) =>
               {
-                  FixWindow fixWindow = new FixWindow();
-                  fixWindow.ShowDialog();
+                  CurrentView = new FixView();
               });
 
             PunishWindowCommand = new RelayCommand<UserControl>(

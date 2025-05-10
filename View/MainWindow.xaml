@@ -1,4 +1,4 @@
-﻿<Window x:Class="QuanLyPhongTro.MainWindow"
+﻿<Window x:Class="QuanLyPhongTro.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -69,12 +69,23 @@
 
             <!--Main-->
             <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="13*"/>
+                    <ColumnDefinition Width="227*"/>
+                </Grid.ColumnDefinitions>
+                <ContentControl Content="{Binding CurrentView}" Grid.ColumnSpan="2" />
+
+                <!--<Grid> -->
+                <!--@Renderbody ở đây-->
+                <!--
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
 
+                -->
                 <!--Filter-->
+                <!--
                 <Grid Grid.Row="0" Grid.ColumnSpan="2">
                     <materialDesign:Card Margin="5">
                         <Grid Grid.Row="0" Margin="5">
@@ -98,7 +109,9 @@
                                             <TextBlock Grid.Row="2" Margin="16,0,16,8" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{Binding TotalemtpyRoom}" />
                                             <materialDesign:PopupBox Padding="2,0,2,0" HorizontalAlignment="Right">
                                                 <StackPanel>
-                                                    <!--Đưa gì vào thì đưa-->
+                                                    -->
+                <!--Đưa gì vào thì đưa-->
+                <!--
                                                 </StackPanel>
                                             </materialDesign:PopupBox>
                                         </Grid>
@@ -118,7 +131,9 @@
                                             <TextBlock Grid.Row="2" Margin="16,0,16,8" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{Binding LastRevenue}" />
                                             <materialDesign:PopupBox Padding="2,0,2,0" HorizontalAlignment="Right">
                                                 <StackPanel>
-                                                    <!--Đưa gì vào thì đưa-->
+                                                    -->
+                <!--Đưa gì vào thì đưa-->
+                <!--
                                                 </StackPanel>
                                             </materialDesign:PopupBox>
                                         </Grid>
@@ -138,7 +153,9 @@
                                             <TextBlock Grid.Row="2" Margin="16,0,16,8" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{Binding TotalOutDateContract}" />
                                             <materialDesign:PopupBox Padding="2,0,2,0" HorizontalAlignment="Right">
                                                 <StackPanel>
-                                                    <!--Đưa gì vào thì đưa-->
+                                                    -->
+                <!--Đưa gì vào thì đưa-->
+                <!--
                                                 </StackPanel>
                                             </materialDesign:PopupBox>
                                         </Grid>
@@ -149,7 +166,9 @@
                     </materialDesign:Card>
                 </Grid>
 
+                -->
                 <!--List-->
+                <!--
                 <materialDesign:Card Grid.Row="1" Margin="5,5,5,5" Background="#685B57">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -190,6 +209,7 @@
 
                     </Grid>
                 </materialDesign:Card>
+                </Grid>-->
             </Grid>
         </Grid>
     </Grid>

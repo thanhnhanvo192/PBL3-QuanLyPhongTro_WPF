@@ -2,37 +2,37 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <Compile Update="ContractWindow.xaml.cs">
+    <Compile Update="View\ContractView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="FixWindow.xaml.cs">
+    <Compile Update="View\FixView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="InvoiceWindow.xaml.cs">
+    <Compile Update="View\InvoiceView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="LoginWindow.xaml.cs">
+    <Compile Update="View\LoginWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="MeterReadingWindow.xaml.cs">
+    <Compile Update="View\MeterReadingWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="PunishWindow.xaml.cs">
+    <Compile Update="View\PunishWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="RoomWindow.xaml.cs">
+    <Compile Update="View\RoomWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="ServiceWindow.xaml.cs">
+    <Compile Update="View\ServiceWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="StatisticWindow.xaml.cs">
+    <Compile Update="View\StatisticWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="TenantWindow.xaml.cs">
+    <Compile Update="View\TenantWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UnitWindow.xaml.cs">
+    <Compile Update="View\UnitWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControlWPF\ControlBarUC.xaml.cs">
@@ -41,7 +41,7 @@
     <Compile Update="UserControlWPF\MenuBarUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UserWindow.xaml.cs">
+    <Compile Update="View\UserWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

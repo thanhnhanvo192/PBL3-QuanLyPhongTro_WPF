@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace QuanLyPhongTro
+namespace QuanLyPhongTro.View
 {
     /// <summary>
-    /// Interaction logic for UserWindow.xaml
+    /// Interaction logic for MeterReadingWindow.xaml
     /// </summary>
-    public partial class UserWindow : Window
+    public partial class MeterReadingWindow : Window
     {
-        public UserWindow()
+        public MeterReadingWindow()
         {
             InitializeComponent();
         }

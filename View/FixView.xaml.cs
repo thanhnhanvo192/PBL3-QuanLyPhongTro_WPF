@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace QuanLyPhongTro
+namespace QuanLyPhongTro.View
 {
     /// <summary>
-    /// Interaction logic for PunishWindow.xaml
+    /// Interaction logic for FixWindow.xaml
     /// </summary>
-    public partial class PunishWindow : Window
+    public partial class FixView : UserControl
     {
-        public PunishWindow()
+        public FixView()
         {
             InitializeComponent();
         }

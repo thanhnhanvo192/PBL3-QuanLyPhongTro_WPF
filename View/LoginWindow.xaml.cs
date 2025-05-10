@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace QuanLyPhongTro
+namespace QuanLyPhongTro.View
 {
     /// <summary>
-    /// Interaction logic for FixWindow.xaml
+    /// Interaction logic for LoginWindow.xaml
     /// </summary>
-    public partial class FixWindow : Window
+    public partial class LoginWindow : Window
     {
-        public FixWindow()
+        public LoginWindow()
         {
             InitializeComponent();
         }
