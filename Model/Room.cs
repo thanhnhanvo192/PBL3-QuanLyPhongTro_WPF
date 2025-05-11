@@ -26,7 +26,6 @@ namespace QuanLyPhongTro.Model
         public int? Floor { get; set; }
         public string Utilities { get; set; }
         public byte Status { get; set; } // 0: Trống, 1: Đã thuê, 2: Đang sửa chữa
-        // LocationId và Location đã được bỏ
         public string Description { get; set; }
         public virtual ICollection<Contract> Contracts { get; set; }
         public virtual ICollection<Fix> Fixes { get; set; }

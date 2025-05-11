@@ -9,6 +9,7 @@
     <viewmodel:LoginViewModel x:Key="LoginVM" />
     <viewmodel:RoomViewModel x:Key="RoomVM" />
     <viewmodel:UnitViewModel x:Key="UnitVM" />
+    <viewmodel:ServiceViewModel x:Key="ServiceVM" />
 
     <!-- Khai báo DataTemplate -->
     <DataTemplate DataType="{x:Type viewmodel:MainViewModel}">

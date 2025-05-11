@@ -13,6 +13,7 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="#ADD8E6"
+        DataContext="{StaticResource ServiceVM}"
         FontFamily="{DynamicResource MaterialDesignFont}">
 
 
@@ -24,8 +25,8 @@
 
         <materialDesign:Card Grid.Row="0" Margin="5 5 5 0">
             <WrapPanel Margin="5" Background="Transparent">
-                <Button Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="120" Background="#685B57"></Button>
-                <Button Command="{Binding UpdateCommand}" Content="Sửa" Margin="5" Width="120" Background="#685B57"></Button>
+                <Button Command="{Binding AddServiceCommand}" Content="Thêm" Margin="5" Width="120" Background="#685B57"></Button>
+                <Button Command="{Binding UpdateServiceCommand}" Content="Sửa" Margin="5" Width="120" Background="#685B57"></Button>
                 <Button Command="{Binding DeleteCommand}" Content="Xoá" Margin="5" Width="120" Background="#685B57"></Button>
             </WrapPanel>
         </materialDesign:Card>
@@ -39,11 +40,13 @@
             <materialDesign:Card Grid.Column="0" Margin="0 0 2 0">
                 <GroupBox Margin="16" Header="Danh sách dịch vụ">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <ListView ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                        <ListView ItemsSource="{Binding Services}" SelectedItem="{Binding SelectedService, Mode=OneWayToSource}">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
-                                    <GridViewColumn Header="Tên dịch vụ" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                                    <GridViewColumn Header="Tên dịch vụ" DisplayMemberBinding="{Binding DisplayName}"></GridViewColumn>
+                                    <GridViewColumn Header="Giá" DisplayMemberBinding="{Binding Price}"></GridViewColumn>
+                                    <GridViewColumn Header="Đơn vị đo" DisplayMemberBinding="{Binding Unit.DisplayName}"></GridViewColumn>
                                 </GridView>
                             </ListView.View>
                         </ListView>
@@ -67,27 +70,15 @@
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="ID" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                            </Grid>
-                            <Grid Grid.Column="1">
                                 <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Tên dịch vụ" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                             </Grid>
-                        </Grid>
-
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Giá" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                            </Grid>
                             <Grid Grid.Column="1">
-                                <ComboBox materialDesign:HintAssist.Hint=" Chọn khu vực">
-                                    <ComboBoxItem Content="kWh" />
-                                    <ComboBoxItem Content="m3" />
-                                </ComboBox>
+                                <TextBox Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Giá" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                             </Grid>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <ComboBox DisplayMemberPath="DisplayName" ItemsSource="{Binding Units}" SelectedItem="{Binding SelectedUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin="5 5 15 5" materialDesign:HintAssist.Hint="Đơn vị">
+                            </ComboBox>
                         </Grid>
 
                         <Grid Grid.Row="3">
