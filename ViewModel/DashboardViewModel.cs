@@ -204,8 +204,7 @@ namespace QuanLyPhongTro.ViewModel
         public void EmptyListRoom()
         {
             ListEmptyRoom = new ObservableCollection<EmptyRoomDisplay>();
-            var db = new AppDbContext();
-            var list = db.Rooms.ToList();
+            var list = DataProvider.Ins.DB.Rooms.ToList();
             int stt = 1;
             foreach (var item in list)
             {
@@ -223,11 +222,8 @@ namespace QuanLyPhongTro.ViewModel
         {
             try
             {
-                using (var db = new AppDbContext())
-                {
-                    int count = db.Rooms.Count(room => room.Status == 1);
-                    TotalemtpyRoom = count;
-                }
+                int count = DataProvider.Ins.DB.Rooms.Count(room => room.Status == 1);
+                TotalemtpyRoom = count;
             }
             catch (Exception ex)
             {
@@ -239,17 +235,14 @@ namespace QuanLyPhongTro.ViewModel
         {
             try
             {
-                using (var db = new AppDbContext())
+                int lastMonth = DateTime.Now.Month - 1;
+                int Year = DateTime.Now.Year;
+                if (lastMonth == 0)
                 {
-                    int lastMonth = DateTime.Now.Month - 1;
-                    int Year = DateTime.Now.Year;
-                    if (lastMonth == 0)
-                    {
-                        lastMonth = 12;
-                        Year--;
-                    }
-                    LastRevenue = db.Invoices.Where(invoice => invoice.CreateDate.Year == Year && invoice.CreateDate.Month == lastMonth && invoice.Status == 1).Sum(invoice => invoice.AmountPaid);
+                    lastMonth = 12;
+                    Year--;
                 }
+                LastRevenue = DataProvider.Ins.DB.Invoices.Where(invoice => invoice.CreateDate.Year == Year && invoice.CreateDate.Month == lastMonth && invoice.Status == 1).Sum(invoice => invoice.AmountPaid);
             }
             catch (Exception ex)
             {
@@ -269,17 +262,14 @@ namespace QuanLyPhongTro.ViewModel
                     lastMonth = 12;
                     year--;
                 }
-                using (var db = new AppDbContext())
+                var listContract = DataProvider.Ins.DB.Contracts.Where(contract => contract.EndDate.Year == year && contract.EndDate.Month == lastMonth).ToList();
+                foreach (var item in listContract)
                 {
-                    var listContract = db.Contracts.Where(contract => contract.EndDate.Year == year && contract.EndDate.Month == lastMonth).ToList();
-                    foreach (var item in listContract)
-                    {
-                        Contract contract = new Contract();
-                        contract.ContractCode = item.ContractCode;
-                        contract.StartDate = item.StartDate;
-                        contract.EndDate = item.EndDate;
-                        ListContract.Add(contract);
-                    }
+                    Contract contract = new Contract();
+                    contract.ContractCode = item.ContractCode;
+                    contract.StartDate = item.StartDate;
+                    contract.EndDate = item.EndDate;
+                    ListContract.Add(contract);
                 }
             }
             catch (Exception ex)
@@ -292,17 +282,14 @@ namespace QuanLyPhongTro.ViewModel
         {
             try
             {
-                using (var db = new AppDbContext())
+                var year = DateTime.Now.Year;
+                var lastMonth = DateTime.Now.Month - 1;
+                if (lastMonth == 0)
                 {
-                    var year = DateTime.Now.Year;
-                    var lastMonth = DateTime.Now.Month - 1;
-                    if (lastMonth == 0)
-                    {
-                        lastMonth = 12;
-                        year--;
-                    }
-                    TotalOutDateContract = db.Contracts.Count(contract => contract.EndDate.Year == year && contract.EndDate.Month == lastMonth);
+                    lastMonth = 12;
+                    year--;
                 }
+                TotalOutDateContract = DataProvider.Ins.DB.Contracts.Count(contract => contract.EndDate.Year == year && contract.EndDate.Month == lastMonth);
             }
             catch (Exception ex)
             {

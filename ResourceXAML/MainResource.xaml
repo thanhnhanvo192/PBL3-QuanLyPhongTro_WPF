@@ -8,6 +8,7 @@
     <viewmodel:DashboardViewModel x:Key="DashboardVM" />
     <viewmodel:LoginViewModel x:Key="LoginVM" />
     <viewmodel:RoomViewModel x:Key="RoomVM" />
+    <viewmodel:UnitViewModel x:Key="UnitVM" />
 
     <!-- Khai báo DataTemplate -->
     <DataTemplate DataType="{x:Type viewmodel:MainViewModel}">

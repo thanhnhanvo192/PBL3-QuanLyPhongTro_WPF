@@ -7,12 +7,13 @@
         mc:Ignorable="d"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-           TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="#ADD8E6"
+        DataContext="{StaticResource UnitVM}"
         FontFamily="{DynamicResource MaterialDesignFont}">
 
     <Grid Grid.Row="1" Background="LightGray" Grid.ColumnSpan="2">
@@ -23,8 +24,8 @@
 
         <materialDesign:Card Grid.Row="0" Margin="5 5 5 0">
             <WrapPanel Margin="5" Background="Transparent">
-                <Button Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="120" Background="#685B57"></Button>
-                <Button Command="{Binding UpdateCommand}" Content="Sửa" Margin="5" Width="120" Background="#685B57"></Button>
+                <Button Command="{Binding AddUnitCommand}" Content="Thêm" Margin="5" Width="120" Background="#685B57"></Button>
+                <Button Command="{Binding UpdateUnitCommand}" Content="Sửa" Margin="5" Width="120" Background="#685B57"></Button>
                 <Button Command="{Binding DeleteCommand}" Content="Xoá" Margin="5" Width="120" Background="#685B57"></Button>
             </WrapPanel>
         </materialDesign:Card>
@@ -38,11 +39,11 @@
             <materialDesign:Card Grid.Column="0" Margin="0 0 2 0">
                 <GroupBox Margin="16" Header="Danh sách đơn vị đo">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <ListView ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                        <ListView ItemsSource="{Binding Units}" SelectedItem="{Binding SelectedUnit, Mode=OneWayToSource}">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
-                                    <GridViewColumn Header="Tên đơn vị" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding UnitId}"></GridViewColumn>
+                                    <GridViewColumn Header="Tên đơn vị" DisplayMemberBinding="{Binding DisplayName}"></GridViewColumn>
                                 </GridView>
                             </ListView.View>
                         </ListView>
@@ -52,6 +53,7 @@
 
             <materialDesign:Card Grid.Column="1" Margin="2 0 0 0">
                 <GroupBox Margin="16" Header="Chi tiết đơn vị đo">
+                    
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -61,16 +63,7 @@
                         </Grid.RowDefinitions>
 
                         <Grid Grid.Row="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="ID" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                            </Grid>
-                            <Grid Grid.Column="1">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Tên đơn vị" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                            </Grid>
+                            <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Tên đơn vị" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                         </Grid>
 
                         <Grid Grid.Row="3">

@@ -18,7 +18,7 @@
                 </Style>
             </Grid.Resources>
 
-            <WrapPanel HorizontalAlignment="Stretch">
+            <UniformGrid Columns="11" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Button Grid.Column="0" Command="{Binding MainViewCommand}" ToolTip="Trang chủ" Width="100">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -183,7 +183,7 @@
                     </Grid>
                 </Button>
 
-            </WrapPanel>
+            </UniformGrid>
 
         </Grid>
     </Grid>
