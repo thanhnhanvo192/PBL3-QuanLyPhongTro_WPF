@@ -12,6 +12,8 @@
     <viewmodel:UnitViewModel x:Key="UnitVM" />
     <viewmodel:ServiceViewModel x:Key="ServiceVM" />
     <viewmodel:AddRoomViewModel x:Key="AddRoomVM" />
+    <viewmodel:TenantViewModel x:Key="TenantVM" />
+    <viewmodel:AddTenantViewModel x:Key="AddTenantVM" />
 
     <!-- Khai báo DataTemplate -->
     <DataTemplate DataType="{x:Type viewmodel:MainViewModel}">

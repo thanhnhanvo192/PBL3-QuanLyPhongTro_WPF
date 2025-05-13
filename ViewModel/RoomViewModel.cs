@@ -53,6 +53,7 @@ namespace QuanLyPhongTro.ViewModel
         private string _DisplayStatus;
         private string _Utilities;
         private string _Description;
+        private string _RoomNumberSearch;
         public string RoomNumber
         {
             get { return _RoomNumber; }
@@ -116,6 +117,15 @@ namespace QuanLyPhongTro.ViewModel
                 OnPropertyChanged();
             }
         }
+        public string RoomNumberSearch
+        {
+            get { return _RoomNumberSearch; }
+            set
+            {
+                _RoomNumberSearch = value;
+                OnPropertyChanged();
+            }
+        }
 
         private Room _SelectedItem;
         public Room SelectedItem
@@ -149,6 +159,8 @@ namespace QuanLyPhongTro.ViewModel
         }
         public ICommand SearchCommand { get; set; }
         public ICommand AddRoomCommand { get; set; }
+        public ICommand UpdateRoomCommand { get; set; }
+        public ICommand SearchRoomCommand { get; set; }
         public RoomViewModel()
         {
             RoomList = new ObservableCollection<Room>(DataProvider.Ins.DB.Rooms.ToList());
@@ -173,6 +185,74 @@ namespace QuanLyPhongTro.ViewModel
                    RoomList.Add(room);
                }
            });
+            UpdateRoomCommand = new RelayCommand<object>((p) =>
+            {
+                if (SelectedItem == null)
+                    return false;
+                return true;
+            },
+            (p) =>
+            {
+                var room = DataProvider.Ins.DB.Rooms.Where(x => x.Id == SelectedItem.Id).SingleOrDefault();
+                var roomList = DataProvider.Ins.DB.Rooms.Where(x => x.RoomNumber == RoomNumber && RoomNumber != SelectedItem.RoomNumber);
+                if (roomList == null || roomList.Count() != 0)
+                {
+                    MessageBox.Show("Số phòng đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                if (room != null)
+                {
+                    room.RoomNumber = RoomNumber;
+                    room.Price = Price;
+                    room.Area = Area;
+                    room.MaxOccupants = MaxOccupants;
+                    room.Floor = Floor;
+                    room.Utilities = Utilities;
+                    room.Description = Description;
+                    room.Status = SelectedFilterStatus.Value;
+                    DataProvider.Ins.DB.SaveChanges();
+                    SelectedItem.RoomNumber = RoomNumber;
+                    SelectedItem.Price = Price;
+                    SelectedItem.Area = Area;
+                    SelectedItem.MaxOccupants = MaxOccupants;
+                    SelectedItem.Floor = Floor;
+                    SelectedItem.Utilities = Utilities;
+                    SelectedItem.Description = Description;
+                    SelectedItem.Status = SelectedFilterStatus.Value;
+                    OnPropertyChanged();
+                }
+            });
+            SearchRoomCommand = new RelayCommand<object>((p) =>
+            {
+                return true;
+            },
+            (p) =>
+            {
+                var allRooms = DataProvider.Ins.DB.Rooms.ToList();
+                var filteredRooms = SelectedFilterStatus?.Value == RoomFilterStatus.All ? allRooms : allRooms.Where(x => x.Status == SelectedFilterStatus.Value).ToList();
+                if (!string.IsNullOrEmpty(RoomNumberSearch))
+                {
+                    var room = filteredRooms.Where(x => x.RoomNumber.Contains(RoomNumberSearch)).FirstOrDefault();
+                    if (room != null)
+                    {
+                        RoomList.Clear();
+                        RoomList.Add(room);
+                        SelectedItem = room;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy phòng nào!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                }
+                else
+                {
+                    RoomList.Clear();
+                    foreach (var room in filteredRooms)
+                    {
+                        RoomList.Add(room);
+                    }
+                }
+            });
         }
     }
 }

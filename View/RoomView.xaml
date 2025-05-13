@@ -26,11 +26,11 @@
             <materialDesign:Card Grid.Column="0" Margin="0 0 2 0" HorizontalAlignment="Stretch">
                 <WrapPanel Margin="5">
                     <Button Command="{Binding AddRoomCommand}" Content="Thêm" Margin="5" Width="100" Background="#685B57"></Button>
-                    <Button Command="{Binding UpdateCommand}" Content="Sửa" Margin="5" Width="100" Background="#685B57"></Button>
+                    <Button Command="{Binding UpdateRoomCommand}" Content="Sửa" Margin="5" Width="100" Background="#685B57"></Button>
                     <Button Command="{Binding DeleteCommand}" Content="Xoá" Margin="5" Width="100" Background="#685B57"></Button>
                     <ComboBox ItemsSource="{Binding FilterOptions}" SelectedItem="{Binding SelectedFilterStatus}" DisplayMemberPath="DisplayName" SelectedValuePath="Value" Margin="5 5 15 -3" materialDesign:HintAssist.Hint="Tất cả phòng"/>
-                    <TextBox Text="{Binding QRCode, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Nhập số phòng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                    <Button Command="{Binding DeleteCommand}" Content="Tìm" Margin="5" Width="100" Background="#685B57"></Button>
+                    <TextBox Text="{Binding RoomNumberSearch, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Nhập số phòng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <Button Command="{Binding SearchRoomCommand}" Content="Tìm" Margin="5" Width="100" Background="#685B57"></Button>
                 </WrapPanel>
             </materialDesign:Card>
         </Grid>

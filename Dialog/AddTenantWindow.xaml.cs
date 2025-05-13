@@ -11,19 +11,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using QuanLyPhongTro.ViewModel;
 
-namespace QuanLyPhongTro.View
+namespace QuanLyPhongTro.Dialog
 {
     /// <summary>
-    /// Interaction logic for TenantWindow.xaml
+    /// Interaction logic for AddTenantWindow.xaml
     /// </summary>
-    public partial class TenantView : UserControl
+    public partial class AddTenantWindow : Window
     {
-        public TenantView()
+        public AddTenantWindow()
         {
             InitializeComponent();
-            DataContext = new TenantViewModel();
         }
     }
 }

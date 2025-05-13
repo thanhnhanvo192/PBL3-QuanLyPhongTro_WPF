@@ -27,6 +27,7 @@ namespace QuanLyPhongTro.ViewModel
         public bool IsLoaded = false;
         #region
         public ICommand LoadedWindowCommand { get; set; }
+        public ICommand MainViewCommand { get; set; }
         public ICommand RoomViewCommand { get; set; }
         public ICommand TenantViewCommand { get; set; }
         public ICommand InvoiceViewCommand { get; set; }
@@ -63,6 +64,13 @@ namespace QuanLyPhongTro.ViewModel
                       p.Close();
                   }
               });
+
+            MainViewCommand = new RelayCommand<UserControl>(
+                (p) => { return true; },
+                (p) =>
+                {
+                    CurrentView = new MainViewModel();
+                });
 
             RoomViewCommand = new RelayCommand<UserControl>(
               (p) => { return true; },

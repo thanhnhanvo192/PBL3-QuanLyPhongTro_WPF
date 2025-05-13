@@ -6,6 +6,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using QuanLyPhongTro.Enum;
 
 namespace QuanLyPhongTro.Model
 {
@@ -25,13 +26,13 @@ namespace QuanLyPhongTro.Model
         [MaxLength(20)]
         public string CCCD { get; set; } // Unique
         public DateTime? Birthday { get; set; } // Nullable DateTime
-        public byte? Sex { get; set; } // 0: Nam, 1: Nữ, 2: Khác (nullable)
+        public SexEnum Sex { get; set; } // 0: Nam, 1: Nữ, 2: Khác (nullable)
         [MaxLength(20)]
-        public string Phone { get; set; } // Unique
+        public string? Phone { get; set; } // Unique
         [MaxLength(100)]
         [EmailAddress]
-        public string Email { get; set; } // Unique
-        public string PermanentAddress { get; set; }
+        public string? Email { get; set; } // Unique
+        public string? PermanentAddress { get; set; }
 
         public virtual ICollection<Contract> Contracts { get; set; }
         public virtual ICollection<Fix> Fixes { get; set; }

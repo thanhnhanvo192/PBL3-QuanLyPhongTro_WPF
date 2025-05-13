@@ -13,6 +13,7 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
+        DataContext="{StaticResource TenantVM}"
         FontFamily="{DynamicResource MaterialDesignFont}">
 
     <Grid>
@@ -26,11 +27,11 @@
             <Grid Grid.Row="0" Margin="5 5 5 0">
                 <materialDesign:Card Margin="0 0 2 0" HorizontalAlignment="Stretch">
                     <WrapPanel Margin="5">
-                        <Button Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="100" Background="#685B57"></Button>
+                        <Button Command="{Binding AddTenantCommand}" Content="Thêm" Margin="5" Width="100" Background="#685B57"></Button>
                         <Button Command="{Binding UpdateCommand}" Content="Sửa" Margin="5" Width="100" Background="#685B57"></Button>
                         <Button Command="{Binding DeleteCommand}" Content="Xoá" Margin="5" Width="100" Background="#685B57"></Button>
-                        <TextBox Text="{Binding QRCode, UpdateSourceTrigger=PropertyChanged}" Margin="20 5 5 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Nhập tên" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                        <Button Command="{Binding DeleteCommand}" Content="Tìm" Margin="5" Width="100" Background="#685B57"></Button>
+                        <TextBox Text="{Binding TenantNameSearch, UpdateSourceTrigger=PropertyChanged}" Margin="20 5 5 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Nhập tên" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                        <Button Command="{Binding SearchTenantCommand}" Content="Tìm" Margin="5" Width="100" Background="#685B57"></Button>
                     </WrapPanel>
                 </materialDesign:Card>
             </Grid>
@@ -38,24 +39,18 @@
             <materialDesign:Card Grid.Row="1" Margin="5">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    
+
                     <GroupBox Margin="16" Header="Danh sách khách thuê">
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
-                            <ListView ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                            <ListView ItemsSource="{Binding TenantList}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
                                 <ListView.View>
                                     <GridView>
-                                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
-                                        <GridViewColumn Header="Tên" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
-                                        <GridViewColumn Header="CCCD/CMND" DisplayMemberBinding="{Binding Price}"></GridViewColumn>
-                                        <GridViewColumn Header="Ngày sinh" DisplayMemberBinding="{Binding Area}"></GridViewColumn>
-                                        <GridViewColumn Header="Giới tính" DisplayMemberBinding="{Binding MaxOccupants}"></GridViewColumn>
-                                        <GridViewColumn Header="SĐT" DisplayMemberBinding="{Binding Status}"></GridViewColumn>
-                                        <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Status}"></GridViewColumn>
-                                        <GridViewColumn Header="Thường trú" DisplayMemberBinding="{Binding Status}"></GridViewColumn>
-                                        <GridViewColumn Header="Ở phòng" DisplayMemberBinding="{Binding Status}"></GridViewColumn>
+                                        <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                                        <GridViewColumn Header="Họ" DisplayMemberBinding="{Binding LastName}"></GridViewColumn>
+                                        <GridViewColumn Header="Tên" DisplayMemberBinding="{Binding FirstName}"></GridViewColumn>
                                     </GridView>
                                 </ListView.View>
                             </ListView>
@@ -76,43 +71,50 @@
                             </Grid.ColumnDefinitions>
 
                             <Grid Grid.Row="0" Grid.Column="0">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Tên" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" Margin="5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Họ" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                             </Grid>
                             <Grid Grid.Row="0" Grid.Column="1">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="CCCD/CMND" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" Margin="5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Tên" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                             </Grid>
-                            <Grid Grid.Row="1" Grid.Column="0" Margin="0 40 0 44">
+                            <Grid Grid.Row="1" Grid.Column="0" >
+                                <TextBox Text="{Binding CCCD, UpdateSourceTrigger=PropertyChanged}" Margin="5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="CCCD" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                            </Grid>
+                            <Grid Grid.Row="1" Grid.Column="1">
+                                <ComboBox ItemsSource="{Binding ListSexOption}"
+                                  SelectedItem="{Binding SelectedSex}"
+                                  DisplayMemberPath="DisplayName"
+                                  SelectedValuePath="Value"
+                                  Margin="5"
+                                  materialDesign:HintAssist.Hint="Giới tính"/>
+                            </Grid>
+                            <Grid Grid.Row="2" Grid.Column="0">
+                                <TextBox Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}" Margin="5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="SĐT" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                            </Grid>
+                            <Grid Grid.Row="2" Grid.Column="1">
                                 <DatePicker
+                                    Margin="5"
                               Width="100"
                               materialDesign:HintAssist.Hint="Ngày sinh"
                               materialDesign:TextFieldAssist.HasClearButton="True"
                               Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                              SelectedDate="{Binding Birthday, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                               />
                             </Grid>
-                            <Grid Grid.Row="1" Grid.Column="1">
-                                <ComboBox Margin="5 5 15 -3" materialDesign:HintAssist.Hint="Giới tính">
-                                    <ComboBoxItem Content="Nam" />
-                                    <ComboBoxItem Content="Nữ" />
-                                </ComboBox>
-                            </Grid>
-                            <Grid Grid.Row="2" Grid.Column="0">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Phone" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                            </Grid>
-                            <Grid Grid.Row="2" Grid.Column="1">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                            </Grid>
                             <Grid Grid.Row="3" Grid.Column="0">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Thường trú" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" Margin="5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                             </Grid>
                             <Grid Grid.Row="3" Grid.Column="1">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Ở phòng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="18*"/>
+                                    <ColumnDefinition Width="19*"/>
+                                    <ColumnDefinition Width="73*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Text="{Binding PermanentAddress, UpdateSourceTrigger=PropertyChanged}" Margin="5,0,5,0" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Thường trú" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.ColumnSpan="3"/>
                             </Grid>
                         </Grid>
                     </GroupBox>
-
                 </Grid>
             </materialDesign:Card>
         </Grid>
-
     </Grid>
 </UserControl>
