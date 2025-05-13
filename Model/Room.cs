@@ -6,6 +6,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using QuanLyPhongTro.Enum;
 
 namespace QuanLyPhongTro.Model
 {
@@ -24,9 +25,9 @@ namespace QuanLyPhongTro.Model
         public decimal? Area { get; set; }
         public int? MaxOccupants { get; set; }
         public int? Floor { get; set; }
-        public string Utilities { get; set; }
-        public byte Status { get; set; } // 0: Trống, 1: Đã thuê, 2: Đang sửa chữa
-        public string Description { get; set; }
+        public string? Utilities { get; set; }
+        public RoomFilterStatus Status { get; set; } // Vacant: Trống, Occupied: Đã thuê, Fixing: Đang sửa chữa
+        public string? Description { get; set; }
         public virtual ICollection<Contract> Contracts { get; set; }
         public virtual ICollection<Fix> Fixes { get; set; }
         public virtual ICollection<MeterReading> MeterReadings { get; set; }
@@ -36,7 +37,6 @@ namespace QuanLyPhongTro.Model
             Contracts = new HashSet<Contract>();
             Fixes = new HashSet<Fix>();
             MeterReadings = new HashSet<MeterReading>();
-            Status = 0; // Mặc định là phòng trống
             Price = 0;
         }
     }

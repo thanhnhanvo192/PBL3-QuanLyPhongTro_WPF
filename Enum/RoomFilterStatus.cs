@@ -9,9 +9,10 @@ namespace QuanLyPhongTro.Enum
 {
     public enum RoomFilterStatus
     {
+        All,
         Vacant,
         Occupied,
-        All
+        Fixing
     }
     public class RoomFilterOptionDisplay
     {
@@ -26,7 +27,8 @@ namespace QuanLyPhongTro.Enum
             {
                 new RoomFilterOptionDisplay { Value = RoomFilterStatus.All, DisplayName = "Tất cả" },
                 new RoomFilterOptionDisplay { Value = RoomFilterStatus.Vacant, DisplayName = "Phòng trống" },
-                new RoomFilterOptionDisplay { Value = RoomFilterStatus.Occupied, DisplayName = "Phòng đã thuê" }
+                new RoomFilterOptionDisplay { Value = RoomFilterStatus.Occupied, DisplayName = "Phòng đã thuê" },
+                new RoomFilterOptionDisplay { Value = RoomFilterStatus.Fixing, DisplayName = "Đang sữa chữa" }
             };
         }
 

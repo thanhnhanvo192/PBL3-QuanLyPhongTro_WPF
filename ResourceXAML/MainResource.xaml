@@ -6,10 +6,12 @@
 
     <!-- Khai báo ViewModel -->
     <viewmodel:DashboardViewModel x:Key="DashboardVM" />
+    <viewmodel:MainViewModel x:Key="MainVM" />
     <viewmodel:LoginViewModel x:Key="LoginVM" />
     <viewmodel:RoomViewModel x:Key="RoomVM" />
     <viewmodel:UnitViewModel x:Key="UnitVM" />
     <viewmodel:ServiceViewModel x:Key="ServiceVM" />
+    <viewmodel:AddRoomViewModel x:Key="AddRoomVM" />
 
     <!-- Khai báo DataTemplate -->
     <DataTemplate DataType="{x:Type viewmodel:MainViewModel}">

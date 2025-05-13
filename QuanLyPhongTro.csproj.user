@@ -47,5 +47,8 @@
     <Compile Update="View\UserView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Dialog\AddRoomWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

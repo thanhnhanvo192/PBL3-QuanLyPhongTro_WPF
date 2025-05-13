@@ -25,7 +25,7 @@
         <Grid Grid.Row="0" Margin="5 5 5 0">
             <materialDesign:Card Grid.Column="0" Margin="0 0 2 0" HorizontalAlignment="Stretch">
                 <WrapPanel Margin="5">
-                    <Button Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="100" Background="#685B57"></Button>
+                    <Button Command="{Binding AddRoomCommand}" Content="Thêm" Margin="5" Width="100" Background="#685B57"></Button>
                     <Button Command="{Binding UpdateCommand}" Content="Sửa" Margin="5" Width="100" Background="#685B57"></Button>
                     <Button Command="{Binding DeleteCommand}" Content="Xoá" Margin="5" Width="100" Background="#685B57"></Button>
                     <ComboBox ItemsSource="{Binding FilterOptions}" SelectedItem="{Binding SelectedFilterStatus}" DisplayMemberPath="DisplayName" SelectedValuePath="Value" Margin="5 5 15 -3" materialDesign:HintAssist.Hint="Tất cả phòng"/>
@@ -49,9 +49,6 @@
                                     <GridView>
                                         <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
                                         <GridViewColumn Header="Số phòng" DisplayMemberBinding="{Binding RoomNumber}"></GridViewColumn>
-                                        <GridViewColumn Header="Giá thuê" DisplayMemberBinding="{Binding Price}"></GridViewColumn>
-                                        <GridViewColumn Header="Diện tích" DisplayMemberBinding="{Binding Area}"></GridViewColumn>
-                                        <GridViewColumn Header="Số người ở tối đa" DisplayMemberBinding="{Binding MaxOccupants}"></GridViewColumn>
                                     </GridView>
                                 </ListView.View>
                             </ListView>
@@ -63,6 +60,7 @@
                     <GroupBox Margin="16" Header="Chi tiết phòng">
                         <Grid Margin="10 20 10 10">
                             <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
@@ -83,13 +81,19 @@
                                 <TextBox Text="{Binding Area, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Diện tích" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                             </Grid>
                             <Grid Grid.Row="1" Grid.Column="1">
-                                <TextBox Text="{Binding Area, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Trạng thái" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                <TextBox Text="{Binding Floor, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Tầng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                             </Grid>
                             <Grid Grid.Row="2" Grid.Column="0">
                                 <TextBox Text="{Binding MaxOccupants, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Số người ở tối đa" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                             </Grid>
-                            <Grid Grid.Row="3" Grid.Column="0">
-                                <Button Command="{Binding AddCommand}" Content="Lưu" Margin="5" Width="100" Background="#685B57"></Button>
+                            <Grid Grid.Row="2" Grid.Column="1">
+                                <ComboBox ItemsSource="{Binding FilterOptions}" SelectedItem="{Binding SelectedFilterStatus}" DisplayMemberPath="DisplayName" SelectedValuePath="Value" Margin="5 5 15 -3" materialDesign:HintAssist.Hint="Trạng thái"/>
+                            </Grid>
+                            <Grid Grid.Row="3" Grid.ColumnSpan="2">
+                                <TextBox Text="{Binding Utilities, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Tiện ích" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                            </Grid>
+                            <Grid Grid.Row="4" Grid.ColumnSpan="2">
+                                <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Miêu tả" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                             </Grid>
                         </Grid>
                     </GroupBox>
