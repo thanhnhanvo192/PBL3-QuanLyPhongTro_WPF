@@ -25,7 +25,7 @@ namespace QuanLyPhongTro.Model
         public decimal ReadingValue { get; set; }
         // RecordedByUserId và RecordedByUser đã được bỏ
         [MaxLength(255)]
-        public string Notes { get; set; }
+        public string? Notes { get; set; }
 
         public MeterReading()
         {

@@ -13,6 +13,7 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
+             DataContext="{StaticResource FixVM}"
         FontFamily="{DynamicResource MaterialDesignFont}">
 
     <Grid>
@@ -39,30 +40,76 @@
                               Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                               />
 
-                            <Button Command="{Binding DeleteCommand}" Content="Lọc" Margin="5" Width="100" Background="#685B57"></Button>
+                            <Button Command="{Binding AddFixCommand}" Content="Lọc" Margin="5" Width="100" Background="#685B57"></Button>
+                            <Button Command="{Binding AddFixCommand}" Content="Thêm" Margin="5" Width="100" Background="#685B57"></Button>
+                            <Button Command="{Binding UpdateFixCommand}" Content="Sửa" Margin="5" Width="100" Background="#685B57"></Button>
+                            <Button Command="{Binding DeleteCommand}" Content="Xoá" Margin="5" Width="100" Background="#685B57"></Button>
                         </WrapPanel>
                     </materialDesign:Card>
                 </WrapPanel>
             </Grid>
 
-            <materialDesign:Card Grid.Row="1" Margin="5">
-                <GroupBox Margin="16" Header="Lịch sử sữa chữa">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <ListView ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
-                                    <GridViewColumn Header="Số phòng" DisplayMemberBinding="{Binding RoomNumber}"></GridViewColumn>
-                                    <GridViewColumn Header="Giá thuê" DisplayMemberBinding="{Binding Price}"></GridViewColumn>
-                                    <GridViewColumn Header="Diện tích" DisplayMemberBinding="{Binding Area}"></GridViewColumn>
-                                    <GridViewColumn Header="Số người ở tối đa" DisplayMemberBinding="{Binding MaxOccupants}"></GridViewColumn>
-                                    <GridViewColumn Header="Trạng thái" DisplayMemberBinding="{Binding Status}"></GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </ScrollViewer>
-                </GroupBox>
-            </materialDesign:Card>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <materialDesign:Card Grid.Column="0" Margin="5">
+                    <GroupBox Margin="16" Header="Lịch sử sữa chữa">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <ListView ItemsSource="{Binding Fixes}" SelectedItem="{Binding SelectedFix, Mode=OneWayToSource}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                                        <GridViewColumn Header="Số phòng" DisplayMemberBinding="{Binding Room.RoomNumber}"></GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </ScrollViewer>
+                    </GroupBox>
+                </materialDesign:Card>
+
+                <materialDesign:Card Grid.Column="1">
+                    <GroupBox Grid.Column="1" Margin="16" Header="Thông tin chi tiết">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Row="0" Grid.Column="0">
+                                <ComboBox ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5 5 5 -2" DisplayMemberPath="RoomNumber" SelectedValuePath="Id" materialDesign:HintAssist.Hint="Phòng"/>
+                            </Grid>
+                            <Grid Grid.Row="0" Grid.Column="1">
+                                <ComboBox ItemsSource="{Binding Tenants}" SelectedItem="{Binding SelectedTenant, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5 5 5 -2" DisplayMemberPath="DisplayName" SelectedValuePath="Id" materialDesign:HintAssist.Hint="Khách thuê"/>
+                            </Grid>
+                            <Grid Grid.Row="0" Grid.Column="2">
+                                <ComboBox ItemsSource="{Binding Invoices}" SelectedItem="{Binding SelectedInvoice, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5 5 5 -2" DisplayMemberPath="InvoiceCode" SelectedValuePath="Id" materialDesign:HintAssist.Hint="Mã hoá đơn"/>
+                            </Grid>
+                            <Grid Grid.Row="1" Grid.Column="0" >
+                                <TextBox Text="{Binding Cost, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Chi phí" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                            </Grid>
+                            <Grid Grid.Row="1" Grid.Column="1">
+                                <ComboBox ItemsSource="{Binding FaultTypes}" SelectedItem="{Binding SelectedFaultType, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5 5 5 -2" DisplayMemberPath="DisplayName" SelectedValuePath="Value" materialDesign:HintAssist.Hint="Lỗi của ai?"/>
+                            </Grid>
+                            <Grid Grid.Row="2" Grid.Column="3">
+                                <DatePicker SelectedDate="{Binding FixDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Ngày sữa chữa" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                            </Grid>
+                            <Grid Grid.Row="2" Grid.ColumnSpan="2">
+                                <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Miêu tả" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.ColumnSpan="3"/>
+                            </Grid>
+                        </Grid>
+                    </GroupBox>
+                </materialDesign:Card>
+            </Grid>
+            
         </Grid>
 
     </Grid>

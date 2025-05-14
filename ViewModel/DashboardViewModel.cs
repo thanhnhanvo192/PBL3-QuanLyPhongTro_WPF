@@ -35,6 +35,7 @@ namespace QuanLyPhongTro.ViewModel
         public ICommand ContractViewCommand { get; set; }
         public ICommand ServiceViewCommand { get; set; }
         public ICommand UnitViewCommand { get; set; }
+        public ICommand MeterReadingCommand { get; set; }
         public ICommand StatisticViewCommand { get; set; }
         public ICommand FixViewCommand { get; set; }
         public ICommand PunishViewCommand { get; set; }
@@ -119,6 +120,13 @@ namespace QuanLyPhongTro.ViewModel
               (p) =>
               {
                   CurrentView = new UnitViewModel();
+              });
+
+            MeterReadingCommand = new RelayCommand<UserControl>(
+              (p) => { return true; },
+              (p) =>
+              {
+                  CurrentView = new MeterReadingViewModel();
               });
 
             StatisticViewCommand = new RelayCommand<UserControl>(

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using QuanLyPhongTro.Enum;
 
 namespace QuanLyPhongTro.Model
 {
@@ -25,7 +26,8 @@ namespace QuanLyPhongTro.Model
         public string Description { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal Cost { get; set; }
-        public bool IsTenantFault { get; set; }
+        [Required]
+        public FaultType WhoFault { get; set; }
         public int? InvoiceId { get; set; }
         [ForeignKey("InvoiceId")]
         public virtual Invoice Invoice { get; set; }
@@ -33,7 +35,7 @@ namespace QuanLyPhongTro.Model
         public Fix()
         {
             FixDate = DateTime.Now;
-            IsTenantFault = true;
+            WhoFault = FaultType.TenantFault;
             Cost = 0;
         }
     }

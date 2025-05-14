@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuanLyPhongTro.Model;
 
@@ -11,9 +12,11 @@ using QuanLyPhongTro.Model;
 namespace QuanLyPhongTro.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250514062258_MakeNotesOfMeterReadingNullable")]
+    partial class MakeNotesOfMeterReadingNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -116,13 +119,13 @@ namespace QuanLyPhongTro.Migrations
                     b.Property<int?>("InvoiceId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsTenantFault")
+                        .HasColumnType("bit");
+
                     b.Property<int>("RoomID")
                         .HasColumnType("int");
 
                     b.Property<int?>("TenantID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WhoFault")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -470,14 +473,9 @@ namespace QuanLyPhongTro.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UnitId"));
 
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
-
                     b.Property<string>("DisplayName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UnitId");
 
@@ -487,31 +485,26 @@ namespace QuanLyPhongTro.Migrations
                         new
                         {
                             UnitId = 1,
-                            Code = "KWH",
                             DisplayName = "kWh"
                         },
                         new
                         {
                             UnitId = 2,
-                            Code = "KWH",
                             DisplayName = "m3"
                         },
                         new
                         {
                             UnitId = 3,
-                            Code = "KWH",
                             DisplayName = "Phòng/Tháng"
                         },
                         new
                         {
                             UnitId = 4,
-                            Code = "KWH",
                             DisplayName = "Người/Tháng"
                         },
                         new
                         {
                             UnitId = 5,
-                            Code = "KWH",
                             DisplayName = "Tháng"
                         });
                 });

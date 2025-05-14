@@ -116,5 +116,10 @@ namespace QuanLyPhongTro.Model
             Contracts = new HashSet<Contract>();
             Fixes = new HashSet<Fix>();
         }
+        [NotMapped]
+        public string DisplayName
+        {
+            get { return $"{LastName} {FirstName}"; }
+        }
     }
 }

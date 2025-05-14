@@ -14,6 +14,9 @@
     <viewmodel:AddRoomViewModel x:Key="AddRoomVM" />
     <viewmodel:TenantViewModel x:Key="TenantVM" />
     <viewmodel:AddTenantViewModel x:Key="AddTenantVM" />
+    <viewmodel:MeterReadingViewModel x:Key="MeterReadingVM" />
+    <viewmodel:FixViewModel x:Key="FixVM" />
+    <viewmodel:AddFixViewModel x:Key="AddFixVM" />
 
     <!-- Khai báo DataTemplate -->
     <DataTemplate DataType="{x:Type viewmodel:MainViewModel}">
@@ -45,6 +48,9 @@
     </DataTemplate>
     <DataTemplate DataType="{x:Type viewmodel:UnitViewModel}">
         <view:UnitView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type viewmodel:MeterReadingViewModel}">
+        <view:MeterReadingView />
     </DataTemplate>
     <DataTemplate DataType="{x:Type viewmodel:UserViewModel}">
         <view:UserView />
