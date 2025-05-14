@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using QuanLyPhongTro.ViewModel;
 
 namespace QuanLyPhongTro.Dialog
 {
@@ -22,6 +23,7 @@ namespace QuanLyPhongTro.Dialog
         public AddTenantWindow()
         {
             InitializeComponent();
+            DataContext = new AddTenantViewModel();
         }
     }
 }

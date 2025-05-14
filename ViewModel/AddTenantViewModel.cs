@@ -15,7 +15,7 @@ namespace QuanLyPhongTro.ViewModel
     public class AddTenantViewModel : BaseViewModel
     {
         private SexOptionDisplay _SelectedSex;
-        private ObservableCollection<SexOptionDisplay> _SexOptions;
+        private ObservableCollection<SexOptionDisplay> _ListSexOption;
 
         public SexOptionDisplay SelectedSex
         {
@@ -26,12 +26,12 @@ namespace QuanLyPhongTro.ViewModel
                 OnPropertyChanged();
             }
         }
-        public ObservableCollection<SexOptionDisplay> SexOptions
+        public ObservableCollection<SexOptionDisplay> ListSexOption
         {
-            get { return _SexOptions; }
+            get { return _ListSexOption; }
             set
             {
-                _SexOptions = value;
+                _ListSexOption = value;
                 OnPropertyChanged();
             }
         }
@@ -43,7 +43,7 @@ namespace QuanLyPhongTro.ViewModel
         private string? _Phone;
         private string? _Email;
         private string? _PermanentAddress;
-        private string FirstName
+        public string FirstName
         {
             get { return _FirstName; }
             set
@@ -70,9 +70,9 @@ namespace QuanLyPhongTro.ViewModel
                 OnPropertyChanged();
             }
         }
-        public DateTime Birthday
+        public DateTime? Birthday
         {
-            get { return (DateTime)_Birthday; }
+            get { return _Birthday; }
             set
             {
                 _Birthday = value;
@@ -88,7 +88,7 @@ namespace QuanLyPhongTro.ViewModel
                 OnPropertyChanged();
             }
         }
-        public string Phone
+        public string? Phone
         {
             get { return _Phone; }
             set
@@ -97,7 +97,7 @@ namespace QuanLyPhongTro.ViewModel
                 OnPropertyChanged();
             }
         }
-        public string Email
+        public string? Email
         {
             get { return _Email; }
             set
@@ -106,7 +106,7 @@ namespace QuanLyPhongTro.ViewModel
                 OnPropertyChanged();
             }
         }
-        public string PermanentAddress
+        public string? PermanentAddress
         {
             get { return _PermanentAddress; }
             set
@@ -119,18 +119,19 @@ namespace QuanLyPhongTro.ViewModel
         public ICommand AddNewTenantCommand { get; set; }
         public AddTenantViewModel()
         {
+            ListSexOption = SexOptions.GetSexEnums();
             AddNewTenantCommand = new RelayCommand<object>((p) =>
             {
-                if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName) || string.IsNullOrEmpty(CCCD))
+                if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName) || string.IsNullOrEmpty(CCCD) || SelectedSex == null)
                     return false;
                 return true;
             },
            (p) =>
            {
-               var existingTenant = DataProvider.Ins.DB.Tenants.FirstOrDefault(x => x.CCCD == CCCD);
+               var existingTenant = DataProvider.Ins.DB.Tenants.FirstOrDefault(x => x.CCCD == CCCD && CCCD != CCCD && Phone != Phone && Email != Email);
                if (existingTenant != null)
                {
-                   MessageBox.Show("CCCD đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                   MessageBox.Show("CCCD đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
                    return;
                }
                Tenant newTenant = new Tenant()
@@ -142,7 +143,7 @@ namespace QuanLyPhongTro.ViewModel
                    Email = Email,
                    Phone = Phone,
                    Birthday = Birthday,
-                   Sex = SexEnum.Male
+                   Sex = SelectedSex.Value
                };
                DataProvider.Ins.DB.Tenants.Add(newTenant);
                DataProvider.Ins.DB.SaveChanges();

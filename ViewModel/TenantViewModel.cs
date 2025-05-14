@@ -184,10 +184,10 @@ namespace QuanLyPhongTro.ViewModel
             (p) =>
             {
                 var Tenant = DataProvider.Ins.DB.Tenants.Where(x => x.Id == SelectedItem.Id).SingleOrDefault();
-                var TenantList = DataProvider.Ins.DB.Tenants.Where(x => x.CCCD == CCCD && CCCD != SelectedItem.CCCD);
-                if (TenantList == null || TenantList.Count() != 0)
+                var TenantList = DataProvider.Ins.DB.Tenants.Where(x => x.CCCD == CCCD && CCCD != SelectedItem.CCCD && Phone != SelectedItem.Phone && Email != SelectedItem.Email);
+                if (TenantList == null || TenantList.Count() == 0)
                 {
-                    MessageBox.Show("CCCD đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("CCCD, SĐT hoặc Email đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
                 if (Tenant != null)
@@ -208,7 +208,6 @@ namespace QuanLyPhongTro.ViewModel
                     SelectedItem.Phone = Phone;
                     SelectedItem.Email = Email;
                     SelectedItem.PermanentAddress = PermanentAddress;
-                    OnPropertyChanged();
                 }
             });
             SearchTenantCommand = new RelayCommand<object>((p) =>
@@ -220,8 +219,8 @@ namespace QuanLyPhongTro.ViewModel
                 var allTenants = DataProvider.Ins.DB.Tenants.ToList();
                 if (!string.IsNullOrEmpty(TenantNameSearch))
                 {
-                    var Tenant = allTenants.Where(x => x.LastName.Contains(TenantNameSearch) || x.FirstName.Contains(TenantNameSearch)).ToList();
-                    if (Tenant != null)
+                    var Tenant = allTenants.Where(x => x.LastName.ToLower().Contains(TenantNameSearch.ToLower()) || x.FirstName.ToLower().Contains(TenantNameSearch.ToLower())).ToList();
+                    if (Tenant.Count > 0)
                     {
                         TenantList.Clear();
                         foreach (var item in Tenant)

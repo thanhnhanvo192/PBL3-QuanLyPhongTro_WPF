@@ -15,8 +15,8 @@ namespace QuanLyPhongTro.Enum
     }
     public class SexOptionDisplay
     {
-        public SexEnum Value;
-        public string DisplayName;
+        public SexEnum Value { get; set; }
+        public string DisplayName { get; set; }
     }
     public static class SexOptions
     {

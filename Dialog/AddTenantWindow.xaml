@@ -42,8 +42,8 @@
 
             <Grid Grid.Row="0" Margin="5 5 5 0">
                 <materialDesign:Card Margin="0 0 2 0" HorizontalAlignment="Stretch">
-                    <WrapPanel Margin="5">
-                        <Button Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="100" Background="#685B57"></Button>
+                    <WrapPanel Margin="5"> 
+                        <Button Command="{Binding AddNewTenantCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" Content="Thêm" Margin="5" Width="100" Background="#685B57"></Button>
                     </WrapPanel>
                 </materialDesign:Card>
             </Grid>
@@ -63,43 +63,29 @@
                         </Grid.ColumnDefinitions>
 
                         <Grid Grid.Row="0" Grid.Column="0">
-                            <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Họ" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                            <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Họ" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                         </Grid>
                         <Grid Grid.Row="0" Grid.Column="1">
-                            <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Tên" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                            <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Tên" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                         </Grid>
                         <Grid Grid.Row="1" Grid.Column="0">
-                            <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="CCCD/CMND" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                        </Grid>
-                        <Grid Grid.Row="1" Grid.Column="0" Margin="0 40 0 44">
-                            <DatePicker
-                              Width="100"
-                              materialDesign:HintAssist.Hint="Ngày sinh"
-                              materialDesign:TextFieldAssist.HasClearButton="True"
-                              Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                              />
+                            <TextBox Text="{Binding CCCD, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="CCCD/CMND" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                         </Grid>
                         <Grid Grid.Row="1" Grid.Column="1">
-                            <ComboBox Margin="5 5 15 -3" materialDesign:HintAssist.Hint="Giới tính">
-                                <ComboBoxItem Content="Nam" />
-                                <ComboBoxItem Content="Nữ" />
+                            <ComboBox ItemsSource="{Binding ListSexOption}" SelectedItem="{Binding SelectedSex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="DisplayName" SelectedValuePath="Value" Margin="5 5 15 -3" materialDesign:HintAssist.Hint="Giới tính">
                             </ComboBox>
                         </Grid>
                         <Grid Grid.Row="2" Grid.Column="0">
-                            <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Phone" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                            <TextBox Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Phone" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                         </Grid>
                         <Grid Grid.Row="2" Grid.Column="1">
-                            <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                            <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                         </Grid>
                         <Grid Grid.Row="3" Grid.Column="0">
-                            <DatePicker
-                              materialDesign:HintAssist.Hint="Ngày sinh"
-                              materialDesign:TextFieldAssist.HasClearButton="True"
-                              Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                              />
+                            <DatePicker SelectedDate="{Binding Birthday, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Ngày sinh" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                         </Grid>
                         <Grid Grid.Row="3" Grid.Column="1">
-                            <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Thường trú" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                            <TextBox Text="{Binding PermanentAddress, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Thường trú" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                         </Grid>
                     </Grid>
                 </GroupBox>

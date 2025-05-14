@@ -116,10 +116,10 @@ namespace QuanLyPhongTro.ViewModel
                DataProvider.Ins.DB.Rooms.Add(newRoom);
                DataProvider.Ins.DB.SaveChanges();
                MessageBox.Show("Thêm phòng thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-               var dep = p as System.Windows.DependencyObject;
+               var dep = p as DependencyObject;
                if (dep != null)
                {
-                   var window = System.Windows.Window.GetWindow(dep);
+                   var window = Window.GetWindow(dep);
                    if (window != null)
                        window.Close();
                }
