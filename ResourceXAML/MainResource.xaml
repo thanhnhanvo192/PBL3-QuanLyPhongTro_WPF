@@ -17,6 +17,8 @@
     <viewmodel:MeterReadingViewModel x:Key="MeterReadingVM" />
     <viewmodel:FixViewModel x:Key="FixVM" />
     <viewmodel:AddFixViewModel x:Key="AddFixVM" />
+    <viewmodel:ContractViewModel x:Key="ContractVM" />
+    <viewmodel:AddContractViewModel x:Key="AddContractVM" />
 
     <!-- Khai báo DataTemplate -->
     <DataTemplate DataType="{x:Type viewmodel:MainViewModel}">

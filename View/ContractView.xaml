@@ -13,8 +13,8 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="#ADD8E6"
+        DataContext="{StaticResource ContractVM}"
         FontFamily="{DynamicResource MaterialDesignFont}">
-
     <Grid Background="LightGray" Grid.ColumnSpan="2">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -28,17 +28,19 @@
             </Grid.ColumnDefinitions>
             <materialDesign:Card Grid.Column="0" Margin="5 5 0 0">
                 <WrapPanel Margin="5">
-                    <Button Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="120" Background="#685B57"></Button>
-                    <Button Command="{Binding UpdateCommand}" Content="Sửa" Margin="5" Width="120" Background="#685B57"></Button>
-                    <Button Command="{Binding AddCommand}" Content="Chấm dứt HĐ" Margin="5" Width="120" Background="#685B57"></Button>
+                    <Button Command="{Binding AddContractCommand}" Content="Thêm" Margin="5" Width="120" Background="#685B57"></Button>
+                    <Button Command="{Binding UpdateContractCommand}" Content="Sửa" Margin="5" Width="120" Background="#685B57"></Button>
                 </WrapPanel>
             </materialDesign:Card>
             <materialDesign:Card Grid.Column="1" Margin="0 5 5 0">
                 <WrapPanel Margin="5">
-                    <RadioButton Margin="20 5 15 5" Content="Còn hạn"></RadioButton>
-                    <RadioButton Margin="30 5 50 5" Content="Hết hạn"></RadioButton>
-                    <DatePicker Margin="0 0 20 0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày bắt đầu" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                    <DatePicker Margin="0 0 20 0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày kết thúc" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                    <ComboBox ItemsSource="{Binding ContractStatusList}" SelectedItem="{Binding SelectedContractStatus}" DisplayMemberPath="DisplayName" SelectedValuePath="Value" Margin="5 5 15 -3" materialDesign:HintAssist.Hint="Tất cả hợp đồng"/>
+                    <TextBox Text="{Binding RoomNumberSearch, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Nhập số phòng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <DatePicker Margin="0 0 20 0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày bắt đầu" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                     SelectedDate="{Binding StartDateSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    <DatePicker Margin="0 0 20 0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày kết thúc" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                     SelectedDate="{Binding EndDateSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    <Button Command="{Binding SearchContractCommand}" Content="Lọc" Margin="5" Width="120" Background="#685B57"></Button>
                 </WrapPanel>
             </materialDesign:Card>
         </Grid>
@@ -53,11 +55,12 @@
             <materialDesign:Card Grid.Column="0" Margin="0 0 2 0">
                 <GroupBox Margin="16" Header="Danh sách hợp đồng">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <ListView ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                        <ListView ItemsSource="{Binding ContractList}" SelectedItem="{Binding SelectedContract, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
-                                    <GridViewColumn Header="Phòng" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                                    <GridViewColumn Header="Phòng" DisplayMemberBinding="{Binding Room.RoomNumber}"></GridViewColumn>
+                                    <GridViewColumn Header="Mã hợp đồng" DisplayMemberBinding="{Binding ContractCode}"></GridViewColumn>
                                 </GridView>
                             </ListView.View>
                         </ListView>
@@ -74,54 +77,34 @@
                             <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
 
-                        <Grid Grid.Row="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Phòng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                            </Grid>
-                            <Grid Grid.Column="1">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Tiền cọc" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                            </Grid>
+                        <Grid Grid.Column="0" Grid.Row="0">
+                            <TextBox IsEnabled="{Binding IsEditable}" Text="{Binding SelectedRoom.RoomNumber, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Phòng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                         </Grid>
-
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
-                                <DatePicker Margin="0 0 20 0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày bắt đầu" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                            </Grid>
-                            <Grid Grid.Column="1">
-                                <DatePicker Margin="0 0 20 0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày kết thúc" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                            </Grid>
+                        <Grid Grid.Column="1" Grid.Row="0">
+                            <TextBox Text="{Binding Deposit, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Tiền cọc" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                         </Grid>
-
-                        <Grid Grid.Row="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Bên thuê" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                            </Grid>
-                            <Grid Grid.Column="1">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Bên cho thuê" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                            </Grid>
+                        <Grid Grid.Column="0" Grid.Row="1">
+                            <DatePicker Margin="0 0 20 0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày bắt đầu" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                         </Grid>
-
-                        <Grid Grid.Row="3">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
-                                <Button Command="{Binding UpdateCommand}" Content="Lưu" Margin="5" Width="120" Background="#685B57"></Button>
-                            </Grid>
+                        <Grid Grid.Column="1" Grid.Row="1">
+                            <DatePicker Margin="0 0 20 0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày kết thúc" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" SelectedDate="{Binding EndDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        </Grid>
+                        <Grid Grid.Column="0" Grid.Row="2">
+                            <ComboBox ItemsSource="{Binding TenantList}" SelectedItem="{Binding SelectedTenant}" DisplayMemberPath="DisplayName" SelectedValuePath="Id" Margin="5 5 15 -3" materialDesign:HintAssist.Hint="Khách thuê"/>
+                        </Grid>
+                        <Grid Grid.Column="1" Grid.Row="2">
+                            <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Bên cho thuê" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                        </Grid>
+                        <Grid Grid.Column="0" Grid.Row="3">
+                            <ComboBox ItemsSource="{Binding ContractStatusList}" SelectedItem="{Binding Status}" DisplayMemberPath="DisplayName" SelectedValuePath="Value" Margin="5 5 15 -3" materialDesign:HintAssist.Hint="Trạng thái"/>
+                        </Grid>
+                        <Grid Grid.Column="1" Grid.Row="3">
+                            <TextBox Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Bên cho thuê" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                         </Grid>
                     </Grid>
                 </GroupBox>

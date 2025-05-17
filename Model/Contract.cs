@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using QuanLyPhongTro.Enum;
+using QuanLyPhongTro.ViewModel;
 
 namespace QuanLyPhongTro.Model
 {
@@ -29,7 +31,7 @@ namespace QuanLyPhongTro.Model
         [ForeignKey("TenantId")]
         public virtual Tenant Tenant { get; set; }
         // UserId và CreatedByUser đã được bỏ
-        public byte Status { get; set; } // 0: Hết hạn/Huỷ, 1: Đang hiệu lực, 2: Sắp hết hạn
+        public ContractStatus Status { get; set; } // 0: Hết hạn/Huỷ, 1: Đang hiệu lực
         public string Notes { get; set; }
         public virtual ICollection<Invoice> Invoices { get; set; }
         public virtual ICollection<Occupant> Occupants { get; set; }
@@ -40,7 +42,7 @@ namespace QuanLyPhongTro.Model
             Invoices = new HashSet<Invoice>();
             Occupants = new HashSet<Occupant>();
             Punishes = new HashSet<Punish>();
-            Status = 1; // Mặc định là đang hiệu lực
+            Status = ContractStatus.Active; // Mặc định là đang hiệu lực
             Deposit = 0;
         }
     }
