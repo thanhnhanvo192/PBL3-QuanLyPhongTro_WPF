@@ -23,7 +23,6 @@ namespace QuanLyPhongTro.Dialog
         public AddContractWindow()
         {
             InitializeComponent();
-            this.DataContext = new AddContractViewModel();
         }
     }
 }

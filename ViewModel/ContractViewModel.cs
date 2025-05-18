@@ -206,6 +206,7 @@ namespace QuanLyPhongTro.ViewModel
         #region
         public ICommand SearchContractCommand { get; set; }
         public ICommand AddContractCommand { get; set; }
+        public ICommand AddNewContractCommand { get; set; }
         public ICommand UpdateContractCommand { get; set; }
         public ICommand DeleteContractCommand { get; set; }
         #endregion
@@ -237,19 +238,8 @@ namespace QuanLyPhongTro.ViewModel
             AddContractCommand = new RelayCommand<object>((p) => true,
                 (p) =>
                 {
-                    var viewModel = new AddContractViewModel();
-                    var addContractWindow = new AddContractWindow
-                    {
-                        DataContext = viewModel
-                    };
-
+                    var addContractWindow = new AddContractWindow{};
                     addContractWindow.ShowDialog();
-                    var contract = DataProvider.Ins.DB.Contracts.FirstOrDefault(x => x.Id == viewModel.Id);
-                    if (contract != null && !ContractList.Contains(contract))
-                    {
-                        ContractList.Add(contract);
-                        OnPropertyChanged();
-                    }
                 });
             UpdateContractCommand = new RelayCommand<object>(
                 (p) =>
@@ -285,6 +275,85 @@ namespace QuanLyPhongTro.ViewModel
                         DataProvider.Ins.DB.SaveChanges();
                     MessageBox.Show("Cập nhật hợp đồng thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 });
+            AddNewContractCommand = new RelayCommand<object>((p) =>
+            {
+                return true;
+            },
+           (p) =>
+           {
+               if (SelectedRoom == null)
+               {
+                   MessageBox.Show("Vui lòng chọn phòng!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Warning);
+                   return;
+               }
+               if (string.IsNullOrWhiteSpace(ContractCode))
+               {
+                   MessageBox.Show("Mã hợp đồng không được để trống!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                   return;
+               }
+               var contractCodeExists = ContractList.Any(c => string.Equals(c.ContractCode, ContractCode, StringComparison.OrdinalIgnoreCase));
+               if (contractCodeExists)
+               {
+                   MessageBox.Show("Mã hợp đồng đã tồn tại!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                   return;
+               }
+               if (StartDate == null || EndDate == null)
+               {
+                   MessageBox.Show("Ngày bắt đầu và ngày kết thúc không hợp lệ!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                   return;
+               }
+               if (StartDate > EndDate)
+               {
+                   MessageBox.Show("Ngày bắt đầu phải trước ngày kết thúc!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                   return;
+               }
+               if (EndDate < DateTime.Now)
+               {
+                   MessageBox.Show("Ngày kết thúc không hợp lệ!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                   return;
+               }
+               if (SelectedTenant == null)
+               {
+                   MessageBox.Show("Vui lòng chọn khách thuê!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                   return;
+               }
+               if (Deposit < 0)
+               {
+                   MessageBox.Show("Tiền cọc không hợp lệ!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                   return;
+               }
+               Contract newContract = new Contract()
+               {
+                   ContractCode = ContractCode,
+                   StartDate = StartDate,
+                   EndDate = EndDate,
+                   Deposit = Deposit,
+                   RoomId = SelectedRoom.Id,
+                   TenantId = SelectedTenant.Id,
+                   Status = ContractStatus.Active,
+                   Notes = Notes
+               };
+               try
+               {
+                   var roomInDb = DataProvider.Ins.DB.Rooms.FirstOrDefault(r => r.Id == SelectedRoom.Id);
+                   roomInDb.Status = RoomFilterStatus.Occupied;
+                   DataProvider.Ins.DB.Contracts.Add(newContract);
+                   DataProvider.Ins.DB.SaveChanges();
+                   MessageBox.Show("Thêm hợp đồng thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+               }
+               catch (Exception ex)
+               {
+                   MessageBox.Show("Lỗi khi lưu hợp đồng: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+               }
+               ContractList.Add(newContract);
+               var dep = p as DependencyObject;
+               if (dep != null)
+               {
+                   var window = Window.GetWindow(dep);
+                   if (window != null)
+                       window.Close();
+               }
+           });
         }
     }
 }

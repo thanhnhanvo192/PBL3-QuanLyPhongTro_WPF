@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using QuanLyPhongTro.Model;
 using System.Windows;
+using QuanLyPhongTro.Enum;
 
 namespace QuanLyPhongTro.ViewModel
 {
@@ -110,7 +111,7 @@ namespace QuanLyPhongTro.ViewModel
                     lastMonth = 12;
                     Year--;
                 }
-                LastRevenue = DataProvider.Ins.DB.Invoices.Where(invoice => invoice.CreateDate.Year == Year && invoice.CreateDate.Month == lastMonth && invoice.Status == 1).Sum(invoice => invoice.AmountPaid);
+                LastRevenue = DataProvider.Ins.DB.Invoices.Where(invoice => invoice.CreateDate.Year == Year && invoice.CreateDate.Month == lastMonth && invoice.Status == InvoiceStatus.Paid).Sum(invoice => invoice.AmountPaid);
             }
             catch (Exception ex)
             {

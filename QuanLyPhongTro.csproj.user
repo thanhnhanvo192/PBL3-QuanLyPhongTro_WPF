@@ -8,6 +8,12 @@
     <Compile Update="Dialog\AddFixWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Dialog\AddInvoiceWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Dialog\AddOccupantWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Dialog\AddTenantWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -27,6 +33,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\MeterReadingView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\OccupantView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\PunishView.xaml.cs">

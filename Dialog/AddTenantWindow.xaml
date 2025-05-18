@@ -14,7 +14,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        DataContext="{StaticResource AddTenantVM}"
+        DataContext="{StaticResource TenantVM}"
         Width="700" Height="500">
     <Window.Resources>
         <Style TargetType="GroupBox">

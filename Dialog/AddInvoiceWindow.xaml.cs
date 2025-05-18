@@ -16,11 +16,11 @@ using QuanLyPhongTro.ViewModel;
 namespace QuanLyPhongTro.Dialog
 {
     /// <summary>
-    /// Interaction logic for AddTenantWindow.xaml
+    /// Interaction logic for AddInvoiceWindow.xaml
     /// </summary>
-    public partial class AddTenantWindow : Window
+    public partial class AddInvoiceWindow : Window
     {
-        public AddTenantWindow()
+        public AddInvoiceWindow()
         {
             InitializeComponent();
         }

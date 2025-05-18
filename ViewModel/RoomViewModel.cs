@@ -159,6 +159,7 @@ namespace QuanLyPhongTro.ViewModel
         }
         public ICommand SearchCommand { get; set; }
         public ICommand AddRoomCommand { get; set; }
+        public ICommand AddNewRoomCommand { get; set; }
         public ICommand UpdateRoomCommand { get; set; }
         public ICommand SearchRoomCommand { get; set; }
         public RoomViewModel()
@@ -172,18 +173,8 @@ namespace QuanLyPhongTro.ViewModel
             },
            (p) =>
            {
-               var viewModel = new AddRoomViewModel();
-               var addRoomWindow = new AddRoomWindow
-               {
-                   DataContext = viewModel
-               };
-
+               var addRoomWindow = new AddRoomWindow{};
                addRoomWindow.ShowDialog();
-               var room = DataProvider.Ins.DB.Rooms.FirstOrDefault(x => x.RoomNumber == viewModel.RoomNumber);
-               if (room != null && !RoomList.Contains(room))
-               {
-                   RoomList.Add(room);
-               }
            });
             UpdateRoomCommand = new RelayCommand<object>((p) =>
             {
@@ -253,6 +244,45 @@ namespace QuanLyPhongTro.ViewModel
                     }
                 }
             });
+            AddNewRoomCommand = new RelayCommand<object>((p) =>
+            {
+                if (string.IsNullOrEmpty(RoomNumber))
+                    return false;
+                if (Price <= 0)
+                    return false;
+                if (decimal.TryParse(Price.ToString(), out decimal price) == false)
+                    return false;
+                return true;
+            },
+           (p) =>
+           {
+               var existingRoom = DataProvider.Ins.DB.Rooms.FirstOrDefault(x => x.RoomNumber == RoomNumber);
+               if (existingRoom != null)
+               {
+                   MessageBox.Show("Số phòng đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                   return;
+               }
+               Room newRoom = new Room()
+               {
+                   RoomNumber = RoomNumber,
+                   Price = Price,
+                   Area = Area,
+                   MaxOccupants = MaxOccupants,
+                   Floor = Floor,
+                   Utilities = Utilities
+               };
+               DataProvider.Ins.DB.Rooms.Add(newRoom);
+               DataProvider.Ins.DB.SaveChanges();
+               MessageBox.Show("Thêm phòng thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+               RoomList.Add(newRoom);
+               var dep = p as DependencyObject;
+               if (dep != null)
+               {
+                   var window = Window.GetWindow(dep);
+                   if (window != null)
+                       window.Close();
+               }
+           });
         }
     }
 }

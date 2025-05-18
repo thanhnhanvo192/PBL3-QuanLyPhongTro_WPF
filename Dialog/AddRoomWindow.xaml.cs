@@ -23,7 +23,6 @@ namespace QuanLyPhongTro.Dialog
         public AddRoomWindow()
         {
             InitializeComponent();
-            DataContext = new AddRoomViewModel();
         }
     }
 }

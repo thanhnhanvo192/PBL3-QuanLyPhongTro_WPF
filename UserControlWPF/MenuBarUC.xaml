@@ -19,7 +19,7 @@
             </Grid.Resources>
 
             <UniformGrid Columns="11" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <Button Grid.Column="0" Command="{Binding MainViewCommand}" ToolTip="Trang chủ" Width="100">
+                <Button Command="{Binding MainViewCommand}" ToolTip="Trang chủ" Width="100">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -34,7 +34,7 @@
                     </Grid>
                 </Button>
                 
-                <Button Grid.Column="0" Command="{Binding RoomViewCommand}" ToolTip="Phòng" Width="100">
+                <Button Command="{Binding RoomViewCommand}" ToolTip="Phòng" Width="100">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -49,7 +49,7 @@
                     </Grid>
                 </Button>
 
-                <Button Grid.Column="1" Command="{Binding TenantViewCommand}" ToolTip="Khách thuê" Width="100">
+                <Button Command="{Binding TenantViewCommand}" ToolTip="Khách thuê" Width="100">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -63,8 +63,22 @@
                         </Grid>
                     </Grid>
                 </Button>
+                <Button Command="{Binding OccupantViewCommand}" ToolTip="Người ở cùng" Width="100">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <TextBlock>Người ở cùng</TextBlock>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <materialDesign:PackIcon Kind="NaturePeople" Width="24" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center"></materialDesign:PackIcon>
+                        </Grid>
+                    </Grid>
+                </Button>
 
-                <Button Grid.Column="2" Command="{Binding InvoiceViewCommand}" ToolTip="Hoá đơn" Width="100">
+                <Button Command="{Binding InvoiceViewCommand}" ToolTip="Hoá đơn" Width="100">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -79,7 +93,7 @@
                     </Grid>
                 </Button>
 
-                <Button Grid.Column="2" Command="{Binding ContractViewCommand}" ToolTip="Hợp đồng" Width="100">
+                <Button Command="{Binding ContractViewCommand}" ToolTip="Hợp đồng" Width="100">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -94,7 +108,7 @@
                     </Grid>
                 </Button>
 
-                <Button Grid.Column="2" Command="{Binding ServiceViewCommand}" ToolTip="Dịch vụ" Width="100">
+                <Button Command="{Binding ServiceViewCommand}" ToolTip="Dịch vụ" Width="100">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -109,7 +123,7 @@
                     </Grid>
                 </Button>
 
-                <Button Grid.Column="2" Command="{Binding UnitViewCommand}" ToolTip="Đơn vị đo" Width="100">
+                <Button Command="{Binding UnitViewCommand}" ToolTip="Đơn vị đo" Width="100">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -124,7 +138,7 @@
                     </Grid>
                 </Button>
 
-                <Button Grid.Column="2" Command="{Binding MeterReadingCommand}" ToolTip="Ghi chỉ số" Width="100">
+                <Button Command="{Binding MeterReadingCommand}" ToolTip="Ghi chỉ số" Width="100">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -139,7 +153,7 @@
                     </Grid>
                 </Button>
 
-                <Button Grid.Column="2" Command="{Binding FixViewCommand}" ToolTip="Sửa chữa" Width="100">
+                <Button Command="{Binding FixViewCommand}" ToolTip="Sửa chữa" Width="100">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -154,7 +168,7 @@
                     </Grid>
                 </Button>
 
-                <Button Grid.Column="2" Command="{Binding PunishViewCommand}" ToolTip="Xử phạt" Width="100">
+                <Button Command="{Binding PunishViewCommand}" ToolTip="Xử phạt" Width="100">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -168,7 +182,7 @@
                         </Grid>
                     </Grid>
                 </Button>
-                <Button Grid.Column="2" Command="{Binding StatisticViewCommand}" ToolTip="Thống kê" Width="100">
+                <Button Command="{Binding StatisticViewCommand}" ToolTip="Thống kê" Width="100">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -183,7 +197,7 @@
                     </Grid>
                 </Button>
 
-                <Button Grid.Column="3" Command="{Binding UserViewCommand}" ToolTip="Tài khoản" Width="100">
+                <Button Command="{Binding UserViewCommand}" ToolTip="Tài khoản" Width="100">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>

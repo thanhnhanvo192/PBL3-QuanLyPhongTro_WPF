@@ -30,6 +30,7 @@ namespace QuanLyPhongTro.ViewModel
         public ICommand MainViewCommand { get; set; }
         public ICommand RoomViewCommand { get; set; }
         public ICommand TenantViewCommand { get; set; }
+        public ICommand OccupantViewCommand { get; set; }
         public ICommand InvoiceViewCommand { get; set; }
         public ICommand UserViewCommand { get; set; }
         public ICommand ContractViewCommand { get; set; }
@@ -85,6 +86,13 @@ namespace QuanLyPhongTro.ViewModel
               (p) =>
               {
                   CurrentView = new TenantViewModel();
+              });
+
+            OccupantViewCommand = new RelayCommand<UserControl>(
+              (p) => { return true; },
+              (p) =>
+              {
+                  CurrentView = new OccupantViewModel();
               });
 
             InvoiceViewCommand = new RelayCommand<UserControl>(

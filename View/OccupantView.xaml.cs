@@ -10,17 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using QuanLyPhongTro.ViewModel;
 
-namespace QuanLyPhongTro.Dialog
+namespace QuanLyPhongTro.View
 {
     /// <summary>
-    /// Interaction logic for AddTenantWindow.xaml
+    /// Interaction logic for OccupantView.xaml
     /// </summary>
-    public partial class AddTenantWindow : Window
+    public partial class OccupantView : UserControl
     {
-        public AddTenantWindow()
+        public OccupantView()
         {
             InitializeComponent();
         }

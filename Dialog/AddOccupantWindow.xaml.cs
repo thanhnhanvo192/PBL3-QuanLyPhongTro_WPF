@@ -11,16 +11,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using QuanLyPhongTro.ViewModel;
 
 namespace QuanLyPhongTro.Dialog
 {
     /// <summary>
-    /// Interaction logic for AddTenantWindow.xaml
+    /// Interaction logic for AddOccupantWindow.xaml
     /// </summary>
-    public partial class AddTenantWindow : Window
+    public partial class AddOccupantWindow : Window
     {
-        public AddTenantWindow()
+        public AddOccupantWindow()
         {
             InitializeComponent();
         }

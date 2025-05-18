@@ -20,7 +20,7 @@
         WindowStartupLocation="CenterScreen"
         Name="addRoomWindow"
         Title="Thêm phòng mới"
-        DataContext="{StaticResource AddRoomVM}"
+        DataContext="{StaticResource RoomVM}"
         Width="700" Height="500">
     <Window.Resources>
         <Style TargetType="GroupBox">

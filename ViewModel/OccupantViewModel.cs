@@ -4,19 +4,40 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using Microsoft.EntityFrameworkCore;
 using QuanLyPhongTro.Dialog;
 using QuanLyPhongTro.Enum;
 using QuanLyPhongTro.Model;
-using System.Windows.Input;
-using System.Windows;
 
 namespace QuanLyPhongTro.ViewModel
 {
-    public class TenantViewModel : BaseViewModel
+    public class OccupantViewModel : BaseViewModel
     {
+        private ObservableCollection<Room> _ListRoom;
+        private Room _SelectedRoom;
         private SexOptionDisplay _SelectedSex;
         private ObservableCollection<SexOptionDisplay> _ListSexOption;
 
+        public ObservableCollection<Room> ListRoom
+        {
+            get { return _ListRoom; }
+            set
+            {
+                _ListRoom = value;
+                OnPropertyChanged();
+            }
+        }
+        public Room SelectedRoom
+        {
+            get { return _SelectedRoom; }
+            set
+            {
+                _SelectedRoom = value;
+                OnPropertyChanged();
+            }
+        }
         public SexOptionDisplay SelectedSex
         {
             get { return _SelectedSex; }
@@ -41,9 +62,8 @@ namespace QuanLyPhongTro.ViewModel
         private SexEnum Sex;
         private DateTime? _Birthday;
         private string? _Phone;
-        private string? _Email;
         private string? _PermanentAddress;
-        private string _TenantNameSearch;
+        private string _OccupantNameSearch;
         public string FirstName
         {
             get { return _FirstName; }
@@ -89,15 +109,6 @@ namespace QuanLyPhongTro.ViewModel
                 OnPropertyChanged();
             }
         }
-        public string? Email
-        {
-            get { return _Email; }
-            set
-            {
-                _Email = value;
-                OnPropertyChanged();
-            }
-        }
         public string? PermanentAddress
         {
             get { return _PermanentAddress; }
@@ -107,27 +118,27 @@ namespace QuanLyPhongTro.ViewModel
                 OnPropertyChanged();
             }
         }
-        public string TenantNameSearch
+        public string OccupantNameSearch
         {
-            get { return _TenantNameSearch; }
+            get { return _OccupantNameSearch; }
             set
             {
-                _TenantNameSearch = value;
+                _OccupantNameSearch = value;
                 OnPropertyChanged();
             }
         }
-        public ObservableCollection<Tenant> _TenantList;
-        public ObservableCollection<Tenant> TenantList
+        public ObservableCollection<Occupant> _OccupantList;
+        public ObservableCollection<Occupant> OccupantList
         {
-            get { return _TenantList; }
+            get { return _OccupantList; }
             set
             {
-                _TenantList = value;
+                _OccupantList = value;
                 OnPropertyChanged();
             }
         }
-        private Tenant _SelectedItem;
-        public Tenant SelectedItem
+        private Occupant _SelectedItem;
+        public Occupant SelectedItem
         {
             get { return _SelectedItem; }
             set
@@ -141,32 +152,32 @@ namespace QuanLyPhongTro.ViewModel
                     CCCD = SelectedItem.CCCD;
                     Birthday = SelectedItem.Birthday;
                     Phone = SelectedItem.Phone;
-                    Email = SelectedItem.Email;
                     SelectedSex = ListSexOption.FirstOrDefault(x => x.Value == SelectedItem.Sex);
                     PermanentAddress = SelectedItem.PermanentAddress;
                 }
             }
         }
         public ICommand SearchCommand { get; set; }
-        public ICommand AddTenantCommand { get; set; }
-        public ICommand AddNewTenantCommand { get; set; }
-        public ICommand UpdateTenantCommand { get; set; }
-        public ICommand SearchTenantCommand { get; set; }
-        public TenantViewModel()
+        public ICommand AddOccupantCommand { get; set; }
+        public ICommand AddNewOccupantCommand { get; set; }
+        public ICommand UpdateOccupantCommand { get; set; }
+        public ICommand SearchOccupantCommand { get; set; }
+        public OccupantViewModel()
         {
-            TenantList = new ObservableCollection<Tenant>(DataProvider.Ins.DB.Tenants.ToList());
+            OccupantList = new ObservableCollection<Occupant>(DataProvider.Ins.DB.Occupants.ToList());
             ListSexOption = SexOptions.GetSexEnums();
+            ListRoom = new ObservableCollection<Room>(DataProvider.Ins.DB.Rooms.Where(r => r.Status == RoomFilterStatus.Occupied).ToList());
             SelectedSex = ListSexOption.FirstOrDefault();
-            AddTenantCommand = new RelayCommand<object>((p) =>
+            AddOccupantCommand = new RelayCommand<object>((p) =>
             {
                 return true;
             },
            (p) =>
            {
-               var addTenantWindow = new AddTenantWindow{};
-               addTenantWindow.ShowDialog();
+               var addOccupantWindow = new AddOccupantWindow{};
+               addOccupantWindow.ShowDialog();
            });
-            UpdateTenantCommand = new RelayCommand<object>((p) =>
+            UpdateOccupantCommand = new RelayCommand<object>((p) =>
             {
                 if (SelectedItem == null)
                     return false;
@@ -174,49 +185,47 @@ namespace QuanLyPhongTro.ViewModel
             },
             (p) =>
             {
-                var Tenant = DataProvider.Ins.DB.Tenants.Where(x => x.Id == SelectedItem.Id).SingleOrDefault();
-                var TenantList = DataProvider.Ins.DB.Tenants.Where(x => x.CCCD == CCCD && CCCD != SelectedItem.CCCD && Phone != SelectedItem.Phone && Email != SelectedItem.Email);
-                if (TenantList == null || TenantList.Count() == 0)
+                var Occupant = DataProvider.Ins.DB.Occupants.Where(x => x.Id == SelectedItem.Id).SingleOrDefault();
+                var OccupantList = DataProvider.Ins.DB.Occupants.Where(x => x.Id != SelectedItem.Id && CCCD == SelectedItem.CCCD && Phone == SelectedItem.Phone);
+                if (OccupantList == null || OccupantList.Count() == 0)
                 {
-                    MessageBox.Show("CCCD, SĐT hoặc Email đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("CCCD hoặc SĐT đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-                if (Tenant != null)
+                if (Occupant != null)
                 {
-                    Tenant.FirstName = FirstName;
-                    Tenant.LastName = LastName;
-                    Tenant.CCCD = CCCD;
-                    Tenant.Birthday = Birthday;
-                    Tenant.Phone = Phone;
-                    Tenant.Email = Email;
-                    Tenant.PermanentAddress = PermanentAddress;
-                    Tenant.Sex = SelectedSex.Value;
+                    Occupant.FirstName = FirstName;
+                    Occupant.LastName = LastName;
+                    Occupant.CCCD = CCCD;
+                    Occupant.Birthday = Birthday;
+                    Occupant.Phone = Phone;
+                    Occupant.PermanentAddress = PermanentAddress;
+                    Occupant.Sex = SelectedSex.Value;
                     DataProvider.Ins.DB.SaveChanges();
                     SelectedItem.FirstName = FirstName;
                     SelectedItem.LastName = LastName;
                     SelectedItem.CCCD = CCCD;
                     SelectedItem.Birthday = Birthday;
                     SelectedItem.Phone = Phone;
-                    SelectedItem.Email = Email;
                     SelectedItem.PermanentAddress = PermanentAddress;
                 }
             });
-            SearchTenantCommand = new RelayCommand<object>((p) =>
+            SearchOccupantCommand = new RelayCommand<object>((p) =>
             {
                 return true;
             },
             (p) =>
             {
-                var allTenants = DataProvider.Ins.DB.Tenants.ToList();
-                if (!string.IsNullOrEmpty(TenantNameSearch))
+                var allOccupants = DataProvider.Ins.DB.Occupants.ToList();
+                if (!string.IsNullOrEmpty(OccupantNameSearch))
                 {
-                    var Tenant = allTenants.Where(x => x.LastName.ToLower().Contains(TenantNameSearch.ToLower()) || x.FirstName.ToLower().Contains(TenantNameSearch.ToLower())).ToList();
-                    if (Tenant.Count > 0)
+                    var Occupant = allOccupants.Where(x => x.LastName.ToLower().Contains(OccupantNameSearch.ToLower()) || x.FirstName.ToLower().Contains(OccupantNameSearch.ToLower())).ToList();
+                    if (Occupant.Count > 0)
                     {
-                        TenantList.Clear();
-                        foreach (var item in Tenant)
+                        OccupantList.Clear();
+                        foreach (var item in Occupant)
                         {
-                            TenantList.Add(item);
+                            OccupantList.Add(item);
                         }
                     }
                     else
@@ -226,14 +235,14 @@ namespace QuanLyPhongTro.ViewModel
                 }
                 else
                 {
-                    TenantList.Clear();
-                    foreach (var item in allTenants)
+                    OccupantList.Clear();
+                    foreach (var item in allOccupants)
                     {
-                        TenantList.Add(item);
+                        OccupantList.Add(item);
                     }
                 }
             });
-            AddNewTenantCommand = new RelayCommand<object>((p) =>
+            AddNewOccupantCommand = new RelayCommand<object>((p) =>
             {
                 if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName) || string.IsNullOrEmpty(CCCD) || SelectedSex == null)
                     return false;
@@ -241,27 +250,28 @@ namespace QuanLyPhongTro.ViewModel
             },
            (p) =>
            {
-               var existingTenant = DataProvider.Ins.DB.Tenants.FirstOrDefault(x => x.CCCD == CCCD && CCCD != CCCD && Phone != Phone && Email != Email);
-               if (existingTenant != null)
+               var existingOccupant = DataProvider.Ins.DB.Occupants.FirstOrDefault(x => x.CCCD == CCCD && CCCD != CCCD && Phone != Phone);
+               if (existingOccupant != null)
                {
                    MessageBox.Show("CCCD đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
                    return;
                }
-               Tenant newTenant = new Tenant()
+               var contract = DataProvider.Ins.DB.Contracts.FirstOrDefault(x => x.RoomId == SelectedRoom.Id);
+               Occupant newOccupant = new Occupant()
                {
                    FirstName = FirstName,
                    LastName = LastName,
                    CCCD = CCCD,
                    PermanentAddress = PermanentAddress,
-                   Email = Email,
                    Phone = Phone,
                    Birthday = Birthday,
+                   ContractId = contract.Id,
                    Sex = SelectedSex.Value
                };
-               DataProvider.Ins.DB.Tenants.Add(newTenant);
+               DataProvider.Ins.DB.Occupants.Add(newOccupant);
                DataProvider.Ins.DB.SaveChanges();
                MessageBox.Show("Thêm khách thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-               TenantList.Add(newTenant);
+               OccupantList.Add(newOccupant);
                var dep = p as DependencyObject;
                if (dep != null)
                {

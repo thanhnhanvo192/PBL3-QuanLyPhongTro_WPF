@@ -11,14 +11,13 @@
     <viewmodel:RoomViewModel x:Key="RoomVM" />
     <viewmodel:UnitViewModel x:Key="UnitVM" />
     <viewmodel:ServiceViewModel x:Key="ServiceVM" />
-    <viewmodel:AddRoomViewModel x:Key="AddRoomVM" />
     <viewmodel:TenantViewModel x:Key="TenantVM" />
-    <viewmodel:AddTenantViewModel x:Key="AddTenantVM" />
     <viewmodel:MeterReadingViewModel x:Key="MeterReadingVM" />
     <viewmodel:FixViewModel x:Key="FixVM" />
     <viewmodel:AddFixViewModel x:Key="AddFixVM" />
     <viewmodel:ContractViewModel x:Key="ContractVM" />
-    <viewmodel:AddContractViewModel x:Key="AddContractVM" />
+    <viewmodel:OccupantViewModel x:Key="OccupantVM" />
+    <viewmodel:InvoiceViewModel x:Key="InvoiceVM" />
 
     <!-- Khai báo DataTemplate -->
     <DataTemplate DataType="{x:Type viewmodel:MainViewModel}">
@@ -47,6 +46,9 @@
     </DataTemplate>
     <DataTemplate DataType="{x:Type viewmodel:TenantViewModel}">
         <view:TenantView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type viewmodel:OccupantViewModel}">
+        <view:OccupantView />
     </DataTemplate>
     <DataTemplate DataType="{x:Type viewmodel:UnitViewModel}">
         <view:UnitView />

@@ -115,7 +115,8 @@ namespace QuanLyPhongTro.ViewModel
                     RoomId = SelectedRoom.Id,
                     ServiceId = SelectedService.Id,
                     ReadingDate = ReadingDate,
-                    ReadingValue = ReadingValue
+                    ReadingValue = ReadingValue,
+                    Notes = Notes
                 };
                 if (newReading.ReadingValue < 0)
                 {
