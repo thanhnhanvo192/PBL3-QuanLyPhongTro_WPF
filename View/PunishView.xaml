@@ -7,12 +7,13 @@
         mc:Ignorable="d"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-           TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
+        DataContext="{StaticResource PunishVM}"
         FontFamily="{DynamicResource MaterialDesignFont}">
 
     <Grid Background="LightGray">
@@ -25,20 +26,25 @@
             <materialDesign:Card Grid.Column="1" Margin="2 0 0 0" HorizontalAlignment="Stretch">
                 <WrapPanel Margin="5">
                     <DatePicker
-              Width="100"
-              materialDesign:HintAssist.Hint="Ngày bắt đầu"
-              materialDesign:TextFieldAssist.HasClearButton="True"
-              Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-              />
+                      Width="100"
+                      materialDesign:HintAssist.Hint="Ngày bắt đầu"
+                      materialDesign:TextFieldAssist.HasClearButton="True"
+                      Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                      SelectedDate="{Binding SearchDateFrom, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                      />
                     <DatePicker
-              Margin="10 0 0 0"
-              Width="100"
-              materialDesign:HintAssist.Hint="Ngày kết thúc"
-              materialDesign:TextFieldAssist.HasClearButton="True"
-              Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-              />
+                      Margin="10 0 0 0"
+                      Width="100"
+                      materialDesign:HintAssist.Hint="Ngày kết thúc"
+                      materialDesign:TextFieldAssist.HasClearButton="True"
+                      Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                      SelectedDate="{Binding SearchDateTo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                      />
 
-                    <Button Command="{Binding DeleteCommand}" Content="Lọc" Margin="5" Width="100" Background="#685B57"></Button>
+                    <Button Command="{Binding SearchPunishCommand}" Content="Lọc" Margin="5" Width="100" Background="#685B57"></Button>
+                    <Button Command="{Binding AddPunishCommand}" Content="Thêm" Margin="5" Width="100" Background="#685B57"></Button>
+                    <Button Command="{Binding UpdatePunishCommand}" Content="Sửa" Margin="5" Width="100" Background="#685B57"></Button>
+                    <Button Command="{Binding SearchPunishCommand}" Content="Xoá" Margin="5" Width="100" Background="#685B57"></Button>
                 </WrapPanel>
             </materialDesign:Card>
         </Grid>
@@ -52,15 +58,12 @@
             <materialDesign:Card Grid.Column="0">
                 <GroupBox Margin="16" Header="Lịch sử xử phạt">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <ListView ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                        <ListView ItemsSource="{Binding PunishListDisplay}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
-                                    <GridViewColumn Header="Số phòng" DisplayMemberBinding="{Binding RoomNumber}"></GridViewColumn>
-                                    <GridViewColumn Header="Giá thuê" DisplayMemberBinding="{Binding Price}"></GridViewColumn>
-                                    <GridViewColumn Header="Diện tích" DisplayMemberBinding="{Binding Area}"></GridViewColumn>
-                                    <GridViewColumn Header="Số người ở tối đa" DisplayMemberBinding="{Binding MaxOccupants}"></GridViewColumn>
-                                    <GridViewColumn Header="Trạng thái" DisplayMemberBinding="{Binding Status}"></GridViewColumn>
+                                    <GridViewColumn Header="Ngày phạt" DisplayMemberBinding="{Binding PunishDate, StringFormat='dd/MM/yyyy'}"></GridViewColumn>
+                                    <GridViewColumn Header="Tiền phạt" DisplayMemberBinding="{Binding Amount}"></GridViewColumn>
                                 </GridView>
                             </ListView.View>
                         </ListView>
@@ -77,54 +80,22 @@
                             <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
 
-                        <Grid Grid.Row="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Phòng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                            </Grid>
-                            <Grid Grid.Column="1">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Tiền cọc" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                            </Grid>
+                        <Grid Grid.Column="0" Grid.Row="0">
+                            <TextBox IsEnabled="False" Text="{Binding RoomNumber, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Phòng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                         </Grid>
-
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
-                                <DatePicker Margin="0 0 20 0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày bắt đầu" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                            </Grid>
-                            <Grid Grid.Column="1">
-                                <DatePicker Margin="0 0 20 0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày kết thúc" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                            </Grid>
+                        <Grid Grid.Column="1" Grid.Row="0">
+                            <TextBox Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Tiền phạt" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                         </Grid>
-
-                        <Grid Grid.Row="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Bên thuê" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                            </Grid>
-                            <Grid Grid.Column="1">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Bên cho thuê" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                            </Grid>
+                        <Grid Grid.Column="0" Grid.Row="1">
+                            <DatePicker SelectedDate="{Binding PunishDate}" Margin="0 0 20 0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày phạt" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                         </Grid>
-
-                        <Grid Grid.Row="3">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
-                                <Button Command="{Binding UpdateCommand}" Content="Lưu" Margin="5" Width="120" Background="#685B57"></Button>
-                            </Grid>
+                        <Grid Grid.ColumnSpan="2" Grid.Row="2">
+                            <TextBox Text="{Binding Reason, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Lí do" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                         </Grid>
                     </Grid>
                 </GroupBox>

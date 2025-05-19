@@ -17,21 +17,22 @@ namespace QuanLyPhongTro.Model
         public int InvoiceId { get; set; }
         [ForeignKey("InvoiceId")]
         public virtual Invoice Invoice { get; set; }
-        public int ServiceId { get; set; }
+        public int? ServiceId { get; set; } 
         [ForeignKey("ServiceId")]
         public virtual Service Service { get; set; }
         [Column(TypeName = "decimal(10,2)")]
         public decimal Quantity { get; set; }
         [Column(TypeName = "decimal(18,2)")]
-        public decimal UnitPrice { get; set; } // Lưu lại đơn giá tại thời điểm tạo HĐ
+        public decimal UnitPrice { get; set; }
         [NotMapped]
-        public decimal Amount => Quantity * UnitPrice;
+        public decimal Amount => UnitPrice * Quantity;
         [MaxLength(255)]
         public string Notes { get; set; }
 
         public Invoice_detail()
         {
-            Quantity = 1;
+            UnitPrice = 0;
+            Quantity = 0;
         }
     }
 }

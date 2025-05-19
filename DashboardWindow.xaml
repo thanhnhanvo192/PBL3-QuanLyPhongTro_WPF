@@ -19,10 +19,11 @@
         DataContext="{StaticResource DashboardVM}"
         ResizeMode="NoResize"
         WindowStyle="None"
+        AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         
         Name="mainWindow"
-        Title="Phần mềm quản lý phòng trọ" Height="700" Width="1200">
+        Title="Phần mềm quản lý phòng trọ" Height="600" Width="1000">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -45,7 +46,6 @@
             </Setter>
         </Style>
     </Window.Resources>
-
     <Grid Margin="0 0 0 5">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>

@@ -28,19 +28,23 @@
                     <materialDesign:Card Grid.Column="1" Margin="2 0 0 0">
                         <WrapPanel Margin="5">
                             <DatePicker
+                                Margin="10"
                               Width="100"
                               materialDesign:HintAssist.Hint="Ngày bắt đầu"
                               materialDesign:TextFieldAssist.HasClearButton="True"
                               Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                              SelectedDate="{Binding SearchDateFrom, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                               />
                             <DatePicker
+                                Margin="10"
                               Width="100"
                               materialDesign:HintAssist.Hint="Ngày kết thúc"
                               materialDesign:TextFieldAssist.HasClearButton="True"
                               Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                              SelectedDate="{Binding SearchDateTo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                               />
-
-                            <Button Command="{Binding AddFixCommand}" Content="Lọc" Margin="5" Width="100" Background="#685B57"></Button>
+                            <ComboBox ItemsSource="{Binding FaultTypes}" SelectedItem="{Binding SelectedFaultType, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5 5 5 -2" DisplayMemberPath="DisplayName" SelectedValuePath="Value" materialDesign:HintAssist.Hint="Lỗi của ai?"/>
+                            <Button Command="{Binding SearchFixCommadn}" Content="Lọc" Margin="5" Width="100" Background="#685B57"></Button>
                             <Button Command="{Binding AddFixCommand}" Content="Thêm" Margin="5" Width="100" Background="#685B57"></Button>
                             <Button Command="{Binding UpdateFixCommand}" Content="Sửa" Margin="5" Width="100" Background="#685B57"></Button>
                             <Button Command="{Binding DeleteCommand}" Content="Xoá" Margin="5" Width="100" Background="#685B57"></Button>
@@ -91,7 +95,7 @@
                                 <ComboBox ItemsSource="{Binding Tenants}" SelectedItem="{Binding SelectedTenant, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5 5 5 -2" DisplayMemberPath="DisplayName" SelectedValuePath="Id" materialDesign:HintAssist.Hint="Khách thuê"/>
                             </Grid>
                             <Grid Grid.Row="0" Grid.Column="2">
-                                <ComboBox ItemsSource="{Binding Invoices}" SelectedItem="{Binding SelectedInvoice, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5 5 5 -2" DisplayMemberPath="InvoiceCode" SelectedValuePath="Id" materialDesign:HintAssist.Hint="Mã hoá đơn"/>
+                                <ComboBox ItemsSource="{Binding InvoiceCurrentMonth}" SelectedItem="{Binding SelectedInvoice, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5 5 5 -2" DisplayMemberPath="InvoiceCode" SelectedValuePath="Id" materialDesign:HintAssist.Hint="Mã hoá đơn"/>
                             </Grid>
                             <Grid Grid.Row="1" Grid.Column="0" >
                                 <TextBox Text="{Binding Cost, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Chi phí" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>

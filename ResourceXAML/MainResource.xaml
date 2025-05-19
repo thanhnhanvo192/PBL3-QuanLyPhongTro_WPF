@@ -14,10 +14,11 @@
     <viewmodel:TenantViewModel x:Key="TenantVM" />
     <viewmodel:MeterReadingViewModel x:Key="MeterReadingVM" />
     <viewmodel:FixViewModel x:Key="FixVM" />
-    <viewmodel:AddFixViewModel x:Key="AddFixVM" />
     <viewmodel:ContractViewModel x:Key="ContractVM" />
     <viewmodel:OccupantViewModel x:Key="OccupantVM" />
     <viewmodel:InvoiceViewModel x:Key="InvoiceVM" />
+    <viewmodel:PunishViewModel x:Key="PunishVM" />
+    <viewmodel:StatisticViewModel x:Key="StatisticVM" />
 
     <!-- Khai báo DataTemplate -->
     <DataTemplate DataType="{x:Type viewmodel:MainViewModel}">

@@ -14,6 +14,9 @@
     <Compile Update="Dialog\AddOccupantWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Dialog\AddPunishWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Dialog\AddTenantWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -20,7 +20,7 @@
         WindowStartupLocation="CenterScreen"
         Name="addFixWindow"
         Title="Thêm bản sửa chữa"
-        DataContext="{StaticResource AddFixVM}"
+        DataContext="{StaticResource FixVM}"
         Width="700" Height="500">
     <Window.Resources>
         <Style TargetType="GroupBox">
@@ -78,19 +78,22 @@
                         </Grid.ColumnDefinitions>
 
                         <Grid Grid.Row="0" Grid.Column="0">
-                            <ComboBox ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5 5 5 -2" DisplayMemberPath="RoomNumber" SelectedValuePath="Id" materialDesign:HintAssist.Hint="Phòng"/>
+                            <ComboBox ItemsSource="{Binding RoomOccupiedList}" SelectedItem="{Binding SelectedRoomOccupied, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5 5 5 -2" DisplayMemberPath="RoomNumber" SelectedValuePath="Id" materialDesign:HintAssist.Hint="Phòng"/>
                         </Grid>
                         <Grid Grid.Row="0" Grid.Column="1">
                             <ComboBox ItemsSource="{Binding Tenants}" SelectedItem="{Binding SelectedTenant, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5 5 5 -2" DisplayMemberPath="DisplayName" SelectedValuePath="Id" materialDesign:HintAssist.Hint="Khách thuê"/>
                         </Grid>
                         <Grid Grid.Row="0" Grid.Column="2">
-                            <ComboBox ItemsSource="{Binding Invoices}" SelectedItem="{Binding SelectedInvoice, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5 5 5 -2" DisplayMemberPath="InvoiceCode" SelectedValuePath="Id" materialDesign:HintAssist.Hint="Mã hoá đơn"/>
+                            <ComboBox ItemsSource="{Binding InvoiceCurrentMonth}" SelectedItem="{Binding SelectedInvoice, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5 5 5 -2" DisplayMemberPath="InvoiceCode" SelectedValuePath="Id" materialDesign:HintAssist.Hint="Mã hoá đơn"/>
                         </Grid>
                         <Grid Grid.Row="1" Grid.Column="0" >
                             <TextBox Text="{Binding Cost, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Chi phí" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                         </Grid>
                         <Grid Grid.Row="1" Grid.Column="1">
                             <ComboBox ItemsSource="{Binding FaultTypes}" SelectedItem="{Binding SelectedFaultType, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5 5 5 -2" DisplayMemberPath="DisplayName" SelectedValuePath="Value" materialDesign:HintAssist.Hint="Lỗi của ai?"/>
+                        </Grid>
+                        <Grid Grid.Row="1" Grid.Column="2">
+                            <ComboBox ItemsSource="{Binding Services}" SelectedItem="{Binding SelectedService, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5 5 5 -2" DisplayMemberPath="DisplayName" SelectedValuePath="Id" materialDesign:HintAssist.Hint="Tiền phạt"/>
                         </Grid>
                         <Grid Grid.Row="2" Grid.Column="3">
                             <DatePicker SelectedDate="{Binding FixDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Ngày sữa chữa" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
