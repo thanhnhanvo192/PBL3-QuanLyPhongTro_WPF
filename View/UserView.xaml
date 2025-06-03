@@ -15,7 +15,9 @@
    TextOptions.TextFormattingMode="Ideal"
    TextOptions.TextRenderingMode="Auto"
    Background="{DynamicResource MaterialDesignPaper}"
+   DataContext="{StaticResource UserVM}"
    FontFamily="{DynamicResource MaterialDesignFont}">
+    
 
     <Grid>
 
@@ -33,7 +35,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid Grid.Column="0">
-                    <Button Command="{Binding AddCommand}" Content="Đăng xuất" Margin="5" Width="100" Background="#685B57" VerticalAlignment="Top" HorizontalAlignment="Left"></Button>
+                    <Button Command="{Binding LogoutCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}" Content="Đăng xuất" Margin="5" Width="100" Background="#685B57" VerticalAlignment="Top" HorizontalAlignment="Left"></Button>
                 </Grid>
                 <Grid Grid.Column="1" Background="Transparent">
                     <Image Source="D:\PBL3\QuanLyPhongTro\AppData\SinhvienIT.webp"></Image>
@@ -47,37 +49,7 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <materialDesign:Card Grid.Column="1" Margin="0 0 2 0" Background="Transparent">
-                    <GroupBox Margin="16" Header="Thông tin người dùng">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-
-                            <Grid Grid.Row="0">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Tên đăng nhập" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                            </Grid>
-                            <Grid Grid.Row="1">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Tên hiển thị" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                            </Grid>
-                            <Grid Grid.Row="2">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Vai trò" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                            </Grid>
-                            <Grid Grid.Row="3">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Phone" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                            </Grid>
-                            <Grid Grid.Row="4">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                            </Grid>
-                        </Grid>
-                    </GroupBox>
-                </materialDesign:Card>
-
-                <materialDesign:Card Grid.Column="2" Background="Transparent">
+                <materialDesign:Card Grid.Column="1" Background="Transparent">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
@@ -85,7 +57,7 @@
                         </Grid.RowDefinitions>
 
                         <Grid Grid.Row="0">
-                            <Button Command="{Binding AddCommand}" Content="Đổi mật khẩu" Margin="5" Width="120" Background="#685B57" HorizontalAlignment="Left"></Button>
+                            <Button Command="{Binding EnablePasswordEditCommand}" Content="Đổi mật khẩu" Margin="5" Width="120" Background="#685B57" HorizontalAlignment="Left"></Button>
                         </Grid>
 
                         <Grid Grid.Row="1" Margin="10">
@@ -96,16 +68,16 @@
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Mật khẩu cũ" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditingPassword}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Mật khẩu cũ" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                             </Grid>
                             <Grid Grid.Row="1">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Mạt khẩu mới" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                <TextBox Text="{Binding NewPassword, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditingPassword}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Mạt khẩu mới" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                             </Grid>
                             <Grid Grid.Row="2">
-                                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Xác nhận mật khẩu mới" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                <TextBox Text="{Binding NewPasswordConfirm, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditingPassword}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Xác nhận mật khẩu mới" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                             </Grid>
                             <Grid Grid.Row="3">
-                                <Button Command="{Binding AddCommand}" Content="Lưu" Margin="5" Width="100" Background="#685B57" HorizontalAlignment="Center"></Button>
+                                <Button Command="{Binding ChangPasswordCommand}" IsDefault="True" Content="Lưu" Margin="5" Width="100" Background="#685B57" HorizontalAlignment="Center"></Button>
                             </Grid>
                         </Grid>
                     </Grid>

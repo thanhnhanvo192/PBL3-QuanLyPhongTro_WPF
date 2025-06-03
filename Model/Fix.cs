@@ -29,6 +29,7 @@ namespace QuanLyPhongTro.Model
         [Required]
         public FaultType WhoFault { get; set; }
         public int? InvoiceId { get; set; }
+        public bool IsDeleted { get; set; } // Đánh dấu sửa chữa đã bị xoá
         [ForeignKey("InvoiceId")]
         public virtual Invoice Invoice { get; set; }
 

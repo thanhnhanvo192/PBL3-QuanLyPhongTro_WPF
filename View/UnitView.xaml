@@ -26,7 +26,7 @@
             <WrapPanel Margin="5" Background="Transparent">
                 <Button Command="{Binding AddUnitCommand}" Content="Thêm" Margin="5" Width="120" Background="#685B57"></Button>
                 <Button Command="{Binding UpdateUnitCommand}" Content="Sửa" Margin="5" Width="120" Background="#685B57"></Button>
-                <Button Command="{Binding DeleteCommand}" Content="Xoá" Margin="5" Width="120" Background="#685B57"></Button>
+                <Button Command="{Binding DeleteUnitCommand}" Content="Xoá" Margin="5" Width="120" Background="#685B57"></Button>
             </WrapPanel>
         </materialDesign:Card>
 
@@ -38,16 +38,14 @@
 
             <materialDesign:Card Grid.Column="0" Margin="0 0 2 0">
                 <GroupBox Margin="16" Header="Danh sách đơn vị đo">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <ListView ItemsSource="{Binding Units}" SelectedItem="{Binding SelectedUnit, Mode=OneWayToSource}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding UnitId}"></GridViewColumn>
-                                    <GridViewColumn Header="Tên đơn vị" DisplayMemberBinding="{Binding DisplayName}"></GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </ScrollViewer>
+                    <ListView ItemsSource="{Binding Units}" SelectedItem="{Binding SelectedUnit, Mode=OneWayToSource}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding UnitId}"></GridViewColumn>
+                                <GridViewColumn Header="Tên đơn vị" DisplayMemberBinding="{Binding DisplayName}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </GroupBox>
             </materialDesign:Card>
 
@@ -64,16 +62,6 @@
 
                         <Grid Grid.Row="0">
                             <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Tên đơn vị" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                        </Grid>
-
-                        <Grid Grid.Row="3">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
-                                <Button Command="{Binding UpdateCommand}" Content="Lưu" Margin="5" Width="120" Background="#685B57"></Button>
-                            </Grid>
                         </Grid>
                     </Grid>
                 </GroupBox>

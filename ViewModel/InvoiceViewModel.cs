@@ -215,29 +215,29 @@ namespace QuanLyPhongTro.ViewModel
         public ICommand AddInvoiceCommand { get; set; }
         public ICommand AddNewInvoiceCommand { get; set; }
         public ICommand UpdateInvoiceCommand { get; set; }
+        public ICommand DeleteInvoiceCommand { get; set; }
         #endregion
         public InvoiceViewModel()
         {
-            InvoiceList = new ObservableCollection<Invoice>(DataProvider.Ins.DB.Invoices.ToList());
-            ContractActiveList = new ObservableCollection<Contract>(DataProvider.Ins.DB.Contracts.Where(c => c.Status == Enum.ContractStatus.Active).ToList());
+            InvoiceList = new ObservableCollection<Invoice>(DataProvider.Ins.DB.Invoices.Where(i => i.IsDeleted == false).ToList());
+            ContractActiveList = new ObservableCollection<Contract>(DataProvider.Ins.DB.Contracts.Where(c => c.Status == Enum.ContractStatus.Active && c.IsDeleted == false).ToList());
             InvoiceStatusList = InvoiceStatusOptions.GetInvoiceStatuses();
-            AllInvoice = new ObservableCollection<Invoice>(DataProvider.Ins.DB.Invoices.ToList());
+            AllInvoice = new ObservableCollection<Invoice>(DataProvider.Ins.DB.Invoices.Where(i => !i.IsDeleted).ToList());
             var now = DateTime.Now;
             CreateDate = now;
             DueDate = now.AddDays(30);
             MeterReadingLastMonthList = new ObservableCollection<MeterReading>(
                 [.. DataProvider.Ins.DB.MeterReadings
                     .Include(m => m.Service)
-                    .Where(m => m.ReadingDate < new DateTime(now.Year, now.Month, 1)) // tất cả trước tháng này
+                    .Where(m => !m.IsDeleted && m.ReadingDate < new DateTime(now.Year, now.Month, 1)) // tất cả trước tháng này
                     .GroupBy(m => new { m.RoomId, m.ServiceId }) // nhóm theo phòng và dịch vụ
                     .Select(g => g.OrderByDescending(m => m.ReadingDate).FirstOrDefault())]);
-            MeterReadingCurrentMonthList = new ObservableCollection<MeterReading>(DataProvider.Ins.DB.MeterReadings.Include(m => m.Service).Where(m => m.ReadingDate.Month == now.Month && m.ReadingDate.Year == now.Year).ToList());
-
+            MeterReadingCurrentMonthList = new ObservableCollection<MeterReading>(DataProvider.Ins.DB.MeterReadings.Include(m => m.Service).Where(m => !m.IsDeleted && m.ReadingDate.Month == now.Month && m.ReadingDate.Year == now.Year).ToList());
             MakingInvoiceCommand = new RelayCommand<object>((p) => true, (p) =>
             {
                 foreach (var item in ContractActiveList)
                 {
-                    bool invoiceExists = DataProvider.Ins.DB.Invoices.Any(i => i.ContractId == item.Id && i.CreateDate.Month == DateTime.Now.Month && i.CreateDate.Year == DateTime.Now.Year);
+                    bool invoiceExists = DataProvider.Ins.DB.Invoices.Any(i => !i.IsDeleted && i.ContractId == item.Id && i.CreateDate.Month == DateTime.Now.Month && i.CreateDate.Year == DateTime.Now.Year);
                     if (invoiceExists)
                         continue;
 
@@ -250,16 +250,17 @@ namespace QuanLyPhongTro.ViewModel
                         AmountPaid = 0,
                         Status = InvoiceStatus.UnPaid,
                         ContractId = item.Id,
+                        IsDeleted = false,
                         Notes = "Hóa đơn tự động tạo",
                     };
 
                     DataProvider.Ins.DB.Invoices.Add(invoice);
                     DataProvider.Ins.DB.SaveChanges();
 
-                    foreach (var meterReading in MeterReadingCurrentMonthList.Where(m => m.RoomId == item.RoomId))
+                    foreach (var meterReading in MeterReadingCurrentMonthList.Where(m => !m.IsDeleted && m.RoomId == item.RoomId))
                     {
                         var lastReadingValue = MeterReadingLastMonthList
-                            .FirstOrDefault(m => m.RoomId == item.RoomId && m.ServiceId == meterReading.ServiceId)?.ReadingValue ?? 0;
+                            .FirstOrDefault(m => !m.IsDeleted && m.RoomId == item.RoomId && m.ServiceId == meterReading.ServiceId)?.ReadingValue ?? 0;
 
                         var invoice_detail = new Invoice_detail()
                         {
@@ -267,6 +268,7 @@ namespace QuanLyPhongTro.ViewModel
                             ServiceId = meterReading.ServiceId,
                             Quantity = meterReading.ReadingValue - lastReadingValue,
                             UnitPrice = meterReading.Service.Price,
+                            IsDeleted = false,
                             Notes = "Hóa đơn tự động tạo"
                         };
 
@@ -324,6 +326,7 @@ namespace QuanLyPhongTro.ViewModel
                         AmountPaid = AmountPaid,
                         Status = Status.Value,
                         ContractId = SelectedContract.Id,
+                        IsDeleted = false,
                         Notes = Notes,
                     };
                     DataProvider.Ins.DB.Invoices.Add(invoice);
@@ -350,7 +353,7 @@ namespace QuanLyPhongTro.ViewModel
                         MessageBox.Show("Vui lòng chọn hóa đơn để cập nhật.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
-                    var invoiceToUpdate = DataProvider.Ins.DB.Invoices.FirstOrDefault(i => i.Id == SelectedItem.Id);
+                    var invoiceToUpdate = DataProvider.Ins.DB.Invoices.FirstOrDefault(i => !i.IsDeleted && i.Id == SelectedItem.Id);
                     if (invoiceToUpdate != null)
                     {
                         invoiceToUpdate.InvoiceCode = InvoiceCode;
@@ -364,6 +367,20 @@ namespace QuanLyPhongTro.ViewModel
                         DataProvider.Ins.DB.SaveChanges();
                         MessageBox.Show("Cập nhật hóa đơn thành công.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
+                });
+            DeleteInvoiceCommand = new RelayCommand<object>(
+                (p) =>
+                {
+                    if (SelectedItem == null)
+                        return false;
+                    return true;
+                },
+                (p) =>
+                {
+                    SelectedItem.IsDeleted = true;
+                    DataProvider.Ins.DB.SaveChanges();
+                    MessageBox.Show("Xoá hóa đơn thành công.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    InvoiceList = new ObservableCollection<Invoice>(DataProvider.Ins.DB.Invoices.Where(i => !i.IsDeleted).ToList());
                 });
         }
     }

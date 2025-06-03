@@ -28,6 +28,7 @@ namespace QuanLyPhongTro.Model
         public string? Utilities { get; set; }
         public RoomFilterStatus Status { get; set; } // Vacant: Trống, Occupied: Đã thuê, Fixing: Đang sửa chữa
         public string? Description { get; set; }
+        public bool IsDeleted { get; set; } // Đánh dấu hóa đơn đã bị xoá
         public virtual ICollection<Contract> Contracts { get; set; }
         public virtual ICollection<Fix> Fixes { get; set; }
         public virtual ICollection<MeterReading> MeterReadings { get; set; }

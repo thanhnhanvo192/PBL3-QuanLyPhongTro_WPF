@@ -162,11 +162,13 @@ namespace QuanLyPhongTro.ViewModel
         public ICommand AddNewRoomCommand { get; set; }
         public ICommand UpdateRoomCommand { get; set; }
         public ICommand SearchRoomCommand { get; set; }
+        public ICommand DeleteRoomCommand { get; set; }
         public RoomViewModel()
         {
-            RoomList = new ObservableCollection<Room>(DataProvider.Ins.DB.Rooms.ToList());
+            RoomList = new ObservableCollection<Room>(DataProvider.Ins.DB.Rooms.Where(r => r.IsDeleted == false).ToList());
             FilterOptions = RoomFilterOption.GetRoomFilterOptions();
             SelectedFilterStatus = RoomFilterOption.GetRoomFilterOptions().First();
+
             AddRoomCommand = new RelayCommand<object>((p) =>
             {
                 return true;
@@ -176,6 +178,7 @@ namespace QuanLyPhongTro.ViewModel
                var addRoomWindow = new AddRoomWindow{};
                addRoomWindow.ShowDialog();
            });
+
             UpdateRoomCommand = new RelayCommand<object>((p) =>
             {
                 if (SelectedItem == null)
@@ -184,8 +187,8 @@ namespace QuanLyPhongTro.ViewModel
             },
             (p) =>
             {
-                var room = DataProvider.Ins.DB.Rooms.Where(x => x.Id == SelectedItem.Id).SingleOrDefault();
-                var roomList = DataProvider.Ins.DB.Rooms.Where(x => x.RoomNumber == RoomNumber && RoomNumber != SelectedItem.RoomNumber);
+                var room = DataProvider.Ins.DB.Rooms.Where(x => x.IsDeleted == false && x.Id == SelectedItem.Id).SingleOrDefault();
+                var roomList = DataProvider.Ins.DB.Rooms.Where(x => x.IsDeleted == false && x.RoomNumber == RoomNumber && RoomNumber != SelectedItem.RoomNumber);
                 if (roomList == null || roomList.Count() != 0)
                 {
                     MessageBox.Show("Số phòng đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -201,6 +204,7 @@ namespace QuanLyPhongTro.ViewModel
                     room.Utilities = Utilities;
                     room.Description = Description;
                     room.Status = SelectedFilterStatus.Value;
+                    room.IsDeleted = false;
                     DataProvider.Ins.DB.SaveChanges();
                     SelectedItem.RoomNumber = RoomNumber;
                     SelectedItem.Price = Price;
@@ -213,13 +217,14 @@ namespace QuanLyPhongTro.ViewModel
                     OnPropertyChanged();
                 }
             });
+
             SearchRoomCommand = new RelayCommand<object>((p) =>
             {
                 return true;
             },
             (p) =>
             {
-                var allRooms = DataProvider.Ins.DB.Rooms.ToList();
+                var allRooms = DataProvider.Ins.DB.Rooms.Where(r => r.IsDeleted == false).ToList();
                 var filteredRooms = SelectedFilterStatus?.Value == RoomFilterStatus.All ? allRooms : allRooms.Where(x => x.Status == SelectedFilterStatus.Value).ToList();
                 if (!string.IsNullOrEmpty(RoomNumberSearch))
                 {
@@ -244,6 +249,7 @@ namespace QuanLyPhongTro.ViewModel
                     }
                 }
             });
+
             AddNewRoomCommand = new RelayCommand<object>((p) =>
             {
                 if (string.IsNullOrEmpty(RoomNumber))
@@ -256,7 +262,7 @@ namespace QuanLyPhongTro.ViewModel
             },
            (p) =>
            {
-               var existingRoom = DataProvider.Ins.DB.Rooms.FirstOrDefault(x => x.RoomNumber == RoomNumber);
+               var existingRoom = DataProvider.Ins.DB.Rooms.FirstOrDefault(x => x.IsDeleted == false && x.RoomNumber == RoomNumber);
                if (existingRoom != null)
                {
                    MessageBox.Show("Số phòng đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -269,6 +275,7 @@ namespace QuanLyPhongTro.ViewModel
                    Area = Area,
                    MaxOccupants = MaxOccupants,
                    Floor = Floor,
+                   IsDeleted = false,
                    Utilities = Utilities
                };
                DataProvider.Ins.DB.Rooms.Add(newRoom);
@@ -283,6 +290,20 @@ namespace QuanLyPhongTro.ViewModel
                        window.Close();
                }
            });
+
+            DeleteRoomCommand = new RelayCommand<object>((p) =>
+            {
+                if (SelectedItem == null)
+                    return false;
+                return true;
+            },
+            (p) =>
+            {
+                SelectedItem.IsDeleted = true;
+                DataProvider.Ins.DB.SaveChanges();
+                MessageBox.Show("Xoá phòng thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                RoomList = new ObservableCollection<Room>(DataProvider.Ins.DB.Rooms.Where(r => r.IsDeleted == false).ToList());
+            });
         }
     }
 }

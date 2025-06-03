@@ -73,7 +73,7 @@ namespace QuanLyPhongTro.ViewModel
         public void EmptyListRoom()
         {
             ListEmptyRoom = new ObservableCollection<EmptyRoomDisplay>();
-            var list = DataProvider.Ins.DB.Rooms.ToList();
+            var list = DataProvider.Ins.DB.Rooms.Where(r => r.IsDeleted == false).ToList();
             int stt = 1;
             foreach (var item in list)
             {
@@ -91,7 +91,7 @@ namespace QuanLyPhongTro.ViewModel
         {
             try
             {
-                int count = DataProvider.Ins.DB.Rooms.Count(room => room.Status == Enum.RoomFilterStatus.Vacant);
+                int count = DataProvider.Ins.DB.Rooms.Where(r => r.IsDeleted == false).Count(room => room.Status == Enum.RoomFilterStatus.Vacant);
                 TotalemtpyRoom = count;
             }
             catch (Exception ex)
@@ -111,7 +111,7 @@ namespace QuanLyPhongTro.ViewModel
                     lastMonth = 12;
                     Year--;
                 }
-                LastRevenue = DataProvider.Ins.DB.Invoices.Where(invoice => invoice.CreateDate.Year == Year && invoice.CreateDate.Month == lastMonth && invoice.Status == InvoiceStatus.Paid).Sum(invoice => invoice.AmountPaid);
+                LastRevenue = DataProvider.Ins.DB.Invoices.Where(invoice => invoice.IsDeleted == false && invoice.CreateDate.Year == Year && invoice.CreateDate.Month == lastMonth && invoice.Status == InvoiceStatus.Paid).Sum(invoice => invoice.AmountPaid);
             }
             catch (Exception ex)
             {
@@ -131,7 +131,7 @@ namespace QuanLyPhongTro.ViewModel
                     lastMonth = 12;
                     year--;
                 }
-                var listContract = DataProvider.Ins.DB.Contracts.Where(contract => contract.EndDate.Year == year && contract.EndDate.Month == lastMonth).ToList();
+                var listContract = DataProvider.Ins.DB.Contracts.Where(contract => contract.IsDeleted == false && contract.EndDate.Year == year && contract.EndDate.Month == lastMonth).ToList();
                 foreach (var item in listContract)
                 {
                     Contract contract = new Contract();
@@ -158,7 +158,7 @@ namespace QuanLyPhongTro.ViewModel
                     lastMonth = 12;
                     year--;
                 }
-                TotalOutDateContract = DataProvider.Ins.DB.Contracts.Count(contract => contract.EndDate.Year == year && contract.EndDate.Month == lastMonth);
+                TotalOutDateContract = DataProvider.Ins.DB.Contracts.Count(contract => contract.IsDeleted == false && contract.EndDate.Year == year && contract.EndDate.Month == lastMonth);
             }
             catch (Exception ex)
             {

@@ -22,18 +22,11 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <materialDesign:Card Grid.Column="0" Margin="5 5 0 0">
+            <materialDesign:Card Margin="5 5 0 0">
                 <WrapPanel Margin="5">
                     <Button Command="{Binding AddContractCommand}" Content="Thêm" Margin="5" Width="120" Background="#685B57"></Button>
                     <Button Command="{Binding UpdateContractCommand}" Content="Sửa" Margin="5" Width="120" Background="#685B57"></Button>
-                </WrapPanel>
-            </materialDesign:Card>
-            <materialDesign:Card Grid.Column="1" Margin="0 5 5 0">
-                <WrapPanel Margin="5">
+                    <Button Command="{Binding DeleteContractCommand}" Content="Xoá" Margin="5" Width="120" Background="#685B57"></Button>
                     <ComboBox ItemsSource="{Binding ContractStatusList}" SelectedItem="{Binding SelectedContractStatus}" DisplayMemberPath="DisplayName" SelectedValuePath="Value" Margin="5 5 15 -3" materialDesign:HintAssist.Hint="Tất cả hợp đồng"/>
                     <TextBox Text="{Binding RoomNumberSearch, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Nhập số phòng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                     <DatePicker Margin="0 0 20 0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày bắt đầu" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
@@ -54,17 +47,15 @@
 
             <materialDesign:Card Grid.Column="0" Margin="0 0 2 0">
                 <GroupBox Margin="16" Header="Danh sách hợp đồng">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <ListView ItemsSource="{Binding ContractList}" SelectedItem="{Binding SelectedContract, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
-                                    <GridViewColumn Header="Phòng" DisplayMemberBinding="{Binding Room.RoomNumber}"></GridViewColumn>
-                                    <GridViewColumn Header="Mã hợp đồng" DisplayMemberBinding="{Binding ContractCode}"></GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </ScrollViewer>
+                    <ListView ItemsSource="{Binding ContractList}" SelectedItem="{Binding SelectedContract, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                                <GridViewColumn Header="Phòng" DisplayMemberBinding="{Binding Room.RoomNumber}"></GridViewColumn>
+                                <GridViewColumn Header="Mã hợp đồng" DisplayMemberBinding="{Binding ContractCode}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </GroupBox>
             </materialDesign:Card>
 

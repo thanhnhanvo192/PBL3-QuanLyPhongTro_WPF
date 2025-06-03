@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using QuanLyPhongTro.Model;
 using System.Windows.Input;
+using System.Windows;
 
 namespace QuanLyPhongTro.ViewModel
 {
@@ -79,17 +80,18 @@ namespace QuanLyPhongTro.ViewModel
         }
         public ICommand AddServiceCommand { get; set; }
         public ICommand UpdateServiceCommand { get; set; }
+        public ICommand DeleteServiceCommand { get; set; }
         public ServiceViewModel()
         {
-            Services = new ObservableCollection<Service>(DataProvider.Ins.DB.Services.ToList());
-            Units = new ObservableCollection<Unit>(DataProvider.Ins.DB.Units.ToList());
+            Services = new ObservableCollection<Service>(DataProvider.Ins.DB.Services.Where(s => s.IsDeleted == false).ToList());
+            Units = new ObservableCollection<Unit>(DataProvider.Ins.DB.Units.Where(u => u.IsDeleted == false).ToList());
             AddServiceCommand = new RelayCommand<object>((p) =>
             {
                 if (string.IsNullOrWhiteSpace(DisplayName) || string.IsNullOrWhiteSpace(Price))
                     return false;
                 if (!decimal.TryParse(Price, out decimal price))
                     return false;
-                if (DataProvider.Ins.DB.Services.Any(x => x.DisplayName == DisplayName))
+                if (DataProvider.Ins.DB.Services.Any(x => x.IsDeleted == false && x.DisplayName == DisplayName))
                     return false;
                 if (SelectedUnit == null)
                     return false;
@@ -101,6 +103,7 @@ namespace QuanLyPhongTro.ViewModel
                 { 
                     DisplayName = DisplayName,
                     Price = decimal.Parse(Price),
+                    IsDeleted = false,
                     UnitId = SelectedUnit.UnitId
                 };
                 DataProvider.Ins.DB.Services.Add(service);
@@ -118,7 +121,7 @@ namespace QuanLyPhongTro.ViewModel
             },
             (p) =>
             {
-                var service = DataProvider.Ins.DB.Services.Where(x => x.Id == SelectedService.Id).SingleOrDefault();
+                var service = DataProvider.Ins.DB.Services.Where(x => x.IsDeleted == false && x.Id == SelectedService.Id).SingleOrDefault();
                 service.DisplayName = DisplayName;
                 service.Price = decimal.Parse(Price);
                 service.UnitId = SelectedUnit.UnitId;
@@ -126,6 +129,20 @@ namespace QuanLyPhongTro.ViewModel
                 SelectedService.DisplayName = DisplayName;
                 SelectedService.Price = decimal.Parse(Price);
                 SelectedService.Unit = SelectedUnit;
+            });
+
+            DeleteServiceCommand = new RelayCommand<object>((p) =>
+            {
+                if (SelectedService == null)
+                    return false;
+                return true;
+            },
+            (p) =>
+            {
+                SelectedService.IsDeleted = true;
+                DataProvider.Ins.DB.SaveChanges();
+                MessageBox.Show("Dịch vụ đã được xoá thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                Services = new ObservableCollection<Service>(DataProvider.Ins.DB.Services.Where(s => s.IsDeleted == false).ToList());
             });
         }
     }

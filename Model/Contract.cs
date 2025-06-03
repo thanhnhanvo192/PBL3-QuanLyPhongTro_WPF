@@ -33,6 +33,7 @@ namespace QuanLyPhongTro.Model
         // UserId và CreatedByUser đã được bỏ
         public ContractStatus Status { get; set; } // 0: Hết hạn/Huỷ, 1: Đang hiệu lực
         public string Notes { get; set; }
+        public bool IsDeleted { get; set; } // Đánh dấu hợp đồng đã bị xoá
         public virtual ICollection<Invoice> Invoices { get; set; }
         public virtual ICollection<Occupant> Occupants { get; set; }
         public virtual ICollection<Punish> Punishes { get; set; }

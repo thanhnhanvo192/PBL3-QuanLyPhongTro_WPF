@@ -29,6 +29,7 @@ namespace QuanLyPhongTro.Model
         [ForeignKey("ContractId")]
         public virtual Contract Contract { get; set; }
         public string Notes { get; set; }
+        public bool IsDeleted { get; set; } // Đánh dấu hóa đơn đã bị xoá
         public virtual ICollection<Invoice_detail> InvoiceDetails { get; set; }
         public virtual ICollection<Fix> Fixes { get; set; } // Chi phí sửa chữa có thể được thêm vào hóa đơn
         public virtual ICollection<Punish> Punishes { get; set; } // Khoản phạt có thể được thêm vào hóa đơn

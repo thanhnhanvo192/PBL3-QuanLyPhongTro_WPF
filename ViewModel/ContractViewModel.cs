@@ -212,7 +212,7 @@ namespace QuanLyPhongTro.ViewModel
         #endregion
         public ContractViewModel()
         {
-            AllContract = new ObservableCollection<Contract>(DataProvider.Ins.DB.Contracts.ToList());
+            AllContract = new ObservableCollection<Contract>(DataProvider.Ins.DB.Contracts.Where(c => c.IsDeleted == false).ToList());
             ContractList = new ObservableCollection<Contract>(DataProvider.Ins.DB.Contracts.Include(c => c.Room).Include(c => c.Tenant).ToList());
             ContractStatusList = ContractStatusOptions.GetContractStatuses();
             TenantList = new ObservableCollection<Tenant>(DataProvider.Ins.DB.Tenants.ToList());
@@ -268,6 +268,10 @@ namespace QuanLyPhongTro.ViewModel
                     SelectedContract.TenantId = SelectedTenant.Id;
                     SelectedContract.Notes = Notes;
                     SelectedContract.Status = Status.Value;
+                    if(SelectedContract.Status == ContractStatus.CancelledOrExpired)
+                    {
+                        SelectedContract.IsDeleted = true;
+                    }
                     if (Status.Value == ContractStatus.CancelledOrExpired)
                     {
                         SelectedContract.Room.Status = RoomFilterStatus.Vacant;
@@ -354,6 +358,20 @@ namespace QuanLyPhongTro.ViewModel
                        window.Close();
                }
            });
+            DeleteContractCommand = new RelayCommand<object>(
+                (p) =>
+                {
+                    if (SelectedContract == null)
+                        return false;
+                    return true;
+                },
+                (p) =>
+                {
+                    SelectedContract.IsDeleted = true;
+                    DataProvider.Ins.DB.SaveChanges();
+                    MessageBox.Show("Xoá hợp đồng thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    AllContract = new ObservableCollection<Contract>(DataProvider.Ins.DB.Contracts.Where(c => c.IsDeleted == false).ToList());
+                });
         }
     }
 }

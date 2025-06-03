@@ -44,7 +44,7 @@
                     <Button Command="{Binding SearchPunishCommand}" Content="Lọc" Margin="5" Width="100" Background="#685B57"></Button>
                     <Button Command="{Binding AddPunishCommand}" Content="Thêm" Margin="5" Width="100" Background="#685B57"></Button>
                     <Button Command="{Binding UpdatePunishCommand}" Content="Sửa" Margin="5" Width="100" Background="#685B57"></Button>
-                    <Button Command="{Binding SearchPunishCommand}" Content="Xoá" Margin="5" Width="100" Background="#685B57"></Button>
+                    <Button Command="{Binding DeletePunishComamnd}" Content="Xoá" Margin="5" Width="100" Background="#685B57"></Button>
                 </WrapPanel>
             </materialDesign:Card>
         </Grid>
@@ -57,17 +57,15 @@
 
             <materialDesign:Card Grid.Column="0">
                 <GroupBox Margin="16" Header="Lịch sử xử phạt">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <ListView ItemsSource="{Binding PunishListDisplay}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
-                                    <GridViewColumn Header="Ngày phạt" DisplayMemberBinding="{Binding PunishDate, StringFormat='dd/MM/yyyy'}"></GridViewColumn>
-                                    <GridViewColumn Header="Tiền phạt" DisplayMemberBinding="{Binding Amount}"></GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </ScrollViewer>
+                    <ListView ItemsSource="{Binding PunishListDisplay}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                                <GridViewColumn Header="Ngày phạt" DisplayMemberBinding="{Binding PunishDate, StringFormat='dd/MM/yyyy'}"></GridViewColumn>
+                                <GridViewColumn Header="Tiền phạt" DisplayMemberBinding="{Binding Amount}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </GroupBox>
             </materialDesign:Card>
 

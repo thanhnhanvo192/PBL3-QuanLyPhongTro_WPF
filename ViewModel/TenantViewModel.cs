@@ -152,9 +152,10 @@ namespace QuanLyPhongTro.ViewModel
         public ICommand AddNewTenantCommand { get; set; }
         public ICommand UpdateTenantCommand { get; set; }
         public ICommand SearchTenantCommand { get; set; }
+        public ICommand DeleteTenantComamnd { get; set; }
         public TenantViewModel()
         {
-            TenantList = new ObservableCollection<Tenant>(DataProvider.Ins.DB.Tenants.ToList());
+            TenantList = new ObservableCollection<Tenant>(DataProvider.Ins.DB.Tenants.Where(t => t.IsDeleted == false).ToList());
             ListSexOption = SexOptions.GetSexEnums();
             SelectedSex = ListSexOption.FirstOrDefault();
             AddTenantCommand = new RelayCommand<object>((p) =>
@@ -166,6 +167,7 @@ namespace QuanLyPhongTro.ViewModel
                var addTenantWindow = new AddTenantWindow{};
                addTenantWindow.ShowDialog();
            });
+
             UpdateTenantCommand = new RelayCommand<object>((p) =>
             {
                 if (SelectedItem == null)
@@ -174,8 +176,8 @@ namespace QuanLyPhongTro.ViewModel
             },
             (p) =>
             {
-                var Tenant = DataProvider.Ins.DB.Tenants.Where(x => x.Id == SelectedItem.Id).SingleOrDefault();
-                var TenantList = DataProvider.Ins.DB.Tenants.Where(x => x.CCCD == CCCD && CCCD != SelectedItem.CCCD && Phone != SelectedItem.Phone && Email != SelectedItem.Email);
+                var Tenant = DataProvider.Ins.DB.Tenants.Where(x => x.IsDeleted == false && x.Id == SelectedItem.Id).SingleOrDefault();
+                var TenantList = DataProvider.Ins.DB.Tenants.Where(x => x.IsDeleted == false && x.CCCD == CCCD && CCCD != SelectedItem.CCCD && Phone != SelectedItem.Phone && Email != SelectedItem.Email);
                 if (TenantList == null || TenantList.Count() == 0)
                 {
                     MessageBox.Show("CCCD, SĐT hoặc Email đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -191,6 +193,7 @@ namespace QuanLyPhongTro.ViewModel
                     Tenant.Email = Email;
                     Tenant.PermanentAddress = PermanentAddress;
                     Tenant.Sex = SelectedSex.Value;
+                    Tenant.IsDeleted = false;
                     DataProvider.Ins.DB.SaveChanges();
                     SelectedItem.FirstName = FirstName;
                     SelectedItem.LastName = LastName;
@@ -201,13 +204,14 @@ namespace QuanLyPhongTro.ViewModel
                     SelectedItem.PermanentAddress = PermanentAddress;
                 }
             });
+
             SearchTenantCommand = new RelayCommand<object>((p) =>
             {
                 return true;
             },
             (p) =>
             {
-                var allTenants = DataProvider.Ins.DB.Tenants.ToList();
+                var allTenants = DataProvider.Ins.DB.Tenants.Where(t => t.IsDeleted == false).ToList();
                 if (!string.IsNullOrEmpty(TenantNameSearch))
                 {
                     var Tenant = allTenants.Where(x => x.LastName.ToLower().Contains(TenantNameSearch.ToLower()) || x.FirstName.ToLower().Contains(TenantNameSearch.ToLower())).ToList();
@@ -233,6 +237,7 @@ namespace QuanLyPhongTro.ViewModel
                     }
                 }
             });
+
             AddNewTenantCommand = new RelayCommand<object>((p) =>
             {
                 if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName) || string.IsNullOrEmpty(CCCD) || SelectedSex == null)
@@ -241,7 +246,7 @@ namespace QuanLyPhongTro.ViewModel
             },
            (p) =>
            {
-               var existingTenant = DataProvider.Ins.DB.Tenants.FirstOrDefault(x => x.CCCD == CCCD && CCCD != CCCD && Phone != Phone && Email != Email);
+               var existingTenant = DataProvider.Ins.DB.Tenants.Where(t => t.IsDeleted == false).FirstOrDefault(x => x.CCCD == CCCD && CCCD != CCCD && Phone != Phone && Email != Email);
                if (existingTenant != null)
                {
                    MessageBox.Show("CCCD đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -256,7 +261,8 @@ namespace QuanLyPhongTro.ViewModel
                    Email = Email,
                    Phone = Phone,
                    Birthday = Birthday,
-                   Sex = SelectedSex.Value
+                   Sex = SelectedSex.Value,
+                   IsDeleted = false
                };
                DataProvider.Ins.DB.Tenants.Add(newTenant);
                DataProvider.Ins.DB.SaveChanges();
@@ -270,6 +276,20 @@ namespace QuanLyPhongTro.ViewModel
                        window.Close();
                }
            });
+
+            DeleteTenantComamnd = new RelayCommand<object>((p) =>
+            {
+                if (SelectedItem == null)
+                    return false;
+                return true;
+            },
+            (p) => 
+            {
+                SelectedItem.IsDeleted = true;
+                DataProvider.Ins.DB.SaveChanges();
+                MessageBox.Show("Xóa khách thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                TenantList = new ObservableCollection<Tenant>(DataProvider.Ins.DB.Tenants.Where(t => t.IsDeleted == false).ToList());
+            });
         }
     }
 }

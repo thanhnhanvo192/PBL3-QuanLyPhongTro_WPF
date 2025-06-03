@@ -19,6 +19,7 @@
     <viewmodel:InvoiceViewModel x:Key="InvoiceVM" />
     <viewmodel:PunishViewModel x:Key="PunishVM" />
     <viewmodel:StatisticViewModel x:Key="StatisticVM" />
+    <viewmodel:UserViewModel x:Key="UserVM" />
 
     <!-- Khai báo DataTemplate -->
     <DataTemplate DataType="{x:Type viewmodel:MainViewModel}">

@@ -99,9 +99,9 @@ namespace QuanLyPhongTro.ViewModel
         public ICommand UpdateMeterReadingCommand { get; set; }
         public MeterReadingViewModel()
         {
-            Rooms = new ObservableCollection<Room>(DataProvider.Ins.DB.Rooms.ToList());
-            Services = new ObservableCollection<Service>(DataProvider.Ins.DB.Services.ToList());
-            MeterReadings = new ObservableCollection<MeterReading>(DataProvider.Ins.DB.MeterReadings.ToList());
+            Rooms = new ObservableCollection<Room>(DataProvider.Ins.DB.Rooms.Where(r => r.IsDeleted == false).ToList());
+            Services = new ObservableCollection<Service>(DataProvider.Ins.DB.Services.Where(s => s.IsDeleted == false).ToList());
+            MeterReadings = new ObservableCollection<MeterReading>(DataProvider.Ins.DB.MeterReadings.Where(r => r.IsDeleted == false).ToList());
             ReadingDate = DateTime.Now;
 
             AddMeterReadingCommand = new RelayCommand<object>((p) =>
@@ -116,6 +116,7 @@ namespace QuanLyPhongTro.ViewModel
                     ServiceId = SelectedService.Id,
                     ReadingDate = ReadingDate,
                     ReadingValue = ReadingValue,
+                    IsDeleted = false,
                     Notes = Notes
                 };
                 if (newReading.ReadingValue < 0)

@@ -28,6 +28,7 @@ namespace QuanLyPhongTro.Model
         public decimal Amount => UnitPrice * Quantity;
         [MaxLength(255)]
         public string Notes { get; set; }
+        public bool IsDeleted { get; set; } // Đánh dấu hóa đơn đã bị xoá
 
         public Invoice_detail()
         {

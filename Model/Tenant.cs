@@ -107,7 +107,7 @@ namespace QuanLyPhongTro.Model
                 OnPropertyChanged();
             }
         }
-
+        public bool IsDeleted { get; set; } // Đánh dấu hóa đơn đã bị xoá
         public virtual ICollection<Contract> Contracts { get; set; }
         public virtual ICollection<Fix> Fixes { get; set; }
 

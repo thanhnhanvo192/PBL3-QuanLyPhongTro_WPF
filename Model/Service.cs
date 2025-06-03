@@ -64,6 +64,7 @@ namespace QuanLyPhongTro.Model
                 OnPropertyChanged();
             }
         }
+        public bool IsDeleted { get; set; } // Đánh dấu hóa đơn đã bị xoá
 
         // Navigation property: Một Service có thể thuộc nhiều Invoice_details
         public virtual ICollection<Invoice_detail> InvoiceDetails { get; set; }

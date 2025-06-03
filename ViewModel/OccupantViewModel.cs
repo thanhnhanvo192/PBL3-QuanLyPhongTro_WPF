@@ -162,11 +162,12 @@ namespace QuanLyPhongTro.ViewModel
         public ICommand AddNewOccupantCommand { get; set; }
         public ICommand UpdateOccupantCommand { get; set; }
         public ICommand SearchOccupantCommand { get; set; }
+        public ICommand DeleteOccupantCommand { get; set; }
         public OccupantViewModel()
         {
-            OccupantList = new ObservableCollection<Occupant>(DataProvider.Ins.DB.Occupants.ToList());
+            OccupantList = new ObservableCollection<Occupant>(DataProvider.Ins.DB.Occupants.Where(r => r.IsDeleted == false).ToList());
             ListSexOption = SexOptions.GetSexEnums();
-            ListRoom = new ObservableCollection<Room>(DataProvider.Ins.DB.Rooms.Where(r => r.Status == RoomFilterStatus.Occupied).ToList());
+            ListRoom = new ObservableCollection<Room>(DataProvider.Ins.DB.Rooms.Where(r => r.IsDeleted == false && r.Status == RoomFilterStatus.Occupied).ToList());
             SelectedSex = ListSexOption.FirstOrDefault();
             AddOccupantCommand = new RelayCommand<object>((p) =>
             {
@@ -177,6 +178,7 @@ namespace QuanLyPhongTro.ViewModel
                var addOccupantWindow = new AddOccupantWindow{};
                addOccupantWindow.ShowDialog();
            });
+
             UpdateOccupantCommand = new RelayCommand<object>((p) =>
             {
                 if (SelectedItem == null)
@@ -185,8 +187,8 @@ namespace QuanLyPhongTro.ViewModel
             },
             (p) =>
             {
-                var Occupant = DataProvider.Ins.DB.Occupants.Where(x => x.Id == SelectedItem.Id).SingleOrDefault();
-                var OccupantList = DataProvider.Ins.DB.Occupants.Where(x => x.Id != SelectedItem.Id && CCCD == SelectedItem.CCCD && Phone == SelectedItem.Phone);
+                var Occupant = DataProvider.Ins.DB.Occupants.Where(x => x.IsDeleted == false && x.Id == SelectedItem.Id).SingleOrDefault();
+                var OccupantList = DataProvider.Ins.DB.Occupants.Where(x => x.IsDeleted == false && x.Id != SelectedItem.Id && CCCD == SelectedItem.CCCD && Phone == SelectedItem.Phone);
                 if (OccupantList == null || OccupantList.Count() == 0)
                 {
                     MessageBox.Show("CCCD hoặc SĐT đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -200,6 +202,7 @@ namespace QuanLyPhongTro.ViewModel
                     Occupant.Birthday = Birthday;
                     Occupant.Phone = Phone;
                     Occupant.PermanentAddress = PermanentAddress;
+                    Occupant.IsDeleted = false;
                     Occupant.Sex = SelectedSex.Value;
                     DataProvider.Ins.DB.SaveChanges();
                     SelectedItem.FirstName = FirstName;
@@ -210,6 +213,7 @@ namespace QuanLyPhongTro.ViewModel
                     SelectedItem.PermanentAddress = PermanentAddress;
                 }
             });
+
             SearchOccupantCommand = new RelayCommand<object>((p) =>
             {
                 return true;
@@ -242,6 +246,7 @@ namespace QuanLyPhongTro.ViewModel
                     }
                 }
             });
+
             AddNewOccupantCommand = new RelayCommand<object>((p) =>
             {
                 if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName) || string.IsNullOrEmpty(CCCD) || SelectedSex == null)
@@ -250,13 +255,13 @@ namespace QuanLyPhongTro.ViewModel
             },
            (p) =>
            {
-               var existingOccupant = DataProvider.Ins.DB.Occupants.FirstOrDefault(x => x.CCCD == CCCD && CCCD != CCCD && Phone != Phone);
+               var existingOccupant = DataProvider.Ins.DB.Occupants.FirstOrDefault(x => x.IsDeleted == false && x.CCCD == CCCD && CCCD != CCCD && Phone != Phone);
                if (existingOccupant != null)
                {
                    MessageBox.Show("CCCD đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
                    return;
                }
-               var contract = DataProvider.Ins.DB.Contracts.FirstOrDefault(x => x.RoomId == SelectedRoom.Id);
+               var contract = DataProvider.Ins.DB.Contracts.FirstOrDefault(x => x.IsDeleted == false && x.RoomId == SelectedRoom.Id);
                Occupant newOccupant = new Occupant()
                {
                    FirstName = FirstName,
@@ -266,7 +271,8 @@ namespace QuanLyPhongTro.ViewModel
                    Phone = Phone,
                    Birthday = Birthday,
                    ContractId = contract.Id,
-                   Sex = SelectedSex.Value
+                   Sex = SelectedSex.Value,
+                   IsDeleted = false
                };
                DataProvider.Ins.DB.Occupants.Add(newOccupant);
                DataProvider.Ins.DB.SaveChanges();
@@ -280,6 +286,20 @@ namespace QuanLyPhongTro.ViewModel
                        window.Close();
                }
            });
+
+            DeleteOccupantCommand = new RelayCommand<object>((p) =>
+            {
+                if (SelectedItem == null)
+                    return false;
+                return true;
+            },
+            (p) =>
+            {
+                SelectedItem.IsDeleted = true;
+                DataProvider.Ins.DB.SaveChanges();
+                MessageBox.Show("Xoá khách thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                OccupantList = new ObservableCollection<Occupant>(DataProvider.Ins.DB.Occupants.Where(r => r.IsDeleted == false).ToList());
+            });
         }
     }
 }

@@ -22,6 +22,7 @@ namespace QuanLyPhongTro.Model
         public string Reason { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal Amount { get; set; }
+        public bool IsDeleted { get; set; } // Đánh dấu hóa đơn đã bị xoá
         public int? InvoiceId { get; set; }
         [ForeignKey("InvoiceId")]
         public virtual Invoice Invoice { get; set; }

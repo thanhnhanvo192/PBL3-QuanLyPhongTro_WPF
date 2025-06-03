@@ -29,7 +29,7 @@
                     <WrapPanel Margin="5">
                         <Button Command="{Binding AddTenantCommand}" Content="Thêm" Margin="5" Width="100" Background="#685B57"></Button>
                         <Button Command="{Binding UpdateTenantCommand}" Content="Sửa" Margin="5" Width="100" Background="#685B57"></Button>
-                        <Button Command="{Binding DeleteCommand}" Content="Xoá" Margin="5" Width="100" Background="#685B57"></Button>
+                        <Button Command="{Binding DeleteTenantComamnd}" Content="Xoá" Margin="5" Width="100" Background="#685B57"></Button>
                         <TextBox Text="{Binding TenantNameSearch, UpdateSourceTrigger=PropertyChanged}" Margin="20 5 5 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Nhập tên" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                         <Button Command="{Binding SearchTenantCommand}" Content="Tìm" Margin="5" Width="100" Background="#685B57"></Button>
                     </WrapPanel>
@@ -44,17 +44,15 @@
                     </Grid.ColumnDefinitions>
 
                     <GroupBox Margin="16" Header="Danh sách khách thuê">
-                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                            <ListView ItemsSource="{Binding TenantList}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
-                                        <GridViewColumn Header="Họ" DisplayMemberBinding="{Binding LastName}"></GridViewColumn>
-                                        <GridViewColumn Header="Tên" DisplayMemberBinding="{Binding FirstName}"></GridViewColumn>
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                        </ScrollViewer>
+                        <ListView ItemsSource="{Binding TenantList}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                                    <GridViewColumn Header="Họ" DisplayMemberBinding="{Binding LastName}"></GridViewColumn>
+                                    <GridViewColumn Header="Tên" DisplayMemberBinding="{Binding FirstName}"></GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
                     </GroupBox>
 
                     <GroupBox Grid.Column="1" Margin="16" Header="Thông tin chi tiết">

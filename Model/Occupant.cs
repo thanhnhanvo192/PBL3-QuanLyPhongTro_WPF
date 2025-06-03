@@ -95,6 +95,7 @@ namespace QuanLyPhongTro.Model
                 OnPropertyChanged();
             }
         }
+        public bool IsDeleted { get; set; } // Đánh dấu hóa đơn đã bị xoá
         [NotMapped]
         public string DisplayName
         {

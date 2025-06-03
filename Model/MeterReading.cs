@@ -24,6 +24,7 @@ namespace QuanLyPhongTro.Model
         [Column(TypeName = "decimal(10,2)")]
         public decimal ReadingValue { get; set; }
         // RecordedByUserId và RecordedByUser đã được bỏ
+        public bool IsDeleted { get; set; } // Đánh dấu hóa đơn đã bị xoá
         [MaxLength(255)]
         public string? Notes { get; set; }
 

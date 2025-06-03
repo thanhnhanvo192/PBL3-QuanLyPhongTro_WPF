@@ -35,7 +35,7 @@ namespace QuanLyPhongTro.Model
             get => _displayName;
             set { _displayName = value; OnPropertyChanged(); }
         }
-
+        public bool IsDeleted { get; set; } // Đánh dấu hóa đơn đã bị xoá
         // Navigation property: Một đơn vị có thể dùng trong nhiều dịch vụ
         public virtual ICollection<Service> Services { get; set; }
 

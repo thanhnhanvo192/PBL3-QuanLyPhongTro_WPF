@@ -47,7 +47,7 @@
                             <Button Command="{Binding SearchFixCommadn}" Content="Lọc" Margin="5" Width="100" Background="#685B57"></Button>
                             <Button Command="{Binding AddFixCommand}" Content="Thêm" Margin="5" Width="100" Background="#685B57"></Button>
                             <Button Command="{Binding UpdateFixCommand}" Content="Sửa" Margin="5" Width="100" Background="#685B57"></Button>
-                            <Button Command="{Binding DeleteCommand}" Content="Xoá" Margin="5" Width="100" Background="#685B57"></Button>
+                            <Button Command="{Binding DeleteFixCommand}" Content="Xoá" Margin="5" Width="100" Background="#685B57"></Button>
                         </WrapPanel>
                     </materialDesign:Card>
                 </WrapPanel>
@@ -61,20 +61,18 @@
 
                 <materialDesign:Card Grid.Column="0" Margin="5">
                     <GroupBox Margin="16" Header="Lịch sử sữa chữa">
-                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                            <ListView ItemsSource="{Binding Fixes}" SelectedItem="{Binding SelectedFix, Mode=OneWayToSource}">
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
-                                        <GridViewColumn Header="Số phòng" DisplayMemberBinding="{Binding Room.RoomNumber}"></GridViewColumn>
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                        </ScrollViewer>
+                        <ListView ItemsSource="{Binding Fixes}" SelectedItem="{Binding SelectedFix, Mode=OneWayToSource}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                                    <GridViewColumn Header="Số phòng" DisplayMemberBinding="{Binding Room.RoomNumber}"></GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
                     </GroupBox>
                 </materialDesign:Card>
 
-                <materialDesign:Card Grid.Column="1">
+                <materialDesign:Card Grid.Column="1" Margin="0 5 5 5">
                     <GroupBox Grid.Column="1" Margin="16" Header="Thông tin chi tiết">
                         <Grid>
                             <Grid.RowDefinitions>

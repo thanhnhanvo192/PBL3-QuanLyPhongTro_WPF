@@ -198,17 +198,18 @@ namespace QuanLyPhongTro.ViewModel
         public ICommand AddNewFixCommand { get; set; }
         public ICommand UpdateFixCommand { get; set; }
         public ICommand SearchFixCommadn { get; set; }
+        public ICommand DeleteFixCommand { get; set; }
 
         public FixViewModel()
         {
-            Fixes = new ObservableCollection<Fix>(DataProvider.Ins.DB.Fixes.ToList());
-            AllFixes = new ObservableCollection<Fix>(DataProvider.Ins.DB.Fixes.ToList());
-            Rooms = new ObservableCollection<Room>(DataProvider.Ins.DB.Rooms.ToList());
-            RoomOccupiedList = new ObservableCollection<Room>(DataProvider.Ins.DB.Rooms.Where(r => r.Status == RoomFilterStatus.Occupied).ToList());
-            Tenants = new ObservableCollection<Tenant>(DataProvider.Ins.DB.Tenants.Include(t => t.Contracts).ToList());
-            InvoiceCurrentMonth = new ObservableCollection<Invoice>(DataProvider.Ins.DB.Invoices.Where(i => i.CreateDate.Month == DateTime.Now.Month && i.CreateDate.Year == DateTime.Now.Year && i.Contract.Status == ContractStatus.Active).ToList());
+            Fixes = new ObservableCollection<Fix>(DataProvider.Ins.DB.Fixes.Where(f => f.IsDeleted == false).ToList());
+            AllFixes = new ObservableCollection<Fix>(DataProvider.Ins.DB.Fixes.Where(f => f.IsDeleted == false).ToList());
+            Rooms = new ObservableCollection<Room>(DataProvider.Ins.DB.Rooms.Where(r => r.IsDeleted == false).ToList());
+            RoomOccupiedList = new ObservableCollection<Room>(DataProvider.Ins.DB.Rooms.Where(r => r.Status == RoomFilterStatus.Occupied && r.IsDeleted == false).ToList());
+            Tenants = new ObservableCollection<Tenant>(DataProvider.Ins.DB.Tenants.Include(t => t.Contracts).Where(t => t.IsDeleted == false).ToList());
+            InvoiceCurrentMonth = new ObservableCollection<Invoice>(DataProvider.Ins.DB.Invoices.Where(i => i.CreateDate.Month == DateTime.Now.Month && i.CreateDate.Year == DateTime.Now.Year && i.Contract.Status == ContractStatus.Active && i.IsDeleted == false).ToList());
             FaultTypes = FaultOptions.GetFaultTypes();
-            Services = new ObservableCollection<Service>(DataProvider.Ins.DB.Services.ToList());
+            Services = new ObservableCollection<Service>(DataProvider.Ins.DB.Services.Where(s => s.IsDeleted == false).ToList());
 
 
             AddFixCommand = new RelayCommand<object>((p) =>
@@ -229,7 +230,7 @@ namespace QuanLyPhongTro.ViewModel
             },
             (p) =>
             {
-                var fix = DataProvider.Ins.DB.Fixes.Where(x => x.Id == SelectedFix.Id).SingleOrDefault();
+                var fix = DataProvider.Ins.DB.Fixes.Where(x => x.IsDeleted == false && x.Id == SelectedFix.Id).SingleOrDefault();
                 if (fix != null)
                 {
                     fix.RoomID = SelectedRoom.Id;
@@ -268,6 +269,7 @@ namespace QuanLyPhongTro.ViewModel
                     FixDate = FixDate,
                     WhoFault = SelectedFaultType.Value,
                     InvoiceId = SelectedInvoice?.Id,
+                    IsDeleted = false
                 };
                 var invoice_details = new Invoice_detail
                 {
@@ -309,6 +311,19 @@ namespace QuanLyPhongTro.ViewModel
                     Fixes.Clear();
                     Fixes = new ObservableCollection<Fix>(fixFiltered);
                 });
+            DeleteFixCommand = new RelayCommand<object>((p) =>
+            {
+                if (SelectedFix == null)
+                    return false;
+                return true;
+            },
+            (p) =>
+            {
+                SelectedFix.IsDeleted = true;
+                DataProvider.Ins.DB.SaveChanges();
+                MessageBox.Show("Xoá yêu cầu sửa chữa thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                Fixes = new ObservableCollection<Fix>(DataProvider.Ins.DB.Fixes.Where(f => f.IsDeleted == false).ToList());
+            });
         }
     }
 }

@@ -96,16 +96,14 @@
 
                     <materialDesign:Card Grid.Column="0" Margin="0 0 2 0">
                         <GroupBox Margin="16" Header="Danh sách phòng trống">
-                            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                <ListView ItemsSource="{Binding ListEmptyRoom}">
-                                    <ListView.View>
-                                        <GridView>
-                                            <GridViewColumn Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                                            <GridViewColumn Header="Tên phòng trống" DisplayMemberBinding="{Binding RoomNumber}"></GridViewColumn>
-                                        </GridView>
-                                    </ListView.View>
-                                </ListView>
-                            </ScrollViewer>
+                            <ListView ItemsSource="{Binding ListEmptyRoom}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                                        <GridViewColumn Header="Tên phòng trống" DisplayMemberBinding="{Binding RoomNumber}"></GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
                         </GroupBox>
                     </materialDesign:Card>
 

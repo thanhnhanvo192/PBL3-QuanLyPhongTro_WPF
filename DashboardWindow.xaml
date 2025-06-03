@@ -23,7 +23,7 @@
         WindowStartupLocation="CenterScreen"
         
         Name="mainWindow"
-        Title="Phần mềm quản lý phòng trọ" Height="600" Width="1000">
+        Title="Phần mềm quản lý phòng trọ" Height="600" Width="1100">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">

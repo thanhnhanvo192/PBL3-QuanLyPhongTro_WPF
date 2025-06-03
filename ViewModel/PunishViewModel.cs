@@ -166,12 +166,13 @@ namespace QuanLyPhongTro.ViewModel
         public ICommand AddPunishCommand { get; set; }
         public ICommand AddNewPunishCommand { get; set; }
         public ICommand UpdatePunishCommand { get; set; }
+        public ICommand DeletePunishComamnd { get; set; }
         public PunishViewModel()
         {
-            PunishList = new ObservableCollection<Punish>(DataProvider.Ins.DB.Punishes.Include(c => c.Contract).ToList());
+            PunishList = new ObservableCollection<Punish>(DataProvider.Ins.DB.Punishes.Include(c => c.Contract).Where(c => c.IsDeleted == false).ToList());
             PunishListDisplay = new ObservableCollection<Punish>(PunishList);
-            RoomOccupideList = new ObservableCollection<Room>(DataProvider.Ins.DB.Rooms.Where(r => r.Status == RoomFilterStatus.Occupied).ToList());
-            ContractList = new ObservableCollection<Contract>(DataProvider.Ins.DB.Contracts.Include(c => c.Invoices).ToList());
+            RoomOccupideList = new ObservableCollection<Room>(DataProvider.Ins.DB.Rooms.Where(r => r.IsDeleted == false && r.Status == RoomFilterStatus.Occupied).ToList());
+            ContractList = new ObservableCollection<Contract>(DataProvider.Ins.DB.Contracts.Include(c => c.Invoices).Where(c => c.IsDeleted == false).ToList());
             SearchPunishCommand = new RelayCommand<object> ((p) => true, (p) =>
             {
                 if (SearchDateFrom != null)
@@ -183,12 +184,14 @@ namespace QuanLyPhongTro.ViewModel
                     PunishListDisplay = new ObservableCollection<Punish>(PunishListDisplay.Where(x => x.PunishDate <= SearchDateTo));
                 }
             });
+
             AddPunishCommand = new RelayCommand<object>((p) => true, (p) =>
             {
                 PunishDate = DateTime.Now;
                 var addPunishWindow = new AddPunishWindow();
                 addPunishWindow.ShowDialog();
             });
+
             AddNewPunishCommand = new RelayCommand<object> ((p) => true, (p) =>
             {
                 if (SelectedOccupiedRoom == null)
@@ -214,6 +217,7 @@ namespace QuanLyPhongTro.ViewModel
                     PunishDate = PunishDate,
                     Reason = Reason,
                     Amount = Amount,
+                    IsDeleted = false,
                     InvoiceId = null
                 };
                 DataProvider.Ins.DB.Invoice_details.Add(invoice_detail);
@@ -230,6 +234,7 @@ namespace QuanLyPhongTro.ViewModel
                 }
                 MessageBox.Show("Thêm bản phạt thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
             });
+
             UpdatePunishCommand = new RelayCommand<object>(
             (p) => SelectedItem != null,
             (p) =>
@@ -256,6 +261,18 @@ namespace QuanLyPhongTro.ViewModel
                     MessageBox.Show("Cập nhật thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             });
+
+            DeletePunishComamnd = new RelayCommand<object>(
+                (p) => {
+                    return SelectedItem != null; 
+                },
+                (p) =>
+                {
+                    SelectedItem.IsDeleted = true;
+                    DataProvider.Ins.DB.SaveChanges();
+                    MessageBox.Show("Xoá bản phạt thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    PunishListDisplay = new ObservableCollection<Punish>(PunishList.Where(x => !x.IsDeleted));
+                });
         }
     }
 }
