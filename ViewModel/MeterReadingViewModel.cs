@@ -43,11 +43,29 @@ namespace QuanLyPhongTro.ViewModel
                 OnPropertyChanged();
             }
         }
+        private MeterReading _SelectedMeterReading;
         private Room _SelectedRoom;
         private Service _SelectedService;
         private decimal _ReadingValue;
         private string _ReadingDate;
         private string _Notes;
+        public MeterReading SelectedMeterReading
+        {
+            get { return _SelectedMeterReading; }
+            set
+            {
+                _SelectedMeterReading = value;
+                if (value != null)
+                {
+                    SelectedRoom = Rooms.FirstOrDefault(r => r.Id == value.RoomId);
+                    SelectedService = Services.FirstOrDefault(s => s.Id == value.ServiceId);
+                    ReadingValue = value.ReadingValue;
+                    ReadingDate = value.ReadingDate;
+                    Notes = value.Notes;
+                }
+                OnPropertyChanged();
+            }
+        }
         public Room SelectedRoom
         {
             get { return _SelectedRoom; }
@@ -97,6 +115,7 @@ namespace QuanLyPhongTro.ViewModel
 
         public ICommand AddMeterReadingCommand { get; set; }
         public ICommand UpdateMeterReadingCommand { get; set; }
+        public ICommand DeleteMeterReadingCommand { get; set; }
         public MeterReadingViewModel()
         {
             Rooms = new ObservableCollection<Room>(DataProvider.Ins.DB.Rooms.Where(r => r.IsDeleted == false).ToList());
@@ -140,6 +159,60 @@ namespace QuanLyPhongTro.ViewModel
 
                 MessageBox.Show("Đã thêm chỉ số!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
             });
+
+            UpdateMeterReadingCommand = new RelayCommand<object>((p) =>
+            {
+                return SelectedMeterReading != null;
+            },
+            (p) =>
+            {
+                if (SelectedRoom == null || SelectedService == null || ReadingValue < 0)
+                {
+                    MessageBox.Show("Vui lòng chọn phòng và dịch vụ hợp lệ!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                if (SelectedMeterReading.ReadingValue < 0)
+                {
+                    MessageBox.Show("Chỉ số không hợp lệ!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                if (SelectedMeterReading.ReadingDate > DateTime.Now)
+                {
+                    MessageBox.Show("Ngày đọc chỉ số không hợp lệ!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                SelectedMeterReading.RoomId = SelectedRoom.Id;
+                SelectedMeterReading.ServiceId = SelectedService.Id;
+                SelectedMeterReading.ReadingValue = ReadingValue;
+                SelectedMeterReading.ReadingDate = ReadingDate;
+                SelectedMeterReading.Notes = Notes;
+                DataProvider.Ins.DB.SaveChanges();
+                MessageBox.Show("Đã cập nhật chỉ số!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                MeterReadings = new ObservableCollection<MeterReading>(DataProvider.Ins.DB.MeterReadings.Where(r => r.IsDeleted == false).ToList());
+            });
+
+            DeleteMeterReadingCommand = new RelayCommand<object>((p) =>
+            {
+                return SelectedMeterReading != null;
+            },
+            (p) =>
+            {
+                if (SelectedMeterReading == null)
+                {
+                    MessageBox.Show("Vui lòng chọn chỉ số cần xoá!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                if (MessageBox.Show("Bạn có chắc chắn muốn xoá chỉ số này?", "Xác nhận xoá", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    SelectedMeterReading.IsDeleted = true;
+                    DataProvider.Ins.DB.SaveChanges();
+                    MeterReadings.Remove(SelectedMeterReading);
+                    SelectedMeterReading = null;
+                    MessageBox.Show("Đã xoá chỉ số!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MeterReadings = new ObservableCollection<MeterReading>(DataProvider.Ins.DB.MeterReadings.Where(r => r.IsDeleted == false).ToList());
+                }
+            });
+
         }
     }
 }

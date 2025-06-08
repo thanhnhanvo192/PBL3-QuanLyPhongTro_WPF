@@ -25,12 +25,33 @@
         <Grid Grid.Row="0">
             <materialDesign:Card Grid.Column="0" Margin="5 5 5 0">
                 <WrapPanel Margin="5" Background="Transparent">
-                    <Button Command="{Binding AddMeterReadingCommand}" Content="Thêm chỉ số" Margin="5" Width="120" Background="#685B57"></Button>
+                    <Button Command="{Binding AddMeterReadingCommand}" Content="Thêm" Margin="5" Width="120" Background="#685B57"></Button>
+                    <Button Command="{Binding UpdateMeterReadingCommand}" Content="Sửa" Margin="5" Width="120" Background="#685B57"></Button>
+                    <Button Command="{Binding DeleteMeterReadingCommand}" Content="Xoá" Margin="5" Width="120" Background="#685B57"></Button>
                 </WrapPanel>
             </materialDesign:Card>
         </Grid>
 
         <Grid Grid.Row="1" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <materialDesign:Card Grid.Column="0" Margin="0 0 2 0">
+                <GroupBox Margin="16" Header="Danh sách chỉ số">
+                    <ListView ItemsSource="{Binding MeterReadings}" SelectedItem="{Binding SelectedMeterReading, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Phòng" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                                <GridViewColumn Header="Dịch vụ" DisplayMemberBinding="{Binding Room.RoomNumber}"></GridViewColumn>
+                                <GridViewColumn Header="Ngày ghi" DisplayMemberBinding="{Binding ContractCode}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </GroupBox>
+            </materialDesign:Card>
+
             <materialDesign:Card Grid.Column="1" Margin="2 0 0 0">
                 <GroupBox Margin="16" Header="Ghi chỉ số">
                     <Grid>
