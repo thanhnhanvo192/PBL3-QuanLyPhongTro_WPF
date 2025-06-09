@@ -1,0 +1,105 @@
+﻿<UserControl x:Class="QuanLyPhongTro.View.StatisticView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLyPhongTro"
+        mc:Ignorable="d"
+             
+        xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+           TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+             DataContext="{StaticResource StatisticVM}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+
+    <Grid Grid.Row="1" Background="LightGray">
+        <materialDesign:Card Margin="5">
+            <TabControl>
+                <TabItem Header="Doanh thu">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <materialDesign:Card Grid.Column="1" Margin="5" Background="LightGray">
+                            <WrapPanel Margin="5">
+                                <RadioButton x:Name="MonthRadioButton" Content="Tháng" Margin="5" IsChecked="{Binding IsMonthFilter, Mode=TwoWay}"></RadioButton>
+                                <ComboBox 
+                                    ItemsSource="{Binding MonthYearList}" 
+                                    SelectedItem="{Binding SelectedMonthYear}" 
+                                    ItemStringFormat="MM/yyyy"
+                                    Margin="5 5 15 -3" 
+                                    materialDesign:HintAssist.Hint="Chọn tháng"
+                                    IsEnabled="{Binding IsChecked, ElementName=MonthRadioButton}"/>
+
+                                <RadioButton x:Name="YearRadioButton" Content="Năm" Margin="5" IsChecked="{Binding IsYearFilter, Mode=TwoWay}"></RadioButton>
+                                <ComboBox 
+                                    ItemsSource="{Binding YearList}" 
+                                    SelectedItem="{Binding SelectedYear}" 
+                                    ItemStringFormat="yyyy"
+                                    Margin="5 5 15 -3" 
+                                    materialDesign:HintAssist.Hint="Chọn năm"
+                                    IsEnabled="{Binding IsChecked, ElementName=YearRadioButton}"/>
+
+                                <RadioButton x:Name="PeriodRadioButton" Content="Khoảng thời gian" Margin="5" IsChecked="{Binding IsPeriodFilter, Mode=TwoWay}"></RadioButton>
+                                <DatePicker 
+                                    Margin="0 0 20 0" 
+                                    VerticalAlignment="Center" 
+                                    HorizontalAlignment="Left" 
+                                    Width="100" 
+                                    materialDesign:HintAssist.Hint="Ngày bắt đầu" 
+                                    materialDesign:TextFieldAssist.HasClearButton="True" 
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                    SelectedDate="{Binding DateFrom, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    IsEnabled="{Binding IsChecked, ElementName=PeriodRadioButton}"/>
+                                <DatePicker 
+                                    Margin="0 0 20 0" 
+                                    VerticalAlignment="Center" 
+                                    HorizontalAlignment="Left" 
+                                    Width="100" 
+                                    materialDesign:HintAssist.Hint="Ngày kết thúc" 
+                                    materialDesign:TextFieldAssist.HasClearButton="True" 
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                                    SelectedDate="{Binding DateTo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    IsEnabled="{Binding IsChecked, ElementName=PeriodRadioButton}"/>
+
+                                <Button Command="{Binding SearchRevenueComamnd}" Content="Lọc" Margin="5" Width="120" Background="#685B57"></Button>
+                            </WrapPanel>
+                        </materialDesign:Card>
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <materialDesign:Card Grid.Column="0" Margin="0 0 2 0">
+                                <GroupBox Margin="16" Header="Danh sách phòng">
+                                    <ListView ItemsSource="{Binding RevenueStatistics}">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="Phòng" DisplayMemberBinding="{Binding RoomNumber}"></GridViewColumn>
+                                                <GridViewColumn Header="Doanh thu (VND)" DisplayMemberBinding="{Binding TotalRevenue}"></GridViewColumn>
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </GroupBox>
+                            </materialDesign:Card>
+
+                            <materialDesign:Card Grid.Column="1" Margin="2 0 0 0">
+                                <TextBox Text="{Binding TotalRevenue, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Tổng: " Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                            </materialDesign:Card>
+
+                        </Grid>
+                    </Grid>
+                </TabItem>
+
+            </TabControl>
+        </materialDesign:Card>
+    </Grid>
+</UserControl>

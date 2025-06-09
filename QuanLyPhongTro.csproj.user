@@ -2,22 +2,73 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <Compile Update="BillWindow.xaml.cs">
+    <Compile Update="Dialog\AddContractWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Dialog\AddFixWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Dialog\AddInvoiceWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Dialog\AddOccupantWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Dialog\AddPunishWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Dialog\AddTenantWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\ContractView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\FixView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\InvoiceView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="LoginWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="RoomWindow.xaml.cs">
+    <Compile Update="View\MainView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="TenantWindow.xaml.cs">
+    <Compile Update="View\MeterReadingView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\OccupantView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\PunishView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\RoomView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\ServiceView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\StatisticView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\TenantView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\UnitView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControlWPF\ControlBarUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UserWindow.xaml.cs">
+    <Compile Update="UserControlWPF\MenuBarUC.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\UserView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Dialog\AddRoomWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

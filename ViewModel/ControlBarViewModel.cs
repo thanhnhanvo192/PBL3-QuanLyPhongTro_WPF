@@ -30,7 +30,6 @@ namespace QuanLyPhongTro.ViewModel
                         parentWindow.Close();
                     }
                 });
-
             MaximizeWindowCommand = new RelayCommand<UserControl>(
                 (p) => p != null,
                 (p) =>
