@@ -1,0 +1,104 @@
+﻿<UserControl x:Class="QuanLyPhongTro.View.InvoiceView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLyPhongTro"
+        mc:Ignorable="d"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="#ADD8E6"
+        DataContext="{StaticResource InvoiceVM}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+
+    <Grid>
+        <Grid Background="LightGray" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <materialDesign:Card Grid.Column="0" Margin="5 5 5 0">
+                    <WrapPanel Margin="5" Background="Transparent">
+                        <Button Command="{Binding AddInvoiceCommand}" Content="Thêm" Margin="5" Width="120" Background="#685B57"></Button>
+                        <Button Command="{Binding UpdateInvoiceCommand}" Content="Sửa" Margin="5" Width="120" Background="#685B57"></Button>
+                        <Button Command="{Binding DeleteInvoiceCommand}" Content="Xoá" Margin="5" Width="120" Background="#685B57"></Button>
+                        <Button Command="{Binding MakingInvoiceCommand}" Content="Lập hoá đơn" Margin="5" Width="120" Background="#685B57"></Button>
+                        <ComboBox ItemsSource="{Binding InvoiceStatusList}" SelectedItem="{Binding Status, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="DisplayName" SelectedValuePath="Value" Margin="5" materialDesign:HintAssist.Hint="Trạng thái" />
+                        <DatePicker Margin="10" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày bắt đầu" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" SelectedDate="{Binding StartDateSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        <DatePicker Margin="10" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày kết thúc" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" SelectedDate="{Binding EndDateSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        <Button Command="{Binding SearchInvoiceCommand}" Content="Lọc" Margin="5" Width="120" Background="#685B57"></Button>
+                    </WrapPanel>
+                </materialDesign:Card>
+            </Grid>
+            
+            <Grid Grid.Row="1" Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <materialDesign:Card Grid.Column="0" Margin="0 0 2 0">
+                    <GroupBox Margin="16" Header="Danh sách hoá đơn">
+                        <ListView ItemsSource="{Binding InvoiceList}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                                    <GridViewColumn Header="Mã hoá đơn" DisplayMemberBinding="{Binding InvoiceCode}"></GridViewColumn>
+                                    <GridViewColumn Header="Tổng tiền" DisplayMemberBinding="{Binding TotalAmount}"></GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </GroupBox>
+                </materialDesign:Card>
+
+                <materialDesign:Card Grid.Column="1" Margin="2 0 0 0">
+                    <GroupBox Margin="16" Header="Chi tiết hoá đơn">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0" Grid.Row="0">
+                                <TextBox Text="{Binding InvoiceCode, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Mã hoá đơn" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                            </Grid>
+                            <Grid Grid.Column="1" Grid.Row="0">
+                                <DatePicker Margin="0 0 20 0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày lập" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" SelectedDate="{Binding CreateDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            </Grid>
+
+                            <Grid Grid.Column="0" Grid.Row="1">
+                                <DatePicker Margin="0 0 20 0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Hạn thanh toán" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" SelectedDate="{Binding DueDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            </Grid>
+                            <Grid Grid.Column="1" Grid.Row="1">
+                                <ComboBox ItemsSource="{Binding InvoiceStatusList}" SelectedItem="{Binding Status, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="DisplayName" SelectedValuePath="Value" Margin="0 5 15 5" materialDesign:HintAssist.Hint="Trạng thái" />
+                            </Grid>
+
+                            <Grid Grid.Row="2" Grid.Column="0">
+                                <TextBox Text="{Binding TotalAmount, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Tổng tiền" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                            </Grid>
+                            <Grid Grid.Row="2" Grid.Column="1">
+                                <TextBox Text="{Binding AmountPaid, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Số tiền đã trả" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                            </Grid>
+                            <Grid Grid.Row="3" Grid.ColumnSpan="2">
+                                <TextBox Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Ghi chú" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                            </Grid>
+                        </Grid>
+                    </GroupBox>
+                </materialDesign:Card>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
