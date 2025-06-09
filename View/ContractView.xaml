@@ -88,14 +88,11 @@
                         <Grid Grid.Column="0" Grid.Row="2">
                             <ComboBox ItemsSource="{Binding TenantList}" SelectedItem="{Binding SelectedTenant}" DisplayMemberPath="DisplayName" SelectedValuePath="Id" Margin="5 5 15 -3" materialDesign:HintAssist.Hint="Khách thuê"/>
                         </Grid>
-                        <Grid Grid.Column="1" Grid.Row="2">
-                            <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Bên cho thuê" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                        </Grid>
                         <Grid Grid.Column="0" Grid.Row="3">
                             <ComboBox ItemsSource="{Binding ContractStatusList}" SelectedItem="{Binding Status}" DisplayMemberPath="DisplayName" SelectedValuePath="Value" Margin="5 5 15 -3" materialDesign:HintAssist.Hint="Trạng thái"/>
                         </Grid>
                         <Grid Grid.Column="1" Grid.Row="3">
-                            <TextBox Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Bên cho thuê" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                            <TextBox Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Ghi chú" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                         </Grid>
                     </Grid>
                 </GroupBox>

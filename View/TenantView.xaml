@@ -44,7 +44,7 @@
                     </Grid.ColumnDefinitions>
 
                     <GroupBox Margin="16" Header="Danh sách khách thuê">
-                        <ListView ItemsSource="{Binding TenantList}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                        <ListView ItemsSource="{Binding TenantList, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}"></GridViewColumn>

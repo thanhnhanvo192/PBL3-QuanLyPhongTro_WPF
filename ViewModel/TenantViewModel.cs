@@ -116,7 +116,7 @@ namespace QuanLyPhongTro.ViewModel
                 OnPropertyChanged();
             }
         }
-        public ObservableCollection<Tenant> _TenantList;
+        private ObservableCollection<Tenant> _TenantList;
         public ObservableCollection<Tenant> TenantList
         {
             get { return _TenantList; }
@@ -177,12 +177,6 @@ namespace QuanLyPhongTro.ViewModel
             (p) =>
             {
                 var Tenant = DataProvider.Ins.DB.Tenants.Where(x => x.IsDeleted == false && x.Id == SelectedItem.Id).SingleOrDefault();
-                var TenantList = DataProvider.Ins.DB.Tenants.Where(x => x.IsDeleted == false && x.CCCD == CCCD && CCCD != SelectedItem.CCCD && Phone != SelectedItem.Phone && Email != SelectedItem.Email);
-                if (TenantList == null || TenantList.Count() == 0)
-                {
-                    MessageBox.Show("CCCD, SĐT hoặc Email đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
                 if (Tenant != null)
                 {
                     Tenant.FirstName = FirstName;
@@ -203,6 +197,7 @@ namespace QuanLyPhongTro.ViewModel
                     SelectedItem.Email = Email;
                     SelectedItem.PermanentAddress = PermanentAddress;
                 }
+                MessageBox.Show("Cập nhật khách thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
             });
 
             SearchTenantCommand = new RelayCommand<object>((p) =>
@@ -264,6 +259,7 @@ namespace QuanLyPhongTro.ViewModel
                    Sex = SelectedSex.Value,
                    IsDeleted = false
                };
+               
                DataProvider.Ins.DB.Tenants.Add(newTenant);
                DataProvider.Ins.DB.SaveChanges();
                MessageBox.Show("Thêm khách thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);

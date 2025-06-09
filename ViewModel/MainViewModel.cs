@@ -123,23 +123,14 @@ namespace QuanLyPhongTro.ViewModel
         {
             try
             {
-                ListContract = new ObservableCollection<Contract>();
                 var year = DateTime.Now.Year;
-                var lastMonth = DateTime.Now.Month - 1;
-                if (lastMonth == 0)
+                var nextMonth = DateTime.Now.Month + 1;
+                if (nextMonth == 13)
                 {
-                    lastMonth = 12;
-                    year--;
+                    nextMonth = 1;
+                    year++;
                 }
-                var listContract = DataProvider.Ins.DB.Contracts.Where(contract => contract.IsDeleted == false && contract.EndDate.Year == year && contract.EndDate.Month == lastMonth).ToList();
-                foreach (var item in listContract)
-                {
-                    Contract contract = new Contract();
-                    contract.ContractCode = item.ContractCode;
-                    contract.StartDate = item.StartDate;
-                    contract.EndDate = item.EndDate;
-                    ListContract.Add(contract);
-                }
+                ListContract = new ObservableCollection<Contract>(DataProvider.Ins.DB.Contracts.Where(contract => contract.IsDeleted == false && contract.EndDate.Year == year && contract.EndDate.Month == nextMonth).ToList());
             }
             catch (Exception ex)
             {
@@ -152,13 +143,13 @@ namespace QuanLyPhongTro.ViewModel
             try
             {
                 var year = DateTime.Now.Year;
-                var lastMonth = DateTime.Now.Month - 1;
-                if (lastMonth == 0)
+                var nextMonth = DateTime.Now.Month + 1;
+                if (nextMonth == 13)
                 {
-                    lastMonth = 12;
-                    year--;
+                    nextMonth = 1;
+                    year++;
                 }
-                TotalOutDateContract = DataProvider.Ins.DB.Contracts.Count(contract => contract.IsDeleted == false && contract.EndDate.Year == year && contract.EndDate.Month == lastMonth);
+                TotalOutDateContract = DataProvider.Ins.DB.Contracts.Count(contract => contract.IsDeleted == false && contract.EndDate.Year == year && contract.EndDate.Month == nextMonth);
             }
             catch (Exception ex)
             {

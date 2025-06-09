@@ -216,6 +216,7 @@ namespace QuanLyPhongTro.ViewModel
                     SelectedItem.Status = SelectedFilterStatus.Value;
                     OnPropertyChanged();
                 }
+                MessageBox.Show("Cập nhật phòng thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
             });
 
             SearchRoomCommand = new RelayCommand<object>((p) =>
@@ -268,20 +269,38 @@ namespace QuanLyPhongTro.ViewModel
                    MessageBox.Show("Số phòng đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                    return;
                }
-               Room newRoom = new Room()
+               var existingIsDeltedRoom = DataProvider.Ins.DB.Rooms.FirstOrDefault(x => x.IsDeleted == true && x.RoomNumber == RoomNumber);
+               if (existingIsDeltedRoom != null)
                {
-                   RoomNumber = RoomNumber,
-                   Price = Price,
-                   Area = Area,
-                   MaxOccupants = MaxOccupants,
-                   Floor = Floor,
-                   IsDeleted = false,
-                   Utilities = Utilities
-               };
-               DataProvider.Ins.DB.Rooms.Add(newRoom);
+                   existingIsDeltedRoom.IsDeleted = false;
+                   existingIsDeltedRoom.Price = Price;
+                   existingIsDeltedRoom.Area = Area;
+                   existingIsDeltedRoom.MaxOccupants = MaxOccupants;
+                   existingIsDeltedRoom.Floor = Floor;
+                   existingIsDeltedRoom.Utilities = Utilities;
+                   existingIsDeltedRoom.Description = Description;
+                   existingIsDeltedRoom.Status = RoomFilterStatus.Vacant;
+                   RoomList.Add(existingIsDeltedRoom);
+               } else
+               {
+                   Room newRoom = new Room()
+                   {
+                       RoomNumber = RoomNumber,
+                       Price = Price,
+                       Area = Area,
+                       MaxOccupants = MaxOccupants,
+                       Floor = Floor,
+                       IsDeleted = false,
+                       Description = Description,
+                       Status = RoomFilterStatus.Vacant,
+                       Utilities = Utilities
+                   };
+                   DataProvider.Ins.DB.Rooms.Add(newRoom);
+                   RoomList.Add(newRoom);
+               }
+               
                DataProvider.Ins.DB.SaveChanges();
                MessageBox.Show("Thêm phòng thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-               RoomList.Add(newRoom);
                var dep = p as DependencyObject;
                if (dep != null)
                {

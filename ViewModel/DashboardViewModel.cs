@@ -72,6 +72,7 @@ namespace QuanLyPhongTro.ViewModel
                 (p) =>
                 {
                     CurrentView = new MainViewModel();
+                    OnPropertyChanged(nameof(CurrentView));
                 });
 
             RoomViewCommand = new RelayCommand<UserControl>(

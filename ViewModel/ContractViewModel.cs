@@ -23,6 +23,7 @@ namespace QuanLyPhongTro.ViewModel
         private ObservableCollection<ContractStatusDisplay> _ContractStatusList;
         private ContractStatusDisplay _SelectedContractStatus;
         private ObservableCollection<Tenant> _TenantList;
+        private ObservableCollection<Room> _VacantRoomList;
         private Contract _SelectedContract;
         private Room _SelectedRoom;
         private Tenant _SelectedTenant;
@@ -108,6 +109,15 @@ namespace QuanLyPhongTro.ViewModel
             set
             {
                 _TenantList = value;
+                OnPropertyChanged();
+            }
+        }
+        public ObservableCollection<Room> VacantRoomList
+        {
+            get { return _VacantRoomList; }
+            set
+            {
+                _VacantRoomList = value;
                 OnPropertyChanged();
             }
         }
@@ -213,9 +223,12 @@ namespace QuanLyPhongTro.ViewModel
         public ContractViewModel()
         {
             AllContract = new ObservableCollection<Contract>(DataProvider.Ins.DB.Contracts.Where(c => c.IsDeleted == false).ToList());
-            ContractList = new ObservableCollection<Contract>(DataProvider.Ins.DB.Contracts.Include(c => c.Room).Include(c => c.Tenant).ToList());
+            ContractList = new ObservableCollection<Contract>(DataProvider.Ins.DB.Contracts.Include(c => c.Room).Include(c => c.Tenant).Where(c => c.IsDeleted == false).ToList());
             ContractStatusList = ContractStatusOptions.GetContractStatuses();
             TenantList = new ObservableCollection<Tenant>(DataProvider.Ins.DB.Tenants.ToList());
+            VacantRoomList = new ObservableCollection<Room>(DataProvider.Ins.DB.Rooms.Where(r => r.Status == RoomFilterStatus.Vacant && r.IsDeleted == false).ToList());
+            StartDate = DateTime.Now;
+            EndDate = DateTime.Now.AddYears(1);
 
             SearchContractCommand = new RelayCommand<object>((p) => true, (p) =>
             {
@@ -368,9 +381,11 @@ namespace QuanLyPhongTro.ViewModel
                 (p) =>
                 {
                     SelectedContract.IsDeleted = true;
+                    SelectedContract.Room.Status = RoomFilterStatus.Vacant;
+                    SelectedContract.Status = ContractStatus.CancelledOrExpired;
                     DataProvider.Ins.DB.SaveChanges();
                     MessageBox.Show("Xoá hợp đồng thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                    AllContract = new ObservableCollection<Contract>(DataProvider.Ins.DB.Contracts.Where(c => c.IsDeleted == false).ToList());
+                    ContractList = new ObservableCollection<Contract>(DataProvider.Ins.DB.Contracts.Where(c => c.IsDeleted == false).ToList());
                 });
         }
     }

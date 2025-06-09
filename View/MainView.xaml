@@ -114,8 +114,8 @@
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn Header="Mã hợp đồng" DisplayMemberBinding="{Binding ContractCode}"></GridViewColumn>
-                                            <GridViewColumn Header="Ngày bắt đầu" DisplayMemberBinding="{Binding StartDate}"></GridViewColumn>
-                                            <GridViewColumn Header="Ngày kết thúc" DisplayMemberBinding="{Binding EndDate}"></GridViewColumn>
+                                            <GridViewColumn Header="Ngày bắt đầu" DisplayMemberBinding="{Binding StartDate, StringFormat=dd/MM/yyyy}"></GridViewColumn>
+                                            <GridViewColumn Header="Ngày kết thúc" DisplayMemberBinding="{Binding EndDate, StringFormat=dd/MM/yyyy}"></GridViewColumn>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
