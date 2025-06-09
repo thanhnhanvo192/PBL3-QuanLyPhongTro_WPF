@@ -38,7 +38,7 @@
                     <Button Command="{Binding LogoutCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}" Content="Đăng xuất" Margin="5" Width="100" Background="#685B57" VerticalAlignment="Top" HorizontalAlignment="Left"></Button>
                 </Grid>
                 <Grid Grid.Column="1" Background="Transparent">
-                    <Image Source="D:\PBL3\QuanLyPhongTro\AppData\SinhvienIT.webp"></Image>
+                    <Image Source="D:\PBL3\QuanLyPhongTro\AppData\icon_login.jpg"></Image>
                 </Grid>
             </Grid>
 
@@ -71,7 +71,7 @@
                                 <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditingPassword}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Mật khẩu cũ" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                             </Grid>
                             <Grid Grid.Row="1">
-                                <TextBox Text="{Binding NewPassword, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditingPassword}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Mạt khẩu mới" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                <TextBox Text="{Binding NewPassword, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditingPassword}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Mật khẩu mới" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                             </Grid>
                             <Grid Grid.Row="2">
                                 <TextBox Text="{Binding NewPasswordConfirm, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditingPassword}" Margin="5 5 15 5" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Xác nhận mật khẩu mới" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>

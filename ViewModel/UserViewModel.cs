@@ -93,7 +93,7 @@ namespace QuanLyPhongTro.ViewModel
                     string NewPasswordHash = MD5Hash(Base64Encode(NewPassword));
                     currentAccount.PasswordHash = NewPasswordHash;
                     DataProvider.Ins.DB.SaveChanges();
-                    MessageBox.Show("Đổi mật khẩu thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Đổi mật khẩu thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 } else
                 {
                     MessageBox.Show("Mật khẩu hiện tại không đúng!", "Thông báo", MessageBoxButton.OKCancel, MessageBoxImage.Error);

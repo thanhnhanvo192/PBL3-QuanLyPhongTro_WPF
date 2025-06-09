@@ -71,6 +71,7 @@ namespace QuanLyPhongTro.ViewModel
                 DataProvider.Ins.DB.Units.Add(unit);
                 DataProvider.Ins.DB.SaveChanges();
                 Units.Add(unit);
+                MessageBox.Show("Đã thêm đơn vị thành công!", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
             });
             UpdateUnitCommand = new RelayCommand<object>((p) =>
             {
@@ -88,6 +89,7 @@ namespace QuanLyPhongTro.ViewModel
                 DataProvider.Ins.DB.SaveChanges();
                 SelectedUnit.DisplayName = DisplayName;
                 OnPropertyChanged(SelectedUnit.DisplayName);
+                MessageBox.Show("Đã cập nhật đơn vị thành công!", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
             });
             DeleteUnitCommand = new RelayCommand<object>((p) =>
             {

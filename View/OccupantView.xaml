@@ -43,7 +43,7 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <GroupBox Margin="16" Header="Danh sách khách thuê">
+                    <GroupBox Margin="16" Header="Danh sách người ở cùng">
                         <ListView ItemsSource="{Binding OccupantList}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
                             <ListView.View>
                                 <GridView>

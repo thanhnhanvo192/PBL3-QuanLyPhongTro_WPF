@@ -109,6 +109,7 @@ namespace QuanLyPhongTro.ViewModel
                 DataProvider.Ins.DB.Services.Add(service);
                 DataProvider.Ins.DB.SaveChanges();
                 Services.Add(service);
+                MessageBox.Show("Dịch vụ đã được thêm thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
             });
 
             UpdateServiceCommand = new RelayCommand<object>((p) =>
@@ -129,6 +130,7 @@ namespace QuanLyPhongTro.ViewModel
                 SelectedService.DisplayName = DisplayName;
                 SelectedService.Price = decimal.Parse(Price);
                 SelectedService.Unit = SelectedUnit;
+                MessageBox.Show("Dịch vụ đã được cập nhật thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
             });
 
             DeleteServiceCommand = new RelayCommand<object>((p) =>

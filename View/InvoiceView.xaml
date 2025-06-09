@@ -28,8 +28,8 @@
                     <WrapPanel Margin="5" Background="Transparent">
                         <Button Command="{Binding AddInvoiceCommand}" Content="Thêm" Margin="5" Width="120" Background="#685B57"></Button>
                         <Button Command="{Binding UpdateInvoiceCommand}" Content="Sửa" Margin="5" Width="120" Background="#685B57"></Button>
-                        <Button Command="{Binding UpdateInvoiceCommand}" Content="Xoá" Margin="5" Width="120" Background="#685B57"></Button>
-                        <Button Command="{Binding DeleteInvoiceCommand}" Content="Lập hoá đơn" Margin="5" Width="120" Background="#685B57"></Button>
+                        <Button Command="{Binding DeleteInvoiceCommand}" Content="Xoá" Margin="5" Width="120" Background="#685B57"></Button>
+                        <Button Command="{Binding MakingInvoiceCommand}" Content="Lập hoá đơn" Margin="5" Width="120" Background="#685B57"></Button>
                         <ComboBox ItemsSource="{Binding InvoiceStatusList}" SelectedItem="{Binding Status, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="DisplayName" SelectedValuePath="Value" Margin="5" materialDesign:HintAssist.Hint="Trạng thái" />
                         <DatePicker Margin="10" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày bắt đầu" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" SelectedDate="{Binding StartDateSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                         <DatePicker Margin="10" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày kết thúc" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" SelectedDate="{Binding EndDateSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
